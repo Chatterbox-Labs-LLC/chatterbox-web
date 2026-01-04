@@ -4,6 +4,12 @@ import { MessageSquare, LayoutDashboard, Settings, User, LogOut, Plus, Search, U
 import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
 import { getCachedProfile } from '@/lib/cache';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard - Chatterbox Teams',
+  description: 'Manage your profile, billing, and settings.',
+};
 
 export default async function DashboardLayout({
   children,
