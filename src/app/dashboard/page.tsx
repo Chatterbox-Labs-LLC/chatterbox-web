@@ -4,6 +4,8 @@ import { Plus, Search, UserPlus, ArrowRight, MessageSquare, Globe, Users } from 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
+export const runtime = 'edge';
+
 export default async function DashboardPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

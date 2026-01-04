@@ -6,6 +6,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { redirect } from 'next/navigation';
 import { getCachedUserSpaces } from '@/lib/cache';
 
+export const runtime = 'edge';
+
 export default async function SpacesPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

@@ -2,6 +2,8 @@ import { createClient } from '@/lib/supabase-server';
 import { stripe } from '@/lib/stripe';
 import { NextResponse } from 'next/server';
 
+export const runtime = 'edge';
+
 export async function POST(req: Request) {
   try {
     const supabase = await createClient();

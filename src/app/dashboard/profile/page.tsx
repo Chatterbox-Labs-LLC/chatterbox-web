@@ -258,6 +258,8 @@ const COUNTRIES = [
   { code: 'ZW', name: 'Zimbabwe' },
 ];
 
+export const runtime = 'edge';
+
 export default function ProfilePage() {
   const router = useRouter();
   const supabase = createClient();

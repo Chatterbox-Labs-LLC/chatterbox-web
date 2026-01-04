@@ -6,7 +6,9 @@ import { Check, Info, Users, MessageSquare, Shield, HardDrive, Headphones, Video
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-export default function BillingPage() {
+export const runtime = 'edge';
+
+export default async function BillingPage() {
   const [loading, setLoading] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'plans' | 'history' | 'payment'>('plans');
   const router = useRouter();

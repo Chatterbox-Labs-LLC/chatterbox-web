@@ -29,23 +29,35 @@ This guide provides instructions for setting up Chatterbox Teams on Cloudflare P
 
 ---
 
-## 2. DNS Configuration
+## 2. DNS Configuration (Custom Domain)
 
-To make your website work on your custom domain, you need to add the following DNS records in your Cloudflare dashboard (under **DNS** > **Records**).
+To use your own domain (e.g., `chatterboxteams.com`), follow these steps in the Cloudflare Dashboard:
+
+1. **Add Custom Domain to Pages**:
+   - Go to **Workers & Pages** > **Chatterbox Teams** (your project) > **Custom domains**.
+   - Click **Set up a custom domain** and enter your domain (e.g., `chatterboxteams.com`).
+   - Cloudflare will automatically offer to configure the DNS for you if your domain is already in Cloudflare.
+
+2. **Manual DNS Records (if needed)**:
+   If you need to add them manually under **DNS** > **Records**:
 
 ### A. Root Domain (Apex)
 If you want your site at `example.com`:
 - **Type**: `CNAME`
-- **Name**: `@` (or your root domain)
-- **Target**: `<your-app>.pages.dev`
-- **Proxy status**: `Proxied`
+- **Name**: `@`
+- **Target**: `chatterbox-web.pages.dev` (replace with your actual `.pages.dev` URL)
+- **Proxy status**: `Proxied` (Orange cloud)
 
 ### B. WWW Subdomain
-If you want your site at `www.example.com`:
 - **Type**: `CNAME`
 - **Name**: `www`
-- **Target**: `<your-app>.pages.dev`
-- **Proxy status**: `Proxied`
+- **Target**: `chatterbox-web.pages.dev`
+- **Proxy status**: `Proxied` (Orange cloud)
+
+---
+
+## 3. Important: SSL/TLS Settings
+Ensure your SSL/TLS encryption mode is set to **Full** or **Full (strict)** in Cloudflare (**SSL/TLS** > **Overview**). This is required for Next.js and Supabase to work correctly over HTTPS.
 
 ---
 

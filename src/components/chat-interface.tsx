@@ -121,11 +121,11 @@ export default function ChatInterface({
           .equals(activeConversationId)
           .sortBy('created_at');
       }
-      return Promise.resolve([]) as any;
+      return Promise.resolve([]) as unknown as Promise<Message[]>;
     };
   }, [activeChannelId, activeConversationId]);
 
-  const liveMessages = useLiveQuery(messagesQuery, [messagesQuery]) as any || [];
+  const liveMessages = (useLiveQuery(messagesQuery, [messagesQuery]) as Message[]) || [];
 
   const [newMessage, setNewMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
@@ -203,8 +203,8 @@ export default function ChatInterface({
             if (!error && data) {
               // Normalize data for UI
               const normalizedData = activeChannelId ? data : {
-                ...(data as any),
-                profiles: (data as any).sender
+                ...data,
+                profiles: (data as { sender: any }).sender
               };
               
               // Cache in Dexie
@@ -247,7 +247,7 @@ export default function ChatInterface({
         const message = await db.messages.get(payload.old.message_id);
         if (message) {
           await db.messages.update(payload.old.message_id, {
-            reactions: message.reactions?.filter((r: any) => r.user_id !== payload.old.user_id || r.emoji !== payload.old.emoji)
+            reactions: message.reactions?.filter((r: { user_id: string; emoji: string }) => r.user_id !== payload.old.user_id || r.emoji !== payload.old.emoji)
           });
         }
       }
@@ -257,8 +257,8 @@ export default function ChatInterface({
         const newState = channel.presenceState();
         const typing: Record<string, { full_name: string }> = {};
         
-        Object.values(newState).forEach((presences: any) => {
-          presences.forEach((presence: any) => {
+        Object.values(newState).forEach((presences) => {
+          (presences as any[]).forEach((presence) => {
             if (presence.is_typing && presence.user_id !== currentUser.id) {
               typing[presence.user_id] = { full_name: presence.full_name };
             }
@@ -287,8 +287,6 @@ export default function ChatInterface({
     if (!file) return;
 
     // Check file type for image or video
-    const isImage = file.type.startsWith('image/');
-    const isVideo = file.type.startsWith('video/');
     
     setIsUploading(true);
     try {
@@ -357,7 +355,7 @@ export default function ChatInterface({
     const messageContent = newMessage.trim();
     
     // Optimistic Update
-    const optimisticMessage: any = {
+    const optimisticMessage: Message = {
       id: tempId,
       created_at: new Date().toISOString(),
       content: messageContent,

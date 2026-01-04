@@ -2,7 +2,9 @@ import { supabaseAdmin } from '@/lib/supabase-admin'
 import { resend } from '@/lib/resend'
 import { NextResponse } from 'next/server'
 
-export async function POST(request: Request) {
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
   try {
     const { email } = await request.json()
 

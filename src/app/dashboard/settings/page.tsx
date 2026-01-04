@@ -7,7 +7,9 @@ import { createClient } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 
-export default function SettingsPage() {
+export const runtime = 'edge';
+
+export default async function SettingsPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

@@ -30,7 +30,9 @@ interface SpacePageProps {
   }>;
 }
 
-export default function SpacePage({ params }: SpacePageProps) {
+export const runtime = 'edge';
+
+export default async function SpacePage({params }: SpacePageProps) {
   const resolvedParams = use(params);
   const slug = resolvedParams.slug;
   const [currentSpace, setCurrentSpace] = useState<any>(null);
