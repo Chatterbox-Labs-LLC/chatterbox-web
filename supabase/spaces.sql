@@ -96,36 +96,45 @@ $$ language plpgsql;
 
 -- 4. Create Policies using the functions
 -- Policies for spaces
+drop policy if exists "Spaces are viewable by everyone for now." on public.spaces;
 create policy "Spaces are viewable by everyone for now." on public.spaces
   for select using (true);
 
+drop policy if exists "Owners can update their spaces." on public.spaces;
 create policy "Owners can update their spaces." on public.spaces
   for update using (auth.uid() = owner_id);
 
+drop policy if exists "Owners can delete their spaces." on public.spaces;
 create policy "Owners can delete their spaces." on public.spaces
   for delete using (auth.uid() = owner_id);
 
+drop policy if exists "Authenticated users can create spaces." on public.spaces;
 create policy "Authenticated users can create spaces." on public.spaces
   for insert with check (auth.uid() = owner_id);
 
 -- Policies for space_members
+drop policy if exists "Anyone can view members for now." on public.space_members;
 create policy "Anyone can view members for now." on public.space_members
   for select using (true);
 
+drop policy if exists "System and owners can manage members." on public.space_members;
 create policy "System and owners can manage members." on public.space_members
   for insert with check (true); -- Relaxed for now to allow the trigger and manual joins
 
+drop policy if exists "Owners can delete members." on public.space_members;
 create policy "Owners can delete members." on public.space_members
   for delete using (public.check_is_space_owner(space_id));
 
 -- Policies for channels
+drop policy if exists "Channels are viewable by everyone for now." on public.channels;
 create policy "Channels are viewable by everyone for now." on public.channels
   for select using (true);
 
+drop policy if exists "Owners can manage channels." on public.channels;
 create policy "Owners can manage channels." on public.channels
   for all using (public.check_is_space_owner(space_id));
 
-create table public.messages (
+create table if not exists public.messages (
   id uuid default gen_random_uuid() primary key,
   created_at timestamp with time zone default timezone('utc'::text, now()) not null,
   space_id uuid references public.spaces(id) on delete cascade not null,
@@ -167,15 +176,19 @@ end $$;
 alter table public.messages enable row level security;
 
 -- Policies for messages
+drop policy if exists "Messages are viewable by everyone for now." on public.messages;
 create policy "Messages are viewable by everyone for now." on public.messages
   for select using (true);
 
+drop policy if exists "Anyone authenticated can insert messages for now." on public.messages;
 create policy "Anyone authenticated can insert messages for now." on public.messages
   for insert with check (auth.uid() is not null);
 
+drop policy if exists "Users can update their own messages." on public.messages;
 create policy "Users can update their own messages." on public.messages
   for update using (auth.uid() = user_id);
 
+drop policy if exists "Users can delete their own messages." on public.messages;
 create policy "Users can delete their own messages." on public.messages
   for delete using (auth.uid() = user_id);
 

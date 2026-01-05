@@ -1,5 +1,5 @@
--- Create a table for public profiles
-create table profiles (
+-- Create a table for public profiles if it doesn't exist
+create table if not exists profiles (
   id uuid references auth.users on delete cascade not null primary key,
   updated_at timestamp with time zone,
   username text unique,
@@ -20,16 +20,18 @@ create table profiles (
 );
 
 -- Set up Row Level Security (RLS)
--- See https://supabase.com/docs/guides/auth/row-level-security for more details.
-alter table profiles
-  enable row level security;
+alter table profiles enable row level security;
 
+-- Recreate policies to ensure they are up to date and idempotent
+drop policy if exists "Public profiles are viewable by everyone." on profiles;
 create policy "Public profiles are viewable by everyone." on profiles
   for select using (true);
 
+drop policy if exists "Users can insert their own profile." on profiles;
 create policy "Users can insert their own profile." on profiles
   for insert with check (auth.uid() = id);
 
+drop policy if exists "Users can update own profile." on profiles;
 create policy "Users can update own profile." on profiles
   for update using (auth.uid() = id);
 
@@ -93,6 +95,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
+-- Ensure the trigger is idempotent
+drop trigger if exists on_auth_user_created on auth.users;
 create trigger on_auth_user_created
   after insert on auth.users
   for each row execute procedure public.handle_new_user();
