@@ -1,4 +1,5 @@
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
 import { getCachedSpace, getCachedChannels, getCachedMembership } from '@/lib/cache';

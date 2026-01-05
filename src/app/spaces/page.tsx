@@ -1,4 +1,5 @@
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
 import { MessageSquare, Plus, Search, UserPlus, ArrowRight, LayoutDashboard, Globe, Users } from 'lucide-react';

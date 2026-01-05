@@ -10,8 +10,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, Check, X, ShieldCheck, Mail, User, ArrowRight } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Check } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -166,91 +166,35 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-100 via-zinc-50 to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-black px-4">
-        <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-          <Link href="/" className="flex items-center gap-3 transition-transform hover:scale-105">
-            <div className="bg-black p-2.5 rounded-2xl shadow-lg shadow-black/10">
-              <MessageSquare className="h-7 w-7 text-white" />
-            </div>
-            <span className="text-3xl font-bold tracking-tight text-black dark:text-white">
-              Chatterbox Teams
-            </span>
-          </Link>
-        </div>
-
-        <Card className="w-full max-w-md shadow-2xl shadow-black/5 border-zinc-200 dark:border-zinc-800 overflow-hidden animate-in fade-in zoom-in-95 duration-500">
-          <CardHeader className="space-y-6 pt-10 pb-6">
-            <div className="flex justify-center">
-              <div className="bg-primary/10 p-5 rounded-full ring-[12px] ring-primary/5 animate-pulse">
-                <Mail className="h-12 w-12 text-primary" />
-              </div>
-            </div>
-            <div className="space-y-3 text-center">
-              <CardTitle className="text-3xl font-extrabold tracking-tight">Check your email</CardTitle>
-              <CardDescription className="text-lg px-2 leading-relaxed text-muted-foreground">
-                We've sent a verification link to<br />
-                <span className="inline-block mt-2 text-primary font-bold bg-primary/5 px-3 py-1 rounded-lg border border-primary/10">
-                  {tempCredentials?.email}
-                </span>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
+        <Card className="w-full max-w-md shadow-lg border-zinc-200 dark:border-zinc-800">
+          <CardHeader className="space-y-4">
+            <div className="space-y-1 text-center">
+              <CardTitle className="text-2xl font-bold">Check your email</CardTitle>
+              <CardDescription>
+                We've sent a verification link to {tempCredentials?.email}
               </CardDescription>
             </div>
           </CardHeader>
-          <CardContent className="space-y-8 pb-10">
-            <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 text-sm text-muted-foreground shadow-sm group hover:border-primary/20 transition-colors">
-              <ul className="space-y-4">
-                <li className="flex gap-4 items-center">
-                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  </div>
-                  <span className="text-zinc-700 dark:text-zinc-300">Click the link in the email to verify your account</span>
-                </li>
-                <li className="flex gap-4 items-center">
-                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  </div>
-                  <span className="text-zinc-700 dark:text-zinc-300">Check your <b>spam folder</b> if you don't see it</span>
-                </li>
-                <li className="flex gap-4 items-center">
-                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                  </div>
-                  <span className="text-zinc-700 dark:text-zinc-300">The link will expire in 24 hours</span>
-                </li>
+          <CardContent className="space-y-4">
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-700 dark:text-blue-300">
+              <ul className="list-disc pl-4 space-y-1">
+                <li>Click the link in the email to verify your account</li>
+                <li>Check your spam folder if you don't see it</li>
+                <li>The link will expire in 24 hours</li>
               </ul>
             </div>
-
-            <div className="space-y-4">
-              <Button 
-                variant="outline" 
-                className="w-full h-14 text-base font-semibold transition-all hover:bg-primary/5 hover:text-primary hover:border-primary/30 rounded-xl" 
-                onClick={handleResendEmail}
-                disabled={resending || resendStatus === "success"}
-              >
-                {resending ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Sending new link...
-                  </>
-                ) : resendStatus === "success" ? (
-                  <>
-                    <Check className="mr-2 h-5 w-5 text-emerald-500" />
-                    Verification email resent!
-                  </>
-                ) : (
-                  "Didn't receive an email? Resend"
-                )}
-              </Button>
-              
-              {resendStatus === "error" && (
-                <p className="text-sm text-destructive text-center font-medium animate-in fade-in slide-in-from-top-1">
-                  Failed to resend email. Please try again.
-                </p>
-              )}
-
-              <Button className="w-full h-14 text-base font-bold shadow-lg shadow-primary/10 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]" variant="secondary" asChild>
-                <Link href="/">Return to Home</Link>
-              </Button>
-            </div>
+            <Button 
+              variant="outline" 
+              className="w-full" 
+              onClick={handleResendEmail}
+              disabled={resending || resendStatus === "success"}
+            >
+              {resending ? "Sending..." : resendStatus === "success" ? "Email sent!" : "Resend verification email"}
+            </Button>
+            <Button className="w-full" variant="secondary" asChild>
+              <Link href="/">Return to Home</Link>
+            </Button>
           </CardContent>
         </Card>
       </div>
@@ -261,16 +205,6 @@ export default function SignupPage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
       <Card className="w-full max-w-md shadow-lg border-zinc-200 dark:border-zinc-800">
         <CardHeader className="space-y-4">
-          <div className="flex justify-center">
-            <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-              <div className="bg-black p-2 rounded-xl">
-                <MessageSquare className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-2xl font-bold tracking-tight text-black">
-                Chatterbox Teams
-              </span>
-            </Link>
-          </div>
           <div className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
               {step === 1 ? "Create an account" : "Complete your profile"}
@@ -288,55 +222,35 @@ export default function SignupPage() {
             <form onSubmit={signupForm.handleSubmit(onSignupSubmit)}>
               <CardContent className="grid gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="email" className="text-sm font-medium">Email Address</Label>
-                  <div className="relative">
-                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder="name@example.com"
-                      className={cn(
-                        "pl-10 h-11 bg-white dark:bg-zinc-900 transition-all",
-                        signupForm.formState.errors.email && "border-destructive focus-visible:ring-destructive"
-                      )}
-                      {...signupForm.register("email")}
-                    />
-                  </div>
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    {...signupForm.register("email")}
+                  />
                   {signupForm.formState.errors.email && (
-                    <p className="text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1">
+                    <p className="text-sm text-destructive">
                       {signupForm.formState.errors.email.message}
                     </p>
                   )}
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="password" title="Password must be at least 8 characters long and contain at least one uppercase letter, one number, and one special character." className="text-sm font-medium">Password</Label>
-                  <div className="relative">
-                    <ShieldCheck className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="••••••••"
-                      className={cn(
-                        "pl-10 h-11 bg-white dark:bg-zinc-900 transition-all",
-                        signupForm.formState.errors.password && "border-destructive focus-visible:ring-destructive"
-                      )}
-                      {...signupForm.register("password")}
-                    />
-                  </div>
-                  
+                  <Label htmlFor="password">Password</Label>
+                  <Input
+                    id="password"
+                    type="password"
+                    placeholder="••••••••"
+                    {...signupForm.register("password")}
+                  />
                   {signupForm.formState.errors.password && (
-                    <p className="text-xs font-medium text-destructive animate-in fade-in slide-in-from-top-1">
+                    <p className="text-sm text-destructive">
                       {signupForm.formState.errors.password.message}
                     </p>
                   )}
                 </div>
-                <Button 
-                  className="w-full h-11 mt-4 font-semibold group" 
-                  type="submit"
-                  disabled={!signupForm.formState.isValid}
-                >
+                <Button className="w-full" type="submit" disabled={!signupForm.formState.isValid}>
                   Continue
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </CardContent>
             </form>
@@ -351,11 +265,7 @@ export default function SignupPage() {
                 </div>
               </div>
 
-              <Button 
-                variant="outline" 
-                className="w-full h-11 bg-white hover:bg-zinc-50 text-black border-zinc-200 transition-colors shadow-sm" 
-                onClick={handleGithubLogin}
-              >
+              <Button variant="outline" className="w-full" onClick={handleGithubLogin}>
                 <svg className="mr-2 h-4 w-4 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                 </svg>
@@ -375,65 +285,32 @@ export default function SignupPage() {
             <CardContent className="grid gap-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="grid gap-2">
-                  <Label htmlFor="firstName" className="text-sm font-medium">First Name</Label>
-                  <div className="relative">
-                    <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      id="firstName"
-                      placeholder="John"
-                      className={cn(
-                        "pl-10 h-11 bg-white dark:bg-zinc-900 transition-all",
-                        profileForm.formState.errors.firstName && "border-destructive focus-visible:ring-destructive"
-                      )}
-                      {...profileForm.register("firstName")}
-                    />
-                  </div>
+                  <Label htmlFor="firstName">First Name</Label>
+                  <Input
+                    id="firstName"
+                    placeholder="John"
+                    {...profileForm.register("firstName")}
+                  />
                   {profileForm.formState.errors.firstName && (
-                    <p className="text-xs font-medium text-destructive">{profileForm.formState.errors.firstName.message}</p>
+                    <p className="text-sm text-destructive">{profileForm.formState.errors.firstName.message}</p>
                   )}
                 </div>
                 <div className="grid gap-2">
-                  <Label htmlFor="lastName" className="text-sm font-medium">Last Name</Label>
+                  <Label htmlFor="lastName">Last Name</Label>
                   <Input
                     id="lastName"
                     placeholder="Doe"
-                    className={cn(
-                      "h-11 bg-white dark:bg-zinc-900 transition-all",
-                      profileForm.formState.errors.lastName && "border-destructive focus-visible:ring-destructive"
-                    )}
                     {...profileForm.register("lastName")}
                   />
                   {profileForm.formState.errors.lastName && (
-                    <p className="text-xs font-medium text-destructive">{profileForm.formState.errors.lastName.message}</p>
+                    <p className="text-sm text-destructive">{profileForm.formState.errors.lastName.message}</p>
                   )}
                 </div>
               </div>
-              {error && (
-                <div className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 flex items-start gap-3 animate-in fade-in zoom-in-95">
-                  <X className="h-5 w-5 text-destructive shrink-0 mt-0.5" />
-                  <p className="text-sm text-destructive font-medium leading-tight">{error}</p>
-                </div>
-              )}
+              <Button className="w-full" type="submit" disabled={loading || !profileForm.formState.isValid}>
+                {loading ? "Creating account..." : "Complete Signup"}
+              </Button>
             </CardContent>
-            <CardFooter className="flex flex-col gap-4 pt-4">
-              <Button 
-                className="w-full h-11 font-semibold" 
-                type="submit"
-                disabled={loading || !profileForm.formState.isValid}
-              >
-                {loading ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating account...
-                  </>
-                ) : (
-                  "Complete Sign Up"
-                )}
-              </Button>
-              <Button variant="ghost" className="w-full h-11 text-muted-foreground hover:text-foreground" onClick={() => setStep(1)} disabled={loading}>
-                Back to step 1
-              </Button>
-            </CardFooter>
           </form>
         )}
       </Card>
