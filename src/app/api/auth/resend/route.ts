@@ -36,7 +36,7 @@ export async function POST(request: Request) {
     }
 
     // 2. Generate a verification link
-    // We'll use 'magiclink' for verification as it's the most reliable for existing users
+    // We'll use 'magiclink' for verification as it doesn't require the password
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
       email,
@@ -46,6 +46,7 @@ export async function POST(request: Request) {
     });
 
     if (linkError) {
+      console.error('[Resend] Link generation error:', linkError);
       return NextResponse.json({ error: linkError.message }, { status: 500 });
     }
 
@@ -58,16 +59,20 @@ export async function POST(request: Request) {
       to: [email],
       subject: 'Verify your email for Chatterbox Teams',
       html: `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 12px;">
-          <h1 style="color: #000; font-size: 24px; font-weight: bold; margin-bottom: 16px;">Verify your email</h1>
-          <p style="color: #4b5563; font-size: 16px; line-height: 24px; margin-bottom: 24px;">
-            Hi ${firstName}, here is your new verification link to get started with Chatterbox Teams.
+        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px; color: #1a1a1a;">
+          <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 24px; color: #000; text-align: center;">Verify your email</h1>
+          <p style="font-size: 16px; line-height: 24px; margin-bottom: 32px; color: #4b5563;">
+            Hi ${firstName}, here is your new verification link to get started with Chatterbox Teams. Please click the button below to verify your email address.
           </p>
-          <a href="${verificationLink}" style="display: inline-block; background-color: #065ce5; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 20px 0;">Verify Email Address</a>
-          <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
-          <p style="word-break: break-all; color: #666;">${verificationLink}</p>
-          <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;" />
-          <p style="font-size: 12px; color: #999;">If you didn't request this link, you can safely ignore this email.</p>
+          <div style="text-align: center; margin: 40px 0;">
+            <a href="${verificationLink}" style="display: inline-block; background-color: #000; color: #fff; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 16px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);">Verify Email Address</a>
+          </div>
+          <p style="color: #6b7280; font-size: 14px; margin-top: 40px; text-align: center;">If the button doesn't work, copy and paste this link into your browser:</p>
+          <div style="background-color: #f9fafb; padding: 16px; border-radius: 8px; margin-top: 12px; word-break: break-all; border: 1px solid #e5e7eb;">
+            <p style="color: #3b82f6; font-size: 13px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; margin: 0;">${verificationLink}</p>
+          </div>
+          <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 48px 0;" />
+          <p style="font-size: 12px; color: #9ca3af; text-align: center;">If you didn't request this link, you can safely ignore this email.</p>
         </div>
       `,
     });
