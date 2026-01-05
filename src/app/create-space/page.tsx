@@ -89,7 +89,7 @@ export default function CreateSpacePage() {
         return result;
       };
 
-      const { error: insertError } = await supabase
+      const { data: newSpace, error: insertError } = await supabase
         .from("spaces")
         .insert([
           {
@@ -112,7 +112,8 @@ export default function CreateSpacePage() {
         return;
       }
 
-      router.push(`/dashboard`);
+      // Redirect to the newly created space
+      router.push(`/spaces/${newSpace.slug}`);
     } catch (err: any) {
       setError(err.message || "An error occurred while creating your space");
     } finally {
