@@ -10,12 +10,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check } from "lucide-react";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Check, Sparkles } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const signupSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -166,37 +167,70 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
-        <Card className="w-full max-w-md shadow-lg border-zinc-200 dark:border-zinc-800">
-          <CardHeader className="space-y-4">
-            <div className="space-y-1 text-center">
-              <CardTitle className="text-2xl font-bold">Check your email</CardTitle>
-              <CardDescription>
-                We've sent a verification link to {tempCredentials?.email}
-              </CardDescription>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg text-sm text-blue-700 dark:text-blue-300">
-              <ul className="list-disc pl-4 space-y-1">
-                <li>Click the link in the email to verify your account</li>
-                <li>Check your spam folder if you don't see it</li>
-                <li>The link will expire in 24 hours</li>
-              </ul>
-            </div>
-            <Button 
-              variant="outline" 
-              className="w-full" 
-              onClick={handleResendEmail}
-              disabled={resending || resendStatus === "success"}
-            >
-              {resending ? "Sending..." : resendStatus === "success" ? "Email sent!" : "Resend verification email"}
-            </Button>
-            <Button className="w-full" variant="secondary" asChild>
-              <Link href="/">Return to Home</Link>
-            </Button>
-          </CardContent>
-        </Card>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8 relative overflow-hidden">
+        {/* Decorative background */}
+        <div className="absolute top-0 left-0 w-full h-full -z-10">
+          <div className="absolute top-[20%] right-[10%] w-64 h-64 bg-blue-500/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-[20%] left-[10%] w-64 h-64 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full max-w-md"
+        >
+          <Card className="shadow-2xl border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl">
+            <CardHeader className="space-y-6 text-center">
+              <div className="flex justify-center">
+                <div className="bg-green-100 dark:bg-green-900/30 p-4 rounded-full">
+                  <Check className="h-10 w-10 text-green-600 dark:text-green-400" />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <CardTitle className="text-3xl font-bold tracking-tight">Almost there!</CardTitle>
+                <CardDescription className="text-base">
+                  We've sent a magic link to <span className="font-semibold text-zinc-900 dark:text-zinc-100">{tempCredentials?.email}</span>
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="bg-zinc-100 dark:bg-zinc-800/50 p-6 rounded-2xl space-y-4">
+                <h4 className="font-semibold flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-blue-500" />
+                  What happens next?
+                </h4>
+                <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+                  <li className="flex gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">1</div>
+                    Check your inbox (and spam folder)
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">2</div>
+                    Click the verification link
+                  </li>
+                  <li className="flex gap-3">
+                    <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">3</div>
+                    You'll be taken to your new welcome dashboard!
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="space-y-3">
+                <Button 
+                  variant="outline" 
+                  className="w-full h-12 rounded-xl border-zinc-200 dark:border-zinc-800" 
+                  onClick={handleResendEmail}
+                  disabled={resending || resendStatus === "success"}
+                >
+                  {resending ? "Sending..." : resendStatus === "success" ? "Verification email resent!" : "Didn't get the email? Resend"}
+                </Button>
+                <Button className="w-full h-12 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold" variant="default" asChild>
+                  <Link href="/">Return to Home</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     );
   }

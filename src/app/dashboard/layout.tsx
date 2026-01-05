@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { redirect } from 'next/navigation';
 import { getCachedProfile } from '@/lib/cache';
 import { Metadata } from 'next';
+import { DashboardMobileNav } from '@/components/dashboard-mobile-nav';
 
 export const metadata: Metadata = {
   title: 'Dashboard - Chatterbox Teams',
@@ -92,8 +93,11 @@ export default async function DashboardLayout({
       {/* Main Content */}
       <div className="flex-1 flex flex-col md:pl-64">
         {/* Header */}
-        <header className="h-16 border-b bg-white dark:bg-zinc-900 px-6 flex items-center justify-between sticky top-0 z-10">
-          <h1 className="font-semibold text-lg md:text-xl">Dashboard</h1>
+        <header className="h-16 border-b bg-white dark:bg-zinc-900 px-4 md:px-6 flex items-center justify-between sticky top-0 z-10">
+          <div className="flex items-center">
+            <DashboardMobileNav />
+            <h1 className="font-semibold text-lg md:text-xl">Dashboard</h1>
+          </div>
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium hidden sm:block">{fullName}</span>
           </div>

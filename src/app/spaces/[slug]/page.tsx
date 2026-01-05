@@ -11,13 +11,16 @@ import {
   Plus, 
   Bell, 
   Users,
-  Hash
+  Hash,
+  Menu,
+  X as CloseIcon
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ChatInterface from '@/components/chat-interface';
+import { cn } from '@/lib/utils';
 import CreateChannelModal from '@/components/create-channel-modal';
 import ChannelSettingsModal from '@/components/channel-settings-modal';
 import WorkspaceSettingsModal from '@/components/workspace-settings-modal';
@@ -44,6 +47,7 @@ export default function SpacePage({params }: SpacePageProps) {
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
   // Use Dexie for live data
   const localConversations = useLiveQuery(() => db.conversations.toArray()) as any || [];
@@ -276,9 +280,20 @@ export default function SpacePage({params }: SpacePageProps) {
   const headerDescription = activeChannelId ? activeChannel.description : 'Private conversation';
 
   return (
-    <div className="flex h-screen bg-white dark:bg-zinc-950 overflow-hidden text-zinc-900 dark:text-zinc-100 font-sans">
+    <div className="flex h-screen bg-white dark:bg-zinc-950 overflow-hidden text-zinc-900 dark:text-zinc-100 font-sans relative">
+      {/* MOBILE OVERLAY */}
+      {isMobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* LEFT SIDEBAR */}
-      <aside className="w-[260px] flex flex-col bg-zinc-50 dark:bg-zinc-900/50 border-r border-zinc-200 dark:border-zinc-800">
+      <aside className={cn(
+        "fixed inset-y-0 left-0 z-50 w-[260px] flex flex-col bg-zinc-50 dark:bg-zinc-900/50 border-r border-zinc-200 dark:border-zinc-800 transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:z-0",
+        isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+      )}>
         <div className="p-4 flex items-center justify-between">
           <Link href="/dashboard" className="flex items-center gap-2">
             <div className="bg-black dark:bg-white p-1.5 rounded-lg">
@@ -286,6 +301,14 @@ export default function SpacePage({params }: SpacePageProps) {
             </div>
             <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
           </Link>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden text-zinc-500"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            <CloseIcon className="h-5 w-5" />
+          </Button>
         </div>
 
         <ScrollArea className="flex-1 px-3">
@@ -377,10 +400,18 @@ export default function SpacePage({params }: SpacePageProps) {
       </aside>
 
       {/* MAIN CHAT AREA */}
-      <main className="flex-1 flex flex-col bg-white dark:bg-zinc-950 relative">
+      <main className="flex-1 flex flex-col bg-white dark:bg-zinc-950 relative min-w-0">
         {/* Header */}
-        <header className="h-16 flex items-center justify-between px-6 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 sticky top-0 z-20">
-          <div className="flex items-center gap-3">
+        <header className="h-16 flex items-center justify-between px-4 md:px-6 border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 sticky top-0 z-20">
+          <div className="flex items-center gap-2 md:gap-3 min-w-0">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              className="md:hidden text-zinc-500"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="h-5 w-5" />
+            </Button>
             {activeChannelId ? (
               <Hash className="h-5 w-5 text-zinc-400" />
             ) : (

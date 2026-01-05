@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, PartyPopper, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
+import { MessageSquare, PartyPopper, ArrowRight, Sparkles, CheckCircle2, Rocket, Zap, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -26,87 +26,152 @@ export default function WelcomePage() {
 
   if (!mounted) return null;
 
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: { opacity: 1, x: 0 }
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
-      <div className="mb-12">
-        <div className="flex items-center gap-2">
-          <div className="bg-black p-2 rounded-xl">
-            <MessageSquare className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-black">
-            Chatterbox Teams
-          </span>
-        </div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8 overflow-hidden relative">
+      {/* Background gradients */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="w-full max-w-2xl">
-        <div className="relative">
-          {/* Decorative background elements */}
-          <div className="absolute -top-12 -left-12 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
-          <div className="absolute -bottom-12 -right-12 w-64 h-64 bg-primary/5 rounded-full blur-3xl" />
-
-          <Card className="relative overflow-hidden border-zinc-200 dark:border-zinc-800 shadow-2xl">
-            <div className="absolute top-0 left-0 w-full h-1.5 bg-primary" />
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="w-full max-w-4xl"
+      >
+        <div className="flex flex-col md:flex-row items-stretch gap-8">
+          {/* Left Side - Welcome Message */}
+          <div className="flex-1 flex flex-col justify-center space-y-6">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="bg-black dark:bg-white p-2 rounded-xl">
+                <MessageSquare className="h-6 w-6 text-white dark:text-black" />
+              </div>
+              <span className="text-xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+                Chatterbox Teams
+              </span>
+            </div>
             
-            <CardHeader className="text-center pt-12 pb-6">
-              <div className="flex justify-center mb-6">
-                <div className="relative">
-                  <div className="absolute inset-0 bg-primary/20 rounded-full blur-xl animate-pulse" />
-                  <div className="relative bg-primary text-primary-foreground p-5 rounded-full">
-                    <PartyPopper className="h-10 w-10" />
-                  </div>
-                </div>
-              </div>
-              <CardTitle className="text-4xl font-extrabold tracking-tight">
-                Welcome to the community!
-              </CardTitle>
-              <CardDescription className="text-lg mt-2">
-                Your email has been successfully verified.
-              </CardDescription>
-            </CardHeader>
+            <div className="space-y-2">
+              <motion.h1 
+                variants={itemVariants}
+                className="text-4xl md:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.1]"
+              >
+                Welcome to the <span className="text-blue-600 dark:text-blue-400">community.</span>
+              </motion.h1>
+              <motion.p 
+                variants={itemVariants}
+                className="text-lg md:text-xl text-zinc-600 dark:text-zinc-400 max-w-md"
+              >
+                We're thrilled to have you here, {user?.user_metadata?.first_name || 'friend'}. Your journey to seamless team collaboration starts now.
+              </motion.p>
+            </div>
 
-            <CardContent className="space-y-8 px-8 pb-10">
-              <div className="bg-zinc-100 dark:bg-zinc-900/50 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800">
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-4 flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-primary" />
-                  What's next?
-                </h3>
-                <div className="grid gap-4">
-                  {[
-                    "Complete your profile information",
-                    "Join your first public channel",
-                    "Invite your teammates to join",
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-center gap-3 text-zinc-600 dark:text-zinc-400">
-                      <div className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
-                        <CheckCircle2 className="h-3.5 w-3.5 text-primary" />
-                      </div>
-                      <span className="text-sm">{item}</span>
+            <motion.div variants={itemVariants} className="pt-4">
+              <Button size="lg" className="h-14 px-8 text-lg font-bold group rounded-full shadow-lg shadow-blue-500/20" asChild>
+                <Link href="/dashboard">
+                  Explore Your Dashboard
+                  <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
+
+          {/* Right Side - Steps Card */}
+          <div className="flex-1">
+            <Card className="h-full border-zinc-200 dark:border-zinc-800 shadow-xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16 blur-2xl" />
+              
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Rocket className="h-5 w-5 text-blue-500" />
+                  Quick Start Guide
+                </CardTitle>
+                <CardDescription>
+                  Three simple steps to get the most out of Chatterbox
+                </CardDescription>
+              </CardHeader>
+
+              <CardContent className="space-y-6">
+                {[
+                  {
+                    title: "Complete your profile",
+                    desc: "Add a photo and bio so teammates know it's you.",
+                    icon: Zap,
+                    color: "text-amber-500",
+                    bg: "bg-amber-500/10"
+                  },
+                  {
+                    title: "Join a workspace",
+                    desc: "Browse public spaces or create your own team area.",
+                    icon: Sparkles,
+                    color: "text-purple-500",
+                    bg: "bg-purple-500/10"
+                  },
+                  {
+                    title: "Enable notifications",
+                    desc: "Stay in the loop with real-time alerts for your team.",
+                    icon: ShieldCheck,
+                    color: "text-green-500",
+                    bg: "bg-green-500/10"
+                  }
+                ].map((step, i) => (
+                  <motion.div 
+                    key={i} 
+                    variants={itemVariants}
+                    className="flex gap-4 p-3 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+                  >
+                    <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${step.bg} flex items-center justify-center`}>
+                      <step.icon className={`h-6 w-6 ${step.color}`} />
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <div>
+                      <h4 className="font-semibold text-zinc-900 dark:text-zinc-100">{step.title}</h4>
+                      <p className="text-sm text-zinc-500 dark:text-zinc-400">{step.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </CardContent>
 
-              <div className="text-center">
-                <p className="text-zinc-500 text-sm mb-6">
-                  We're excited to have you here, {user?.user_metadata?.first_name || 'friend'}! 
-                  Let's get started with your dashboard.
-                </p>
-                <Button size="lg" className="w-full h-14 text-lg font-bold group" asChild>
-                  <Link href="/dashboard">
-                    Go to Dashboard
-                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              <CardFooter className="bg-zinc-50 dark:bg-zinc-800/50 border-t border-zinc-100 dark:border-zinc-800 p-6">
+                <div className="flex items-center gap-3 text-sm text-zinc-500">
+                  <div className="flex -space-x-2">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-zinc-900 bg-zinc-200 dark:bg-zinc-700" />
+                    ))}
+                  </div>
+                  Join 1,000+ others already using Chatterbox
+                </div>
+              </CardFooter>
+            </Card>
+          </div>
         </div>
-      </div>
-      
-      <p className="mt-8 text-zinc-400 text-sm">
-        Need help? <Link href="/support" className="text-primary hover:underline">Contact support</Link>
-      </p>
+      </motion.div>
+
+      <motion.p 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-12 text-zinc-400 text-sm"
+      >
+        Need a hand? <Link href="/support" className="text-blue-500 hover:underline font-medium">Chat with our support team</Link>
+      </motion.p>
     </div>
   );
 }

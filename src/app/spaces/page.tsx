@@ -23,22 +23,23 @@ export default async function SpacesPage() {
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
       {/* Header */}
-      <header className="h-16 border-b bg-white dark:bg-zinc-900 px-6 flex items-center justify-between sticky top-0 z-10">
+      <header className="h-16 border-b bg-white dark:bg-zinc-900 px-4 md:px-6 flex items-center justify-between sticky top-0 z-10">
         <Link href="/" className="flex items-center gap-2">
           <div className="bg-black p-1.5 rounded-lg">
             <MessageSquare className="h-5 w-5 text-white" />
           </div>
-          <span className="font-bold text-lg tracking-tight">Chatterbox Teams</span>
+          <span className="font-bold text-lg tracking-tight hidden sm:inline-block">Chatterbox Teams</span>
+          <span className="font-bold text-lg tracking-tight sm:hidden">Chatterbox</span>
         </Link>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
+        <div className="flex items-center gap-2 sm:gap-4">
+          <Button variant="ghost" size="sm" asChild className="px-2 sm:px-3">
             <Link href="/dashboard">
-              <LayoutDashboard className="h-4 w-4 mr-2" />
-              Dashboard
+              <LayoutDashboard className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">Dashboard</span>
             </Link>
           </Button>
           <form action="/api/auth/signout" method="post">
-            <Button variant="ghost" size="sm" type="submit">
+            <Button variant="ghost" size="sm" type="submit" className="px-2 sm:px-3">
               Logout
             </Button>
           </form>
