@@ -34,23 +34,54 @@ CREATE POLICY "Users can update their own settings." ON user_settings
 CREATE POLICY "Users can insert their own settings." ON user_settings
   FOR INSERT WITH CHECK (auth.uid() = user_id);
 
--- Update the handle_new_user function to also create settings
+-- Update the handle_new_user function to also create settings and handle OAuth metadata better
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
+DECLARE
+  v_full_name TEXT;
+  v_first_name TEXT;
+  v_last_name TEXT;
 BEGIN
+  -- Extract names from metadata
+  v_full_name := COALESCE(
+    NEW.raw_user_meta_data->>'full_name',
+    NEW.raw_user_meta_data->>'name',
+    ''
+  );
+  
+  -- Try to split first and last name if not provided
+  v_first_name := COALESCE(
+    NEW.raw_user_meta_data->>'first_name',
+    split_part(v_full_name, ' ', 1)
+  );
+  
+  v_last_name := COALESCE(
+    NEW.raw_user_meta_data->>'last_name',
+    CASE 
+      WHEN position(' ' in v_full_name) > 0 THEN substring(v_full_name from position(' ' in v_full_name) + 1)
+      ELSE ''
+    END
+  );
+
   -- Create profile
   INSERT INTO public.profiles (id, full_name, avatar_url, first_name, last_name)
   VALUES (
     NEW.id, 
-    NEW.raw_user_meta_data->>'full_name', 
+    CASE WHEN v_full_name = '' THEN NULL ELSE v_full_name END,
     NEW.raw_user_meta_data->>'avatar_url',
-    NEW.raw_user_meta_data->>'first_name',
-    NEW.raw_user_meta_data->>'last_name'
-  );
+    CASE WHEN v_first_name = '' THEN NULL ELSE v_first_name END,
+    CASE WHEN v_last_name = '' THEN NULL ELSE v_last_name END
+  )
+  ON CONFLICT (id) DO UPDATE SET
+    full_name = EXCLUDED.full_name,
+    avatar_url = EXCLUDED.avatar_url,
+    first_name = EXCLUDED.first_name,
+    last_name = EXCLUDED.last_name;
 
   -- Create default settings
   INSERT INTO public.user_settings (user_id)
-  VALUES (NEW.id);
+  VALUES (NEW.id)
+  ON CONFLICT (user_id) DO NOTHING;
 
   RETURN NEW;
 END;
