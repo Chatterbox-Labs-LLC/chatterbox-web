@@ -1,7 +1,7 @@
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { createAdminClient } from '@/lib/supabase-admin'
-import { resend } from '@/lib/resend'
+import { resend, RESEND_FROM_EMAIL } from '@/lib/resend'
 import { NextResponse } from 'next/server'
 
 
@@ -48,7 +48,7 @@ export async function POST(request: Request) {
 
     // Send email via Resend
     const { error: emailError } = await resend.emails.send({
-      from: 'Chatterbox Teams <onboarding@chatterboxteams.com>',
+      from: `Chatterbox Teams <${RESEND_FROM_EMAIL}>`,
       to: [email],
       subject: 'Reset your password for Chatterbox Teams',
       html: `

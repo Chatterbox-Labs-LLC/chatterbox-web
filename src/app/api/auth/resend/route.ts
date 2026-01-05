@@ -2,7 +2,7 @@ export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase-admin';
-import { resend } from '@/lib/resend';
+import { resend, RESEND_FROM_EMAIL } from '@/lib/resend';
 
 
 export async function POST(request: Request) {
@@ -52,11 +52,8 @@ export async function POST(request: Request) {
     const firstName = user.user_metadata?.first_name || 'there';
 
     // 3. Send email via Resend
-    // Use onboarding@resend.dev if you haven't verified your domain yet
-    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Chatterbox Teams <onboarding@chatterboxteams.com>';
-
     const { error: emailError } = await resend.emails.send({
-      from: fromEmail,
+      from: `Chatterbox Teams <${RESEND_FROM_EMAIL}>`,
       to: [email],
       subject: 'Verify your email for Chatterbox Teams',
       html: `
