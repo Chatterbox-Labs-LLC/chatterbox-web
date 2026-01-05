@@ -8,15 +8,7 @@ function UnsupportedContent() {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-      {type === "device" ? (
-        <DeviceNotSupported />
-      ) : (
-        <BrowserNotSupported />
-      )}
-    </div>
-  );
+  return type === "device" ? <DeviceNotSupported /> : <BrowserNotSupported />;
 }
 
 export default function UnsupportedPage() {

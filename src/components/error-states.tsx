@@ -43,52 +43,58 @@ export function ErrorState({
     error: "text-red-500 bg-red-50 dark:bg-red-900/20"
   };
 
+  const currentYear = new Date().getFullYear();
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60vh] px-4 py-12">
+    <div className="flex flex-col items-center justify-center min-h-screen px-4 py-12 relative bg-zinc-50 dark:bg-zinc-950">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.3 }}
-        className="w-full max-w-md"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="w-full max-w-md text-center"
       >
-        <Card className="text-center border-zinc-200 dark:border-zinc-800 shadow-xl overflow-hidden">
-          <CardHeader className="pt-10 pb-6">
-            <div className="flex justify-center mb-6">
-              <div className={`p-4 rounded-2xl ${iconColors[variant]}`}>
-                {icon || <AlertCircle className="h-10 w-10" />}
-              </div>
-            </div>
-            <CardTitle className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-              {title}
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pb-8">
-            <p className="text-zinc-500 dark:text-zinc-400">
-              {description}
-            </p>
-          </CardContent>
-          <CardFooter className="flex flex-col gap-3 pb-10 px-10">
-            {actionHref ? (
-              <Button className="w-full h-12 font-semibold" asChild>
-                <Link href={actionHref}>{actionLabel || "Try Again"}</Link>
-              </Button>
-            ) : onAction ? (
-              <Button className="w-full h-12 font-semibold" onClick={onAction}>
-                {actionLabel || "Try Again"}
-              </Button>
-            ) : null}
-            
-            {showHomeButton && (
-              <Button variant="outline" className="w-full h-12 font-semibold gap-2" asChild>
-                <Link href="/">
-                  <Home className="h-4 w-4" />
-                  Back to Home
-                </Link>
-              </Button>
-            )}
-          </CardFooter>
-        </Card>
+        <div className="flex justify-center mb-8">
+          <div className={`p-5 rounded-3xl ${iconColors[variant]} shadow-inner`}>
+            {icon || <AlertCircle className="h-12 w-12" />}
+          </div>
+        </div>
+        
+        <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 mb-4">
+          {title}
+        </h1>
+        
+        <p className="text-zinc-500 dark:text-zinc-400 text-lg mb-10 max-w-[320px] mx-auto leading-relaxed">
+          {description}
+        </p>
+
+        <div className="flex flex-col gap-3 max-w-[280px] mx-auto">
+          {actionHref ? (
+            <Button className="w-full h-12 font-semibold rounded-xl" asChild>
+              <Link href={actionHref}>{actionLabel || "Try Again"}</Link>
+            </Button>
+          ) : onAction ? (
+            <Button className="w-full h-12 font-semibold rounded-xl" onClick={onAction}>
+              {actionLabel || "Try Again"}
+            </Button>
+          ) : null}
+          
+          {showHomeButton && (
+            <Button variant="ghost" className="w-full h-12 font-semibold gap-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100" asChild>
+              <Link href="/">
+                <Home className="h-4 w-4" />
+                Back to Home
+              </Link>
+            </Button>
+          )}
+        </div>
       </motion.div>
+
+      {/* Simplified Copyright Footer */}
+      <footer className="absolute bottom-8 left-0 right-0 text-center">
+        <p className="text-xs text-zinc-400 dark:text-zinc-600 font-medium tracking-wide uppercase">
+          &copy; {currentYear} Chatterbox Labs LLC. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
 }

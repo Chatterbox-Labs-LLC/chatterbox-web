@@ -15,9 +15,5 @@ export default function Error({
     console.error("Global error caught:", error);
   }, [error]);
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-      <GlobalErrorState error={error} reset={reset} />
-    </div>
-  );
+  return <GlobalErrorState error={error} reset={reset} />;
 }

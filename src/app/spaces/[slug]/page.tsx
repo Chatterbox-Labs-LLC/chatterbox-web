@@ -256,11 +256,7 @@ export default function SpacePage({params }: SpacePageProps) {
   }
 
   if (!currentSpace) {
-    return (
-      <div className="flex h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
-        <WorkspaceNotFound slug={slug} />
-      </div>
-    );
+    return <WorkspaceNotFound slug={slug} />;
   }
 
   const fullName = user?.user_metadata?.full_name || 'Guest';
