@@ -25,6 +25,7 @@ import CreateChannelModal from '@/components/create-channel-modal';
 import ChannelSettingsModal from '@/components/channel-settings-modal';
 import WorkspaceSettingsModal from '@/components/workspace-settings-modal';
 import UserProfileSection from '@/components/user-profile-section';
+import { WorkspaceNotFound } from '@/components/error-states';
 import { useState, useEffect, use, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
@@ -256,13 +257,8 @@ export default function SpacePage({params }: SpacePageProps) {
 
   if (!currentSpace) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold">Space not found</h1>
-          <Button asChild className="mt-4">
-            <Link href="/dashboard">Back to Dashboard</Link>
-          </Button>
-        </div>
+      <div className="flex h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950">
+        <WorkspaceNotFound slug={slug} />
       </div>
     );
   }
