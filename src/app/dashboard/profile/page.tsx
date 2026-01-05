@@ -1,5 +1,7 @@
 'use client';
 
+export const runtime = 'edge';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -258,7 +260,6 @@ const COUNTRIES = [
   { code: 'ZW', name: 'Zimbabwe' },
 ];
 
-export const runtime = 'edge';
 
 export default function ProfilePage() {
   const router = useRouter();

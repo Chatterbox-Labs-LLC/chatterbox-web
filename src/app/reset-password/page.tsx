@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -28,8 +30,6 @@ const changePasswordSchema = z.object({
 });
 
 type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
-
-export const runtime = "edge";
 
 export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false);

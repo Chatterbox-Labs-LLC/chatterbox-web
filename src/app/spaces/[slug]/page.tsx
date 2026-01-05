@@ -1,5 +1,7 @@
 'use client';
 
+export const runtime = 'edge';
+
 import { createClient } from '@/lib/supabase';
 import Link from 'next/link';
 import { 
@@ -30,9 +32,7 @@ interface SpacePageProps {
   }>;
 }
 
-export const runtime = 'edge';
-
-export default async function SpacePage({params }: SpacePageProps) {
+export default function SpacePage({params }: SpacePageProps) {
   const resolvedParams = use(params);
   const slug = resolvedParams.slug;
   const [currentSpace, setCurrentSpace] = useState<any>(null);

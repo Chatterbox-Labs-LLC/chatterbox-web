@@ -1,9 +1,10 @@
+export const runtime = 'edge';
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, Shield, Globe, ArrowRight, Star, Users, Layout, Zap as ZapIcon } from "lucide-react";
 import Link from "next/link";
 
-export const runtime = "edge";
+
 
 export default function Home() {
   return (

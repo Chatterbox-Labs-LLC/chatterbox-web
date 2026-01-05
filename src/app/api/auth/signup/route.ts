@@ -1,12 +1,13 @@
+export const runtime = 'edge';
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { resend } from '@/lib/resend';
 
-export const runtime = 'edge';
 
 export async function POST(request: Request) {
   try {
-    const { email, password, firstName, lastName } = await request.json();
+    const body = await request.json();
+    const { email, password, firstName, lastName } = body;
 
     if (!email || !password || !firstName || !lastName) {
       return NextResponse.json(
@@ -16,11 +17,10 @@ export async function POST(request: Request) {
     }
 
     // 1. Create the user in Supabase Auth
-    // Supabase will automatically handle email uniqueness and return an error if it exists.
     const { data: authData, error: authError } = await supabaseAdmin.auth.admin.createUser({
       email,
       password,
-      email_confirm: false, // We want them to verify
+      email_confirm: false,
       user_metadata: {
         first_name: firstName,
         last_name: lastName,
@@ -29,21 +29,23 @@ export async function POST(request: Request) {
     });
 
     if (authError) {
-      // Handle the specific "User already registered" case if needed
-      if (authError.message.includes('already registered') || authError.message.includes('already exists')) {
-        return NextResponse.json({ error: 'This email is already registered. Please try logging in instead.' }, { status: 400 });
-      }
-      return NextResponse.json({ error: authError.message }, { status: 400 });
+      return NextResponse.json(
+        { 
+          error: authError.message,
+          code: authError.code,
+        }, 
+        { status: 400 }
+      );
     }
 
     const userId = authData.user.id;
 
     // 3. Generate verification link
-    // We use 'magiclink' because it generates a link that works with exchangeCodeForSession
-    // and correctly handles verification for new accounts.
+    // We use 'signup' because it generates a link to confirm a new account creation.
     const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'magiclink',
+      type: 'signup',
       email,
+      password,
       options: {
         redirectTo: `${new URL(request.url).origin}/dashboard/welcome`,
       },
@@ -58,8 +60,11 @@ export async function POST(request: Request) {
     const verificationLink = linkData.properties.action_link;
 
     // 4. Send email via Resend
+    // Use onboarding@resend.dev if you haven't verified your domain yet
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Chatterbox Teams <onboarding@chatterboxteams.com>';
+    
     const { error: emailError } = await resend.emails.send({
-      from: 'Chatterbox Teams <onboarding@resend.dev>', // Update this with a verified domain later
+      from: fromEmail,
       to: [email],
       subject: 'Verify your email for Chatterbox Teams',
       html: `
@@ -77,10 +82,6 @@ export async function POST(request: Request) {
     });
 
     if (emailError) {
-      console.error('Resend error details:', {
-        message: emailError.message,
-        name: emailError.name,
-      });
       // We don't delete the user here because they can still try to resend the email later
       return NextResponse.json({ 
         error: `Account created but email failed: ${emailError.message}. Make sure your RESEND_API_KEY is correct.`,
@@ -90,7 +91,6 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error: any) {
-    console.error('Signup API error:', error);
     return NextResponse.json(
       { error: error.message || 'An unexpected error occurred' },
       { status: 500 }

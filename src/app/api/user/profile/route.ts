@@ -1,8 +1,8 @@
+export const runtime = 'edge';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase-server';
 import { revalidateUserCache } from '@/lib/revalidate';
 
-export const runtime = 'edge';
 
 export async function POST(request: Request) {
   try {

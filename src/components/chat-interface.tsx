@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
@@ -18,37 +17,22 @@ import {
 import { format } from 'date-fns';
 import { 
   Hash, 
-  Search, 
-  Settings, 
   Plus, 
-  Smile, 
   Send, 
   X, 
   Pencil, 
   Trash2, 
   Reply,
-  ChevronDown,
-  Users,
-  Pin,
-  Phone,
-  Video,
-  Check,
-  FileText, 
   FileIcon, 
-  ExternalLink, 
-  Download,
   MoreHorizontal,
   Loader2,
-  Play,
-  SmilePlus,
   MapPin,
-  Globe,
   Building2,
 } from 'lucide-react';
 import { MediaModal } from './media-modal';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { db } from '@/lib/db';
+import { db, type LocalMessage } from '@/lib/db/index';
 import { useLiveQuery } from 'dexie-react-hooks';
 
 interface Message {
@@ -78,7 +62,7 @@ interface Message {
       avatar_url: string | null;
     } | null;
   } | null;
-  status?: 'sent' | 'pending' | 'error';
+  status: 'sent' | 'pending' | 'error';
 }
 
 interface ChatInterfaceProps {
@@ -203,8 +187,8 @@ export default function ChatInterface({
             if (!error && data) {
               // Normalize data for UI
               const normalizedData = activeChannelId ? data : {
-                ...data,
-                profiles: (data as { sender: any }).sender
+                ...(data as any),
+                profiles: (data as any).sender
               };
               
               // Cache in Dexie
@@ -214,7 +198,7 @@ export default function ChatInterface({
                 channel_id: activeChannelId,
                 conversation_id: activeConversationId,
                 status: 'sent'
-              });
+              } as LocalMessage);
             }
           } else if (payload.eventType === 'UPDATE') {
             await db.messages.update(payload.new.id, {

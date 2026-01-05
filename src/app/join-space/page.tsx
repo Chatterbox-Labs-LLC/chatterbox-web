@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -8,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, Loader2, Search, ArrowRight, Layout, Users, Plus, ShieldCheck } from "lucide-react";
-
-export const runtime = "edge";
 
 export default function JoinSpacePage() {
   const [loading, setLoading] = useState(false);

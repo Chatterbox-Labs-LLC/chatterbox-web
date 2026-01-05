@@ -1,8 +1,8 @@
+export const runtime = 'edge';
 import { NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase-admin';
 import { resend } from '@/lib/resend';
 
-export const runtime = 'edge';
 
 export async function POST(request: Request) {
   try {
@@ -13,32 +13,28 @@ export async function POST(request: Request) {
     }
 
     // 1. Get user to find their metadata (for the name in the email)
+    // We search through users to find the one with the matching email
     const { data: { users }, error: listError } = await supabaseAdmin.auth.admin.listUsers();
-    const user = users.find((u: any) => u.email === email);
+    
+    if (listError) {
+      return NextResponse.json({ error: 'Failed to lookup user' }, { status: 500 });
+    }
+
+    const user = users.find((u: any) => u.email?.toLowerCase() === email.toLowerCase());
 
     if (!user) {
       // For security, don't reveal if user exists
       return NextResponse.json({ success: true });
     }
 
-    // 2. Generate a magic link or signup link
-    // We'll use a magic link for resending verification if they haven't verified yet
-    const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
-      type: 'signup',
-      email,
-      password: '', // This might be tricky for resending if we don't have the password. 
-      // Actually, for resending verification, we usually use 'magiclink' or 'invite'.
-      // But 'signup' type in generateLink requires a password.
-      options: {
-        redirectTo: `${new URL(request.url).origin}/auth/callback`,
-      },
-    });
+    // If already verified, we can just return success or a specific message
+    if (user.email_confirmed_at) {
+      return NextResponse.json({ success: true, message: 'Email already verified' });
+    }
 
-    // Wait, if we don't have the password, we can't generate a 'signup' link.
-    // Let's use 'magiclink' instead, it works for verification too if handled correctly.
-    // Or better: Use 'invite' link which doesn't require a password.
-    
-    const { data: inviteData, error: inviteError } = await supabaseAdmin.auth.admin.generateLink({
+    // 2. Generate a verification link
+    // We'll use 'magiclink' for verification as it's the most reliable for existing users
+    const { data: linkData, error: linkError } = await supabaseAdmin.auth.admin.generateLink({
       type: 'magiclink',
       email,
       options: {
@@ -46,23 +42,26 @@ export async function POST(request: Request) {
       },
     });
 
-    if (inviteError) {
-      return NextResponse.json({ error: inviteError.message }, { status: 500 });
+    if (linkError) {
+      return NextResponse.json({ error: linkError.message }, { status: 500 });
     }
 
-    const verificationLink = inviteData.properties.action_link;
+    const verificationLink = linkData.properties.action_link;
     const firstName = user.user_metadata?.first_name || 'there';
 
     // 3. Send email via Resend
-    await resend.emails.send({
-      from: 'Chatterbox Teams <onboarding@resend.dev>',
+    // Use onboarding@resend.dev if you haven't verified your domain yet
+    const fromEmail = process.env.RESEND_FROM_EMAIL || 'Chatterbox Teams <onboarding@chatterboxteams.com>';
+
+    const { error: emailError } = await resend.emails.send({
+      from: fromEmail,
       to: [email],
       subject: 'Verify your email for Chatterbox Teams',
       html: `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e5e7eb; border-radius: 12px;">
           <h1 style="color: #000; font-size: 24px; font-weight: bold; margin-bottom: 16px;">Verify your email</h1>
           <p style="color: #4b5563; font-size: 16px; line-height: 24px; margin-bottom: 24px;">
-            Here is your new verification link to get started with Chatterbox Teams.
+            Hi ${firstName}, here is your new verification link to get started with Chatterbox Teams.
           </p>
           <a href="${verificationLink}" style="display: inline-block; background-color: #065ce5; color: white; padding: 12px 24px; border-radius: 6px; text-decoration: none; font-weight: bold; margin: 20px 0;">Verify Email Address</a>
           <p>If the button doesn't work, you can copy and paste this link into your browser:</p>
@@ -72,6 +71,10 @@ export async function POST(request: Request) {
         </div>
       `,
     });
+
+    if (emailError) {
+      return NextResponse.json({ error: emailError.message }, { status: 500 });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error: any) {

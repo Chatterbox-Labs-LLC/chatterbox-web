@@ -1,10 +1,10 @@
+export const runtime = 'edge';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
 import { Plus, Search, UserPlus, ArrowRight, MessageSquare, Globe, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
-export const runtime = 'edge';
 
 export default async function DashboardPage() {
   const supabase = await createClient();

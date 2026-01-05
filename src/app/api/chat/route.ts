@@ -1,8 +1,8 @@
+export const runtime = 'edge';
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
 import { getCachedSpace, getCachedChannels, getCachedMembership } from '@/lib/cache';
 
-export const runtime = 'edge';
 
 export async function GET(request: Request) {
   try {

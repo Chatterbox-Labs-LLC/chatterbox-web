@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -32,8 +34,6 @@ const profileSchema = z.object({
 
 type SignupFormValues = z.infer<typeof signupSchema>;
 type ProfileFormValues = z.infer<typeof profileSchema>;
-
-export const runtime = "edge";
 
 export default function SignupPage() {
   const [step, setStep] = useState(1);

@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -17,8 +19,6 @@ const changePasswordRequestSchema = z.object({
 });
 
 type ChangePasswordRequestFormValues = z.infer<typeof changePasswordRequestSchema>;
-
-export const runtime = "edge";
 
 export default function ForgotPasswordPage() {
   const [loading, setLoading] = useState(false);

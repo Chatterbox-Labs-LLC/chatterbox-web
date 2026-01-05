@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = "edge";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -19,8 +21,6 @@ const addAccountSchema = z.object({
 });
 
 type AddAccountFormValues = z.infer<typeof addAccountSchema>;
-
-export const runtime = "edge";
 
 export default function AddAccountPage() {
   const [loading, setLoading] = useState(false);

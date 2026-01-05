@@ -1,4 +1,6 @@
-'use client';
+"use client";
+
+export const runtime = 'edge';
 
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -21,7 +23,6 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 
-export const runtime = 'edge';
 
 export default function UserProfilePage() {
   const params = useParams();

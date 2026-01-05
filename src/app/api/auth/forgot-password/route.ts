@@ -1,10 +1,10 @@
+export const runtime = 'edge';
 import { supabaseAdmin } from '@/lib/supabase-admin'
 import { resend } from '@/lib/resend'
 import { NextResponse } from 'next/server'
 
-export const runtime = 'edge';
 
-export async function POST(req: Request) {
+export async function POST(request: Request) {
   try {
     const { email } = await request.json()
 
@@ -46,7 +46,7 @@ export async function POST(req: Request) {
 
     // Send email via Resend
     const { error: emailError } = await resend.emails.send({
-      from: 'Chatterbox Teams <onboarding@resend.dev>',
+      from: 'Chatterbox Teams <onboarding@chatterboxteams.com>',
       to: [email],
       subject: 'Reset your password for Chatterbox Teams',
       html: `

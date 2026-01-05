@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
 import { MessageSquare, Plus, Search, UserPlus, ArrowRight, LayoutDashboard, Globe, Users } from 'lucide-react';
@@ -6,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { redirect } from 'next/navigation';
 import { getCachedUserSpaces } from '@/lib/cache';
 
-export const runtime = 'edge';
 
 export default async function SpacesPage() {
   const supabase = await createClient();

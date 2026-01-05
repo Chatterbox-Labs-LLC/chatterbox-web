@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -25,8 +27,6 @@ const createSpaceSchema = z.object({
 });
 
 type CreateSpaceFormValues = z.infer<typeof createSpaceSchema>;
-
-export const runtime = "edge";
 
 export default function CreateSpacePage() {
   const [loading, setLoading] = useState(false);

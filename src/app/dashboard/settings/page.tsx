@@ -1,5 +1,7 @@
 'use client';
 
+export const runtime = 'edge';
+
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -7,9 +9,8 @@ import { createClient } from '@/lib/supabase';
 import { useEffect, useState } from 'react';
 import { Loader2, CheckCircle2 } from 'lucide-react';
 
-export const runtime = 'edge';
 
-export default async function SettingsPage() {
+export default function SettingsPage() {
   const supabase = createClient();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);

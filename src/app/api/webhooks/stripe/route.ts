@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 import { stripe } from '@/lib/stripe';
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
@@ -5,7 +6,6 @@ import Stripe from 'stripe';
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
-export const runtime = 'edge';
 
 export async function POST(req: Request) {
   const body = await req.text();

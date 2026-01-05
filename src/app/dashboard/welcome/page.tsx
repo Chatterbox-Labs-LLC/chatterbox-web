@@ -1,5 +1,7 @@
 "use client";
 
+export const runtime = 'edge';
+
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
@@ -7,8 +9,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { MessageSquare, PartyPopper, ArrowRight, Sparkles, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-
-export const runtime = "edge";
 
 export default function WelcomePage() {
   const [user, setUser] = useState<any>(null);
