@@ -5,20 +5,21 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  MessageSquare, 
-  Shield, 
-  Globe, 
   ArrowRight, 
-  Star, 
+  CheckCircle2, 
+  MessageSquare, 
   Users, 
-  Layout, 
-  Zap as ZapIcon,
-  CheckCircle2,
-  Lock,
-  Search,
   Sparkles,
+  Search,
+  Hash,
+  AtSign,
+  Video,
+  ChevronRight,
+  Globe,
+  Layout,
+  Lock,
   Zap,
-  Github
+  Github as GitHubIcon
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -234,7 +235,7 @@ export default function Home() {
                 {
                   title: "Developer First",
                   description: "Robust API, webhooks, and deep integrations with the tools your team already uses.",
-                  icon: Github,
+                  icon: GitHubIcon,
                   color: "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400"
                 }
               ].map((feature, i) => (
