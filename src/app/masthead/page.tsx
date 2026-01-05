@@ -11,7 +11,6 @@ export default function MastheadPage() {
     {
       name: "George Holmes",
       role: "Founder & CEO",
-      bio: "Visionary leader with a passion for building tools that empower teams. Previously led product at major tech companies.",
       image: "GH",
       twitter: "#",
       linkedin: "#",
@@ -20,7 +19,6 @@ export default function MastheadPage() {
     {
       name: "Sarah Chen",
       role: "CTO",
-      bio: "Expert in distributed systems and real-time communication infrastructure. Architect of the Chatterbox engine.",
       image: "SC",
       twitter: "#",
       linkedin: "#",
@@ -29,7 +27,6 @@ export default function MastheadPage() {
     {
       name: "Marcus Thorne",
       role: "Head of Design",
-      bio: "Crafting beautiful and intuitive user experiences. Focused on making complex tools feel simple and delightful.",
       image: "MT",
       twitter: "#",
       linkedin: "#",
@@ -38,7 +35,6 @@ export default function MastheadPage() {
     {
       name: "Elena Rodriguez",
       role: "Head of Operations",
-      bio: "Scaling our team and processes to support global growth while maintaining our core values and culture.",
       image: "ER",
       twitter: "#",
       linkedin: "#",
@@ -122,9 +118,6 @@ export default function MastheadPage() {
                       <h3 className="text-2xl font-bold">{member.name}</h3>
                       <p className="text-blue-600 font-semibold uppercase tracking-wider text-sm">{member.role}</p>
                     </div>
-                    <p className="text-zinc-500 dark:text-zinc-400 text-lg leading-relaxed">
-                      {member.bio}
-                    </p>
                     <div className="flex gap-4 pt-2">
                       <Link href={member.twitter} className="text-zinc-400 hover:text-blue-400 transition-colors">
                         <Twitter className="h-5 w-5" />
