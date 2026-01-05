@@ -113,21 +113,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Trusted By Section */}
-        <section className="py-12 border-y border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-950">
-          <div className="container px-4 md:px-6 mx-auto">
-            <p className="text-center text-zinc-400 dark:text-zinc-500 text-sm font-bold uppercase tracking-widest mb-10">
-              Trusted by high-performance teams worldwide
-            </p>
-            <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-50 grayscale">
-              <div className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-white">BOLT</div>
-              <div className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-white">SPHERE</div>
-              <div className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-white">VELOCITY</div>
-              <div className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-white">ACME</div>
-              <div className="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-white">PRISM</div>
-            </div>
-          </div>
-        </section>
 
         {/* How it Works Section */}
         <section className="py-32 bg-white dark:bg-zinc-950">
