@@ -13,6 +13,7 @@ import { useState } from "react";
 function VerifyContent() {
   const searchParams = useSearchParams();
   const email = searchParams.get("email");
+  const emailError = searchParams.get("emailError");
   const [resending, setResending] = useState(false);
   const [resendStatus, setResendStatus] = useState<"idle" | "success" | "error">("idle");
 
@@ -66,8 +67,16 @@ function VerifyContent() {
           <div className="space-y-2">
             <CardTitle className="text-3xl font-bold tracking-tight">Check your email</CardTitle>
             <CardDescription className="text-base">
-              We've sent a magic link to <br />
-              <span className="font-semibold text-zinc-900 dark:text-zinc-100">{email || "your inbox"}</span>
+              {emailError ? (
+                <span className="text-amber-600 dark:text-amber-400 font-medium">
+                  Account created, but we couldn't send the link automatically. Please click "Resend" below.
+                </span>
+              ) : (
+                <>
+                  We've sent a magic link to <br />
+                  <span className="font-semibold text-zinc-900 dark:text-zinc-100">{email || "your inbox"}</span>
+                </>
+              )}
             </CardDescription>
           </div>
         </CardHeader>

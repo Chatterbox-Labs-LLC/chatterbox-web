@@ -12,4 +12,4 @@ export const getResend = () => {
 
 export const resend = getResend();
 
-export const RESEND_FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev';
+export const RESEND_FROM_EMAIL = 'onboarding@chatterboxteams.com';

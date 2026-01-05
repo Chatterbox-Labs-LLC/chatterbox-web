@@ -102,7 +102,9 @@ export default function SignupPage() {
         throw new Error(result.error || "Failed to sign up");
       }
 
-      router.push(`/verify?email=${encodeURIComponent(tempCredentials.email)}`);
+      // If we got a success but there was an email error, we should still proceed
+      // but maybe show a message on the verify page.
+      router.push(`/verify?email=${encodeURIComponent(tempCredentials.email)}${result.data?.emailError ? '&emailError=true' : ''}`);
     } catch (err: any) {
       setError(err.message || "An error occurred during signup");
     } finally {
