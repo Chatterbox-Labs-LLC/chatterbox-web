@@ -138,7 +138,7 @@ export function WorkspaceNotFound({ slug }: { slug?: string }) {
   );
 }
 
-export function GlobalErrorState({ error: _, reset }: { error: Error; reset: () => void }) {
+export function GlobalErrorState({ reset }: { error: Error; reset: () => void }) {
   return (
     <ErrorState
       title="Something went wrong"

@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -83,6 +83,12 @@ interface ChatInterfaceProps {
   activeConversationId?: string | null;
 }
 
+interface Presence {
+  user_id: string;
+  full_name: string;
+  is_typing: boolean;
+}
+
 export default function ChatInterface({ 
   currentSpace, 
   currentUser,
@@ -147,7 +153,7 @@ export default function ChatInterface({
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [liveMessages, typingUsers]);
+  }, [liveMessages.length, typingUsers]);
 
   // Set up real-time subscription
   useEffect(() => {
@@ -186,9 +192,10 @@ export default function ChatInterface({
 
             if (!error && data) {
               // Normalize data for UI
-              const normalizedData = activeChannelId ? data : {
-                ...(data as any),
-                profiles: (data as any).sender
+              const rawData = data as Record<string, any>;
+              const normalizedData = activeChannelId ? rawData : {
+                ...rawData,
+                profiles: rawData.sender
               };
               
               // Cache in Dexie
@@ -242,7 +249,7 @@ export default function ChatInterface({
         const typing: Record<string, { full_name: string }> = {};
         
         Object.values(newState).forEach((presences) => {
-          (presences as any[]).forEach((presence) => {
+          (presences as unknown as Presence[]).forEach((presence) => {
             if (presence.is_typing && presence.user_id !== currentUser.id) {
               typing[presence.user_id] = { full_name: presence.full_name };
             }
@@ -264,7 +271,7 @@ export default function ChatInterface({
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [activeChannelId, supabase]);
+  }, [activeChannelId, activeConversationId, currentSpace.id, currentUser.full_name, currentUser.id, supabase]);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -625,12 +632,15 @@ export default function ChatInterface({
                   {message.file_url && (
                     <div className="mt-2">
                       {message.file_type?.startsWith('image/') ? (
-                        <img 
-                          src={message.file_url} 
-                          alt="Attachment" 
-                          className="max-w-sm max-h-[300px] rounded-lg border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:opacity-90 transition-opacity"
-                          onClick={() => setSelectedMedia({ url: message.file_url!, type: message.file_type! })}
-                        />
+                        <div className="relative max-w-sm h-[300px]">
+                          <Image 
+                            src={message.file_url} 
+                            alt="Attachment" 
+                            fill
+                            className="rounded-lg border border-zinc-200 dark:border-zinc-800 cursor-pointer hover:opacity-90 transition-opacity object-contain"
+                            onClick={() => setSelectedMedia({ url: message.file_url!, type: message.file_type! })}
+                          />
+                        </div>
                       ) : (
                         <a 
                           href={message.file_url} 

@@ -14,9 +14,9 @@ export async function createClient() {
       supabaseAnonKey || 'placeholder',
       {
         cookies: {
-          get(name: string) { return undefined; },
-          set(name: string, value: string, options: CookieOptions) {},
-          remove(name: string, options: CookieOptions) {},
+          get(_name: string) { return undefined; },
+          set(_name: string, _value: string, _options: CookieOptions) {},
+          remove(_name: string, _options: CookieOptions) {},
         },
       }
     );

@@ -14,20 +14,47 @@ import { cn } from '@/lib/utils';
 import CreateChannelModal from '@/components/create-channel-modal';
 import UserProfileSection from '@/components/user-profile-section';
 
+interface Space {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string | null;
+}
+
+interface Channel {
+  id: string;
+  name: string;
+}
+
+interface Conversation {
+  id: string;
+  other_user?: {
+    full_name: string | null;
+    avatar_url: string | null;
+  };
+}
+
+interface User {
+  id: string;
+  full_name: string;
+  avatar_url?: string;
+}
+
 interface SidebarProps {
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (open: boolean) => void;
-  spaces: any[];
-  currentSpace: any;
+  spaces: Space[];
+  currentSpace: Space;
   slug: string;
-  localChannels: any[];
+  localChannels: Channel[];
   activeChannelId: string | null;
   handleChannelSwitch: (id: string) => void;
-  localConversations: any[];
+  localConversations: Conversation[];
   activeConversationId: string | null;
   handleConversationSwitch: (id: string) => void;
   handleRefresh: () => void;
-  currentUser: any;
+  currentUser: User;
+  onOpenDirectMessageModal?: () => void;
 }
 
 export function Sidebar({
@@ -101,7 +128,7 @@ export function Sidebar({
               <CreateChannelModal spaceId={currentSpace.id} onChannelCreated={handleRefresh} />
             </div>
             <div className="space-y-0.5">
-              {localChannels.map((channel: any) => (
+              {localChannels.map((channel: Channel) => (
                 <button 
                   key={channel.id}
                   onClick={() => handleChannelSwitch(channel.id)}
@@ -127,7 +154,7 @@ export function Sidebar({
               </Button>
             </div>
             <div className="space-y-0.5">
-              {localConversations.map((conv: any) => (
+              {localConversations.map((conv: Conversation) => (
                 <button 
                   key={conv.id}
                   onClick={() => handleConversationSwitch(conv.id)}

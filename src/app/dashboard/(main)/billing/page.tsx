@@ -9,7 +9,7 @@ import { useState } from 'react';
 
 
 export default function BillingPage() {
-  const [loading] = useState<string | null>(null);
+  const [loading, setLoading] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'plans' | 'history' | 'payment'>('plans');
 
   const invoiceHistory: any[] = [];
