@@ -1,11 +1,12 @@
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { createAdminClient } from '@/lib/supabase-admin';
 import { resend } from '@/lib/resend';
 
 
 export async function POST(request: Request) {
+  const supabaseAdmin = createAdminClient();
   try {
     const { email } = await request.json();
 

@@ -1,19 +1,28 @@
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { NextResponse } from 'next/server';
-import { supabaseAdmin } from '@/lib/supabase-admin';
+import { createAdminClient } from '@/lib/supabase-admin';
 import { resend } from '@/lib/resend';
 
-
 export async function POST(request: Request) {
+  const supabaseAdmin = createAdminClient();
   try {
     const body = await request.json();
     const { email, password, firstName, lastName } = body;
 
     if (!email || !password || !firstName || !lastName) {
       return NextResponse.json(
-        { error: 'Missing required fields' },
+        { error: 'Missing required fields (email, password, firstName, lastName)' },
         { status: 400 }
+      );
+    }
+
+    // Check if admin client is actually configured
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('Signup failed: SUPABASE_SERVICE_ROLE_KEY is missing');
+      return NextResponse.json(
+        { error: 'Server configuration error: Missing Service Role Key' },
+        { status: 500 }
       );
     }
 
