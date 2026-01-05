@@ -17,29 +17,22 @@ export default function MastheadPage() {
       github: "#",
     },
     {
-      name: "Sarah Chen",
-      role: "CTO",
-      image: "SC",
+      name: "Connor Dugan",
+      role: "Co-Founder & President",
+      image: "CD",
       twitter: "#",
       linkedin: "#",
       github: "#",
     },
     {
-      name: "Marcus Thorne",
-      role: "Head of Design",
-      image: "MT",
+      name: "Micheal Chessare",
+      role: "CTO & Board Member",
+      image: "MC",
       twitter: "#",
       linkedin: "#",
       github: "#",
     },
-    {
-      name: "Elena Rodriguez",
-      role: "Head of Operations",
-      image: "ER",
-      twitter: "#",
-      linkedin: "#",
-      github: "#",
-    },
+    
   ];
 
   return (

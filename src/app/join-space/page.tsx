@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { MessageSquare, Loader2, Search, ArrowRight, Layout, Users, Plus, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function JoinSpacePage() {
   const [loading, setLoading] = useState(false);
@@ -122,123 +123,135 @@ export default function JoinSpacePage() {
   if (!mounted) return null;
 
   return (
-    <div className="flex flex-col min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <header className="h-16 border-b bg-white dark:bg-zinc-900 px-6 flex items-center justify-between sticky top-0 z-10">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="bg-black p-1.5 rounded-lg">
-            <MessageSquare className="h-5 w-5 text-white" />
-          </div>
-          <span className="font-bold text-lg tracking-tight hidden sm:block">Chatterbox Teams</span>
-        </Link>
-        <div className="flex items-center gap-4">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/dashboard">Back to Dashboard</Link>
-          </Button>
-        </div>
-      </header>
-
-      <main className="flex-1 p-6 md:p-8 max-w-4xl mx-auto w-full space-y-8">
-        <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">
-            {slugParam ? `Join ${spaces[0]?.name || 'Space'}` : "Join a Space"}
-          </h1>
-          <p className="text-muted-foreground max-w-md mx-auto">
-            {slugParam 
-              ? "You need to join this space before you can access its channels."
-              : "Search for an existing space by name or unique URL slug to join your team or community."}
-          </p>
-        </div>
-
-        {!slugParam && (
-          <form onSubmit={handleSearch} className="flex gap-2">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Search by name or slug (e.g. 'marketing' or 'design-team')"
-                className="pl-10 h-12"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Card className="shadow-lg border-zinc-200 dark:border-zinc-800 overflow-hidden">
+          <CardHeader className="space-y-4">
+            <div className="flex justify-center mb-2">
+              <Link href="/dashboard" className="bg-black dark:bg-white p-2 rounded-xl hover:scale-110 transition-transform">
+                <MessageSquare className="h-6 w-6 text-white dark:text-black" />
+              </Link>
             </div>
-            <Button type="submit" size="lg" disabled={searching} className="px-8">
-              {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : "Search"}
-            </Button>
-          </form>
-        )}
-
-        {error && (
-          <div className="p-4 bg-destructive/10 text-destructive rounded-lg text-sm border border-destructive/20 text-center">
-            {error}
-          </div>
-        )}
-
-        <div className="grid gap-4">
-          {searching ? (
-            <div className="py-20 flex flex-col items-center justify-center text-zinc-400 gap-4">
-              <Loader2 className="h-8 w-8 animate-spin" />
-              <p>Searching for spaces...</p>
+            <div className="space-y-1">
+              <CardTitle className="text-2xl font-bold text-center">
+                {slugParam ? `Join ${spaces[0]?.name || 'Space'}` : "Join a Space"}
+              </CardTitle>
+              <CardDescription className="text-center">
+                {slugParam 
+                  ? "You need to join this space to access its channels."
+                  : "Search for a space to join your team."}
+              </CardDescription>
             </div>
-          ) : spaces.length > 0 ? (
-            spaces.map((space) => (
-              <Card key={space.id} className="hover:shadow-md transition-shadow">
-                <CardHeader className="flex flex-row items-center gap-4 pb-4">
-                  <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <Layout className="h-6 w-6 text-primary" />
+          </CardHeader>
+
+          <CardContent className="space-y-6">
+            {!slugParam && (
+              <form onSubmit={handleSearch} className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Enter space name or URL slug..."
+                  className="pl-10 h-11"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <button type="submit" className="hidden" />
+              </form>
+            )}
+
+            {error && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                className="bg-destructive/10 border border-destructive/20 rounded-lg p-3 text-sm text-destructive text-center"
+              >
+                {error}
+              </motion.div>
+            )}
+
+            <div className="space-y-3">
+              {searching ? (
+                <div className="py-12 flex flex-col items-center justify-center text-zinc-400 gap-3">
+                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <p className="text-sm">Searching for spaces...</p>
+                </div>
+              ) : spaces.length > 0 ? (
+                <div className="grid gap-3">
+                  {spaces.map((space) => (
+                    <motion.div
+                      key={space.id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="group"
+                    >
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-primary/50 transition-colors">
+                        <div className="flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <Layout className="h-5 w-5 text-primary" />
+                          </div>
+                          <div className="min-w-0">
+                            <h4 className="font-semibold text-sm truncate">{space.name}</h4>
+                            <p className="text-xs text-muted-foreground">/{space.slug}</p>
+                          </div>
+                        </div>
+                        <Button 
+                          size="sm"
+                          onClick={() => joinSpace(space.id, space.slug)}
+                          disabled={loading}
+                          className="h-8 px-4"
+                        >
+                          {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : "Join"}
+                        </Button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              ) : searchQuery && !searching ? (
+                <div className="text-center py-10 border-2 border-dashed rounded-2xl border-zinc-100 dark:border-zinc-800">
+                  <div className="bg-zinc-50 dark:bg-zinc-900 h-10 w-10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <Search className="h-5 w-5 text-muted-foreground" />
                   </div>
-                  <div className="flex-1">
-                    <CardTitle className="text-xl">{space.name}</CardTitle>
-                    <CardDescription className="flex items-center gap-2">
-                      <span className="font-mono text-xs bg-zinc-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded">
-                        /{space.slug}
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1">
-                        <Users className="h-3 w-3" />
-                        Active Space
-                      </span>
-                    </CardDescription>
-                  </div>
-                  <Button 
-                    onClick={() => joinSpace(space.id, space.slug)}
-                    disabled={loading}
-                  >
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Join Space"}
-                  </Button>
-                </CardHeader>
-                {space.description && (
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {space.description}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
-            ))
-          ) : searchQuery && !searching ? (
-            <div className="text-center py-12 border-2 border-dashed rounded-xl space-y-4">
-              <div className="bg-zinc-100 dark:bg-zinc-800 h-12 w-12 rounded-full flex items-center justify-center mx-auto">
-                <Search className="h-6 w-6 text-muted-foreground" />
-              </div>
-              <div className="space-y-1">
-                <p className="font-medium">No spaces found</p>
-                <p className="text-sm text-zinc-500">Try searching with a different keyword</p>
-              </div>
+                  <p className="text-sm font-medium">No spaces found</p>
+                  <p className="text-xs text-muted-foreground mt-1">Try a different name</p>
+                </div>
+              ) : !slugParam ? (
+                <div className="text-center py-10 text-muted-foreground">
+                  <Users className="h-10 w-10 mx-auto mb-3 opacity-20" />
+                  <p className="text-sm italic">Enter a search to find your community</p>
+                </div>
+              ) : null}
             </div>
-          ) : null}
-        </div>
+          </CardContent>
 
-        {slugParam && (
-          <div className="text-center pt-4">
-            <Button 
-              variant="ghost" 
-              onClick={() => router.push('/join-space')}
-              className="text-zinc-500 hover:text-black"
-            >
-              Search for other spaces
-            </Button>
-          </div>
-        )}
-      </main>
+          <CardFooter className="flex flex-col gap-4 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/50 dark:bg-zinc-900/50 p-6">
+            {slugParam ? (
+              <Button 
+                variant="outline" 
+                className="w-full bg-white dark:bg-zinc-950"
+                onClick={() => router.push('/join-space')}
+              >
+                Find another space
+              </Button>
+            ) : (
+              <Button 
+                variant="outline" 
+                className="w-full bg-white dark:bg-zinc-950"
+                asChild
+              >
+                <Link href="/dashboard">Back to Dashboard</Link>
+              </Button>
+            )}
+            
+            <p className="text-[10px] text-center text-muted-foreground px-4 uppercase tracking-widest font-semibold">
+              Chatterbox Teams &bull; Join your space
+            </p>
+          </CardFooter>
+        </Card>
+      </motion.div>
     </div>
   );
 }
