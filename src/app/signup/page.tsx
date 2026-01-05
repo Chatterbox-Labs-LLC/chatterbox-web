@@ -98,6 +98,7 @@ export default function SignupPage() {
       const result = await response.json();
 
       if (!response.ok) {
+        console.error("Signup API Error:", result);
         throw new Error(result.error || "Failed to sign up");
       }
 

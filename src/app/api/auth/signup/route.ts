@@ -6,8 +6,21 @@ export const runtime = 'edge';
 export async function POST(request: Request) {
   try {
     const supabase = await createClient();
+    
+    // Check if Supabase is properly configured
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder')) {
+      console.error('Signup Error: Supabase environment variables are missing or set to placeholder');
+      return NextResponse.json(
+        { error: 'Server configuration error. Please ensure Supabase environment variables are set correctly.' },
+        { status: 500 }
+      );
+    }
+
     const body = await request.json();
     const { email, password, firstName, lastName } = body;
+    
+    const origin = new URL(request.url).origin;
+    console.log('Signup Attempt:', { email, origin });
 
     if (!email || !password || !firstName || !lastName) {
       return NextResponse.json(
@@ -32,8 +45,25 @@ export async function POST(request: Request) {
     });
 
     if (error) {
-      console.error('Signup error:', error);
-      return NextResponse.json({ error: error.message }, { status: 400 });
+      console.error('Supabase Signup Error Details:', {
+        message: error.message,
+        status: error.status,
+        code: error.code,
+        name: error.name
+      });
+      
+      // Provide more helpful messages for common errors
+      let errorMessage = error.message;
+      if (error.message.includes('User already registered')) {
+        errorMessage = 'This email is already registered. Please try logging in instead.';
+      } else if (error.status === 400 && error.message.includes('Password')) {
+        errorMessage = 'Password does not meet security requirements.';
+      }
+      
+      return NextResponse.json({ 
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? error : undefined
+      }, { status: 400 });
     }
 
     return NextResponse.json({ success: true, data });
