@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Mail, MessageSquare, Check, Loader2 } from "lucide-react";
+import { Mail, MessageSquare, Check, Loader2, Sparkles } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 
@@ -40,92 +40,81 @@ function VerifyContent() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-100 via-zinc-50 to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-black px-4">
-      <div className="mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
-        <Link href="/" className="flex items-center gap-3 transition-transform hover:scale-105">
-          <div className="bg-black p-2.5 rounded-2xl shadow-lg shadow-black/10">
-            <MessageSquare className="h-7 w-7 text-white" />
-          </div>
-          <span className="text-3xl font-bold tracking-tight text-black dark:text-white">
-            Chatterbox Teams
-          </span>
-        </Link>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8 overflow-hidden relative">
+      {/* Background gradients */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <Card className="w-full max-w-md shadow-2xl shadow-black/5 border-zinc-200 dark:border-zinc-800 overflow-hidden animate-in fade-in zoom-in-95 duration-500">
-        <CardHeader className="space-y-6 pt-10 pb-6">
+      <div className="mb-10 flex flex-col items-center">
+        <div className="bg-black dark:bg-white p-3 rounded-2xl shadow-xl mb-4">
+          <MessageSquare className="h-8 w-8 text-white dark:text-black" />
+        </div>
+        <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+          Chatterbox Teams
+        </h2>
+      </div>
+
+      <Card className="w-full max-w-md shadow-2xl border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl">
+        <CardHeader className="space-y-6 text-center">
           <div className="flex justify-center">
-            <div className="bg-primary/10 p-5 rounded-full ring-[12px] ring-primary/5 animate-pulse">
-              <Mail className="h-12 w-12 text-primary" />
+            <div className="bg-blue-100 dark:bg-blue-900/30 p-4 rounded-full">
+              <Mail className="h-10 w-10 text-blue-600 dark:text-blue-400" />
             </div>
           </div>
-          <div className="space-y-3 text-center">
-            <CardTitle className="text-3xl font-extrabold tracking-tight">Check your email</CardTitle>
-            <CardDescription className="text-lg px-2 leading-relaxed text-muted-foreground">
-              We've sent a verification link to<br />
-              {email ? (
-                <span className="inline-block mt-2 text-primary font-bold bg-primary/5 px-3 py-1 rounded-lg border border-primary/10">
-                  {email}
-                </span>
-              ) : (
-                <span className="inline-block mt-2 italic">your email address</span>
-              )}
+          <div className="space-y-2">
+            <CardTitle className="text-3xl font-bold tracking-tight">Check your email</CardTitle>
+            <CardDescription className="text-base">
+              We've sent a magic link to <br />
+              <span className="font-semibold text-zinc-900 dark:text-zinc-100">{email || "your inbox"}</span>
             </CardDescription>
           </div>
         </CardHeader>
-        <CardContent className="space-y-8 pb-10">
-          <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 text-sm text-muted-foreground shadow-sm group hover:border-primary/20 transition-colors">
-            <ul className="space-y-4">
-              <li className="flex gap-4 items-center">
-                <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                </div>
-                <span className="text-zinc-700 dark:text-zinc-300">Click the link in the email to verify your account</span>
+        <CardContent className="space-y-6">
+          <div className="bg-zinc-100 dark:bg-zinc-800/50 p-6 rounded-2xl space-y-4">
+            <h4 className="font-semibold flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-blue-500" />
+              What happens next?
+            </h4>
+            <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+              <li className="flex gap-3">
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">1</div>
+                Check your inbox (and spam folder)
               </li>
-              <li className="flex gap-4 items-center">
-                <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                </div>
-                <span className="text-zinc-700 dark:text-zinc-300">Check your <b>spam folder</b> if you don't see it</span>
+              <li className="flex gap-3">
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">2</div>
+                Click the verification link
               </li>
-              <li className="flex gap-4 items-center">
-                <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
-                  <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
-                </div>
-                <span className="text-zinc-700 dark:text-zinc-300">The link will expire in 24 hours</span>
+              <li className="flex gap-3">
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-500/20 text-blue-600 dark:text-blue-400 flex items-center justify-center text-[10px] font-bold">3</div>
+                You'll be taken to your new welcome dashboard!
               </li>
             </ul>
           </div>
-
-          <div className="space-y-4">
+          
+          <div className="space-y-3">
             <Button 
               variant="outline" 
-              className="w-full h-14 text-base font-semibold transition-all hover:bg-primary/5 hover:text-primary hover:border-primary/30 rounded-xl" 
+              className="w-full h-12 rounded-xl border-zinc-200 dark:border-zinc-800 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" 
               onClick={handleResendEmail}
-              disabled={resending || resendStatus === "success" || !email}
+              disabled={resending || resendStatus === "success"}
             >
               {resending ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Sending new link...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
                 </>
               ) : resendStatus === "success" ? (
                 <>
-                  <Check className="mr-2 h-5 w-5 text-emerald-500" />
-                  Verification email resent!
+                  <Check className="mr-2 h-4 w-4 text-green-500" />
+                  Sent!
                 </>
               ) : (
-                "Didn't receive an email? Resend"
+                "Didn't get the email? Resend"
               )}
             </Button>
-            
-            {resendStatus === "error" && (
-              <p className="text-sm text-destructive text-center font-medium animate-in fade-in slide-in-from-top-1">
-                Failed to resend email. Please try again.
-              </p>
-            )}
-
-            <Button className="w-full h-14 text-base font-bold shadow-lg shadow-primary/10 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]" variant="secondary" asChild>
+            <Button className="w-full h-12 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold" variant="default" asChild>
               <Link href="/">Return to Home</Link>
             </Button>
           </div>

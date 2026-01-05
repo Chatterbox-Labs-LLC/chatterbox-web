@@ -6,27 +6,20 @@ export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase';
 import Link from 'next/link';
 import { 
-  MessageSquare, 
-  Search, 
-  Plus, 
-  Bell, 
-  Users,
   Hash,
   Menu,
-  X as CloseIcon
+  Search,
+  Bell,
+  Users
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import ChatInterface from '@/components/chat-interface';
-import { cn } from '@/lib/utils';
-import CreateChannelModal from '@/components/create-channel-modal';
-import ChannelSettingsModal from '@/components/channel-settings-modal';
-import WorkspaceSettingsModal from '@/components/workspace-settings-modal';
-import UserProfileSection from '@/components/user-profile-section';
 import { WorkspaceNotFound } from '@/components/error-states';
 import { Sidebar } from '@/components/sidebar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { Input } from '@/components/ui/input';
+import ChannelSettingsModal from '@/components/channel-settings-modal';
+import WorkspaceSettingsModal from '@/components/workspace-settings-modal';
 import { useState, useEffect, use, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { db } from '@/lib/db';
@@ -43,7 +36,6 @@ export default function SpacePage({params }: SpacePageProps) {
   const slug = resolvedParams.slug;
   const [currentSpace, setCurrentSpace] = useState<any>(null);
   const [spaces, setSpaces] = useState<any[]>([]);
-  const [messages, setMessages] = useState<any[]>([]);
   const [user, setUser] = useState<any>(null);
   const [activeChannelId, setActiveChannelId] = useState<string | null>(null);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
@@ -101,7 +93,6 @@ export default function SpacePage({params }: SpacePageProps) {
       if (!activeChannelId && !activeConversationId && data.channels.length > 0) {
         const generalChannel = data.channels.find((c: any) => c.slug === 'general') || data.channels[0];
         setActiveChannelId(generalChannel.id);
-        setMessages(data.messages);
         // Cache initial messages
         if (data.messages) {
           await db.messages.bulkPut(data.messages.map((m: any) => ({
@@ -112,7 +103,6 @@ export default function SpacePage({params }: SpacePageProps) {
           })));
         }
       } else if (activeChannelId) {
-        setMessages(data.messages);
         if (data.messages) {
           await db.messages.bulkPut(data.messages.map((m: any) => ({
             ...m,
@@ -174,7 +164,6 @@ export default function SpacePage({params }: SpacePageProps) {
         const response = await fetch(`/api/messages?channelId=${channelId}`);
         if (response.ok) {
           const data = await response.json();
-          setMessages(data);
           // Cache messages in Dexie
           if (data && currentSpace) {
             await db.messages.bulkPut(data.map((m: any) => ({
@@ -201,7 +190,6 @@ export default function SpacePage({params }: SpacePageProps) {
         const response = await fetch(`/api/dms/messages?conversationId=${conversationId}`);
         if (response.ok) {
           const data = await response.json();
-          setMessages(data);
           // Cache messages in Dexie
           if (data && currentSpace) {
             await db.messages.bulkPut(data.map((m: any) => ({
@@ -351,7 +339,7 @@ export default function SpacePage({params }: SpacePageProps) {
               <Input 
                 placeholder="Search messages..." 
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchQuery(e.target.value)}
                 className="pl-9 h-8 w-64 bg-zinc-100 dark:bg-zinc-900 border-none text-sm rounded-md focus-visible:ring-1 focus-visible:ring-zinc-300"
               />
             </div>
