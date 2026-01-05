@@ -2,15 +2,12 @@
 
 import { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { 
   AlertCircle, 
-  ChevronLeft, 
   Home, 
   MonitorOff, 
   Smartphone, 
   Search, 
-  RefreshCcw,
   ShieldAlert
 } from "lucide-react";
 import Link from "next/link";
@@ -141,7 +138,7 @@ export function WorkspaceNotFound({ slug }: { slug?: string }) {
   );
 }
 
-export function GlobalErrorState({ error, reset }: { error: Error; reset: () => void }) {
+export function GlobalErrorState({ error: _, reset }: { error: Error; reset: () => void }) {
   return (
     <ErrorState
       title="Something went wrong"

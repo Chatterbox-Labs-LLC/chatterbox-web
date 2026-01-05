@@ -94,72 +94,74 @@ export default function WelcomePage() {
             </motion.div>
           </div>
 
-          {/* Right Side - Steps Card */}
+          {/* Right Side - Steps */}
           <div className="flex-1">
-            <Card className="h-full border-zinc-200 dark:border-zinc-800 shadow-xl bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl overflow-hidden relative">
+            <div className="h-full relative">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16 blur-2xl" />
               
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-xl">
-                  <Rocket className="h-5 w-5 text-blue-500" />
-                  Quick Start Guide
-                </CardTitle>
-                <CardDescription>
-                  Three simple steps to get the most out of Chatterbox
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                {[
-                  {
-                    title: "Complete your profile",
-                    desc: "Add a photo and bio so teammates know it's you.",
-                    icon: Zap,
-                    color: "text-amber-500",
-                    bg: "bg-amber-500/10"
-                  },
-                  {
-                    title: "Join a workspace",
-                    desc: "Browse public spaces or create your own team area.",
-                    icon: Sparkles,
-                    color: "text-purple-500",
-                    bg: "bg-purple-500/10"
-                  },
-                  {
-                    title: "Enable notifications",
-                    desc: "Stay in the loop with real-time alerts for your team.",
-                    icon: ShieldCheck,
-                    color: "text-green-500",
-                    bg: "bg-green-500/10"
-                  }
-                ].map((step, i) => (
-                  <motion.div 
-                    key={i} 
-                    variants={itemVariants}
-                    className="flex gap-4 p-3 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
-                  >
-                    <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${step.bg} flex items-center justify-center`}>
-                      <step.icon className={`h-6 w-6 ${step.color}`} />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-zinc-900 dark:text-zinc-100">{step.title}</h4>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400">{step.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </CardContent>
-
-              <CardFooter className="bg-zinc-50 dark:bg-zinc-800/50 border-t border-zinc-100 dark:border-zinc-800 p-6">
-                <div className="flex items-center gap-3 text-sm text-zinc-500">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3].map(i => (
-                      <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-zinc-900 bg-zinc-200 dark:bg-zinc-700" />
-                    ))}
-                  </div>
-                  Join 1,000+ others already using Chatterbox
+              <div className="space-y-6">
+                <div>
+                  <h3 className="flex items-center gap-2 text-xl font-bold text-zinc-900 dark:text-zinc-100">
+                    <Rocket className="h-5 w-5 text-blue-500" />
+                    Quick Start Guide
+                  </h3>
+                  <p className="text-zinc-500 dark:text-zinc-400 mt-1">
+                    Three simple steps to get the most out of Chatterbox
+                  </p>
                 </div>
-              </CardFooter>
-            </Card>
+
+                <div className="space-y-6">
+                  {[
+                    {
+                      title: "Complete your profile",
+                      desc: "Add a photo and bio so teammates know it's you.",
+                      icon: Zap,
+                      color: "text-amber-500",
+                      bg: "bg-amber-500/10"
+                    },
+                    {
+                      title: "Join a workspace",
+                      desc: "Browse public spaces or create your own team area.",
+                      icon: Sparkles,
+                      color: "text-purple-500",
+                      bg: "bg-purple-500/10"
+                    },
+                    {
+                      title: "Enable notifications",
+                      desc: "Stay in the loop with real-time alerts for your team.",
+                      icon: ShieldCheck,
+                      color: "text-green-500",
+                      bg: "bg-green-500/10"
+                    }
+                  ].map((step, i) => (
+                    <motion.div 
+                      key={i} 
+                      variants={itemVariants}
+                      className="flex gap-4 p-3 rounded-2xl hover:bg-zinc-100 dark:hover:bg-zinc-800/50 transition-colors"
+                    >
+                      <div className={`flex-shrink-0 w-12 h-12 rounded-xl ${step.bg} flex items-center justify-center`}>
+                        <step.icon className={`h-6 w-6 ${step.color}`} />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-zinc-900 dark:text-zinc-100">{step.title}</h4>
+                        <p className="text-sm text-zinc-500 dark:text-zinc-400">{step.desc}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="pt-6 border-t border-zinc-100 dark:border-zinc-800">
+                  <div className="flex items-center gap-3 text-sm text-zinc-500">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map(i => (
+                        <div key={i} className="w-6 h-6 rounded-full border-2 border-white dark:border-zinc-900 bg-zinc-200 dark:bg-zinc-700" />
+                      ))}
+                    </div>
+                    Join 1,000+ others already using Chatterbox
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </motion.div>

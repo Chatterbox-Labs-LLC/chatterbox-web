@@ -4,19 +4,17 @@ export const runtime = 'edge';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Check, Info, Users, MessageSquare, Shield, HardDrive, Headphones, Video, Sparkles, Key, FileText, Loader2 } from 'lucide-react';
+import { Info, Users, MessageSquare, Shield, HardDrive, Headphones, Video, Sparkles, Key, FileText, Loader2 } from 'lucide-react';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 
 export default function BillingPage() {
-  const [loading, setLoading] = useState<string | null>(null);
+  const [loading] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'plans' | 'history' | 'payment'>('plans');
-  const router = useRouter();
 
   const invoiceHistory: any[] = [];
 
-  const handleUpgrade = async (planName: string) => {
+  const handleUpgrade = async (_planName: string) => {
     // Disabled for Coming Soon
     alert('Billing is coming soon!');
   };
