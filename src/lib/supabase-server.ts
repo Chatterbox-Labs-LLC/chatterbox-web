@@ -8,7 +8,18 @@ export async function createClient() {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase environment variables');
+    // Return a dummy client or handle it gracefully to prevent 500 error
+    return createServerClient(
+      supabaseUrl || 'https://placeholder.supabase.co',
+      supabaseAnonKey || 'placeholder',
+      {
+        cookies: {
+          get(name: string) { return undefined; },
+          set(name: string, value: string, options: CookieOptions) {},
+          remove(name: string, options: CookieOptions) {},
+        },
+      }
+    );
   }
 
   return createServerClient(
