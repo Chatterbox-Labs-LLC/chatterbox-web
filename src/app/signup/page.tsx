@@ -166,67 +166,63 @@ export default function SignupPage() {
 
   if (success) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4">
-        <div className="mb-8">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="bg-black p-2 rounded-xl">
-              <MessageSquare className="h-6 w-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold tracking-tight text-black">
-              Chatterbox Teams
-            </span>
-          </Link>
-        </div>
-
-        <Card className="w-full max-w-md shadow-xl border-zinc-200 dark:border-zinc-800 overflow-hidden">
-          <div className="h-2 bg-primary w-full" />
-          <CardHeader className="space-y-4 pt-8 pb-6">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-zinc-100 via-zinc-50 to-white dark:from-zinc-900 dark:via-zinc-950 dark:to-black px-4">
+        <Card className="w-full max-w-md shadow-2xl shadow-black/5 border-zinc-200 dark:border-zinc-800 overflow-hidden animate-in fade-in zoom-in-95 duration-500">
+          <CardHeader className="space-y-6 pt-10 pb-6">
             <div className="flex justify-center">
-              <div className="bg-primary/10 p-4 rounded-full ring-8 ring-primary/5 animate-pulse">
-                <Mail className="h-10 w-10 text-primary" />
+              <div className="bg-primary/10 p-5 rounded-full ring-[12px] ring-primary/5 animate-pulse">
+                <Mail className="h-12 w-12 text-primary" />
               </div>
             </div>
-            <div className="space-y-2 text-center">
-              <CardTitle className="text-2xl font-bold tracking-tight">Check your email</CardTitle>
-              <CardDescription className="text-base px-2 leading-relaxed">
+            <div className="space-y-3 text-center">
+              <CardTitle className="text-3xl font-extrabold tracking-tight">Check your email</CardTitle>
+              <CardDescription className="text-lg px-2 leading-relaxed text-muted-foreground">
                 We've sent a verification link to<br />
-                <span className="text-foreground font-semibold bg-muted px-1.5 py-0.5 rounded">{tempCredentials?.email}</span>
+                <span className="inline-block mt-2 text-primary font-bold bg-primary/5 px-3 py-1 rounded-lg border border-primary/10">
+                  {tempCredentials?.email}
+                </span>
               </CardDescription>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6 pb-8">
-            <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-xl p-5 border border-zinc-100 dark:border-zinc-800 text-sm text-muted-foreground shadow-inner">
-              <ul className="space-y-3">
-                <li className="flex gap-3">
-                  <Check className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span>Click the link in the email to verify your account</span>
+          <CardContent className="space-y-8 pb-10">
+            <div className="bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl p-6 border border-zinc-200 dark:border-zinc-800 text-sm text-muted-foreground shadow-sm group hover:border-primary/20 transition-colors">
+              <ul className="space-y-4">
+                <li className="flex gap-4 items-center">
+                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  </div>
+                  <span className="text-zinc-700 dark:text-zinc-300">Click the link in the email to verify your account</span>
                 </li>
-                <li className="flex gap-3">
-                  <Check className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span>Check your <b>spam folder</b> if you don't see it</span>
+                <li className="flex gap-4 items-center">
+                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  </div>
+                  <span className="text-zinc-700 dark:text-zinc-300">Check your <b>spam folder</b> if you don't see it</span>
                 </li>
-                <li className="flex gap-3">
-                  <Check className="h-5 w-5 text-emerald-500 shrink-0" />
-                  <span>The link will expire in 24 hours</span>
+                <li className="flex gap-4 items-center">
+                  <div className="bg-emerald-500/10 p-1.5 rounded-full ring-4 ring-emerald-500/5">
+                    <Check className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                  </div>
+                  <span className="text-zinc-700 dark:text-zinc-300">The link will expire in 24 hours</span>
                 </li>
               </ul>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               <Button 
                 variant="outline" 
-                className="w-full h-12 text-sm font-medium transition-all hover:bg-zinc-50" 
+                className="w-full h-14 text-base font-semibold transition-all hover:bg-primary/5 hover:text-primary hover:border-primary/30 rounded-xl" 
                 onClick={handleResendEmail}
                 disabled={resending || resendStatus === "success"}
               >
                 {resending ? (
                   <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                     Sending new link...
                   </>
                 ) : resendStatus === "success" ? (
                   <>
-                    <Check className="mr-2 h-4 w-4 text-emerald-500" />
+                    <Check className="mr-2 h-5 w-5 text-emerald-500" />
                     Verification email resent!
                   </>
                 ) : (
@@ -235,12 +231,12 @@ export default function SignupPage() {
               </Button>
               
               {resendStatus === "error" && (
-                <p className="text-xs text-destructive text-center font-medium animate-in fade-in slide-in-from-top-1">
-                  Failed to resend email. Please try again in a few minutes.
+                <p className="text-sm text-destructive text-center font-medium animate-in fade-in slide-in-from-top-1">
+                  Failed to resend email. Please try again.
                 </p>
               )}
 
-              <Button className="w-full h-12 font-semibold shadow-sm" variant="secondary" asChild>
+              <Button className="w-full h-14 text-base font-bold shadow-lg shadow-primary/10 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]" variant="secondary" asChild>
                 <Link href="/">Return to Home</Link>
               </Button>
             </div>
