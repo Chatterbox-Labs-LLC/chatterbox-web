@@ -1,4 +1,5 @@
 export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 import { supabaseAdmin } from '@/lib/supabase-admin'
 import { resend } from '@/lib/resend'
 import { NextResponse } from 'next/server'
