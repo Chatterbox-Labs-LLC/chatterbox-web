@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase';
+import { createClient } from '@/lib/supabase-server';
 
 export const runtime = 'edge';
 
 export async function POST(request: Request) {
-  const supabase = createClient();
   try {
+    const supabase = await createClient();
     const body = await request.json();
     const { email, password, firstName, lastName } = body;
 
