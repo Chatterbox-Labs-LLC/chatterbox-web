@@ -1,4 +1,3 @@
-export const runtime = "edge";
 export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
@@ -34,11 +33,13 @@ export default async function DashboardMainLayout({
       {/* Sidebar */}
       <aside className="hidden md:flex w-64 flex-col border-r bg-white dark:bg-zinc-900 fixed h-full">
         <div className="p-6 border-b">
-          <Link href="/" className="flex items-center gap-2">
-            <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
-              <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
-            </svg>
-            <span className="font-bold text-lg tracking-tight">Chatterbox Teams</span>
+          <Link href="/" className="flex items-center group">
+            <div className="flex items-center font-bold text-lg tracking-tight">
+              <span className="text-zinc-950 dark:text-white mr-1">chatter</span>
+              <div className="bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-2 py-0.5 rounded-md">
+                box teams
+              </div>
+            </div>
           </Link>
         </div>
         <nav className="flex-1 p-4 space-y-1">

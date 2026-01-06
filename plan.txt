@@ -2,3 +2,4 @@ make the app have crazy good seo, so when you search chatterbox teams, it will c
 make invite/{code}, where a user can join a space. add some to handle if the user is not already signed up. 
 make the home page super simple. 
 make it more compatiable with more device sizes
+make the app have crazy good seo, so when you search chatterbox teams, it will come up, add associated URLS, to other pages. . 

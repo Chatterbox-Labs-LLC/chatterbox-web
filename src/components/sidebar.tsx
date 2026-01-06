@@ -77,11 +77,13 @@ export function Sidebar({
       isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
     )}>
       <div className="p-4 flex items-center justify-between">
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
-            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
-          </svg>
-          <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
+        <Link href="/dashboard" className="flex items-center group">
+          <div className="flex items-center font-bold text-lg tracking-tight">
+            <span className="text-zinc-950 dark:text-white mr-1">chatter</span>
+            <div className="bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-2 py-0.5 rounded-md">
+              box teams
+            </div>
+          </div>
         </Link>
         <Button 
           variant="ghost" 
