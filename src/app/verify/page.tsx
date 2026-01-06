@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Check, Loader2, Sparkles } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 function VerifyContent() {
   const searchParams = useSearchParams();

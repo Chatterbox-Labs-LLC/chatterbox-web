@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
@@ -9,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { redirect } from 'next/navigation';
 import { getCachedUserSpaces } from '@/lib/cache';
-
 
 export default async function SpacesPage() {
   const supabase = await createClient();
