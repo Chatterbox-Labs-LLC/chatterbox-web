@@ -6,7 +6,6 @@ import { Plus, Search, UserPlus, ArrowRight, LayoutDashboard, Globe, Users } fro
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { redirect } from 'next/navigation';
-import { getCachedUserSpaces } from '@/lib/cache';
 
 export default async function SpacesPage() {
   const supabase = await createClient();
@@ -16,8 +15,12 @@ export default async function SpacesPage() {
     redirect('/login');
   }
 
-  // Fetch cached spaces for the user
-  const spaces = await getCachedUserSpaces(user.id);
+  // Fetch spaces for the user directly from Supabase
+  const { data: spaces } = await supabase
+    .from('spaces')
+    .select('*, space_members!inner(*)')
+    .eq('space_members.user_id', user.id)
+    .order('created_at', { ascending: false });
 
   return (
     <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">

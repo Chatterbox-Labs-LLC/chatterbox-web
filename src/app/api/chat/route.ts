@@ -2,7 +2,6 @@ export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import { NextResponse } from 'next/server';
-import { getCachedSpace, getCachedChannels, getCachedMembership } from '@/lib/cache';
 
 
 export async function GET(request: Request) {
@@ -22,25 +21,54 @@ export async function GET(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Fetch space (Cached)
-    const space = await getCachedSpace(slug);
+    // Fetch space directly from Supabase
+    const { data: space } = await supabase
+      .from('spaces')
+      .select('*')
+      .eq('slug', slug)
+      .single();
 
     if (!space) {
       console.error(`[API Chat] Space not found for slug: ${slug}`);
       return NextResponse.json({ error: 'Space not found' }, { status: 404 });
     }
 
-    // Check membership (Cached)
-    const membership = await getCachedMembership(space.id, user.id);
+    // Check membership directly from Supabase
+    const { data: membership } = await supabase
+      .from('space_members')
+      .select('*')
+      .eq('space_id', space.id)
+      .eq('user_id', user.id)
+      .single();
 
     if (!membership) {
       console.error(`[API Chat] User ${user.id} is not a member of space ${space.id}`);
       return NextResponse.json({ error: 'Not a member of this space' }, { status: 403 });
     }
 
-    // Fetch channels (Cached)
-    const channels = await getCachedChannels(space.id);
-    console.log(`[API Chat] Fetched ${channels?.length || 0} channels for space ${space.id}`);
+    // Fetch channels directly from Supabase
+    const { data: channels } = await supabase
+      .from('channels')
+      .select('*')
+      .eq('space_id', space.id)
+      .order('name');
+    
+    // Fetch user's spaces
+    const { data: userSpaces } = await supabase
+      .from('space_members')
+      .select(`
+        space:spaces (
+          id,
+          name,
+          slug,
+          description
+        )
+      `)
+      .eq('user_id', user.id);
+
+    const formattedSpaces = userSpaces?.map((us: any) => us.space) || [];
+    
+    console.log(`[API Chat] Fetched ${channels?.length || 0} channels and ${formattedSpaces.length} spaces`);
 
     // Fetch messages for active channel or general (Not cached as they change frequently)
     let activeChannelId = channelId;
@@ -71,6 +99,7 @@ export async function GET(request: Request) {
     return NextResponse.json({
       space,
       channels: channels || [],
+      spaces: formattedSpaces,
       messages,
       user: {
         id: user.id,

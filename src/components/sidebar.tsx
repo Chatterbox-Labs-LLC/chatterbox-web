@@ -45,10 +45,10 @@ interface SidebarProps {
   spaces: Space[];
   currentSpace: Space;
   slug: string;
-  localChannels: Channel[];
+  channels: Channel[];
   activeChannelId: string | null;
   handleChannelSwitch: (id: string) => void;
-  localConversations: Conversation[];
+  conversations: Conversation[];
   activeConversationId: string | null;
   handleConversationSwitch: (id: string) => void;
   handleRefresh: () => void;
@@ -62,10 +62,10 @@ export function Sidebar({
   spaces,
   currentSpace,
   slug,
-  localChannels,
+  channels,
   activeChannelId,
   handleChannelSwitch,
-  localConversations,
+  conversations,
   activeConversationId,
   handleConversationSwitch,
   handleRefresh,
@@ -127,7 +127,7 @@ export function Sidebar({
               <CreateChannelModal spaceId={currentSpace.id} onChannelCreated={handleRefresh} />
             </div>
             <div className="space-y-0.5">
-              {localChannels.map((channel: Channel) => (
+              {channels.map((channel: Channel) => (
                 <button 
                   key={channel.id}
                   onClick={() => handleChannelSwitch(channel.id)}
@@ -153,7 +153,7 @@ export function Sidebar({
               </Button>
             </div>
             <div className="space-y-0.5">
-              {localConversations.map((conv: Conversation) => (
+              {conversations.map((conv: Conversation) => (
                 <button 
                   key={conv.id}
                   onClick={() => handleConversationSwitch(conv.id)}

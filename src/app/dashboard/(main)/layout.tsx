@@ -4,7 +4,6 @@ import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
 import { LayoutDashboard, Settings, User, LogOut, Plus, Search, UserPlus, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { getCachedProfile } from '@/lib/cache';
 import { Metadata } from 'next';
 import { DashboardMobileNav } from '@/components/dashboard-mobile-nav';
 
@@ -21,9 +20,14 @@ export default async function DashboardMainLayout({
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
-  // Fetch cached profile for header/sidebar
-  const profile = user ? await getCachedProfile(user.id) : null;
-  const fullName = profile?.full_name || user?.user_metadata?.full_name || 'Guest';
+  // Fetch profile for header/sidebar directly from Supabase
+  const { data: profile } = user ? await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single() : { data: null };
+  
+  const fullName = profile?.full_name || user?.user_metadata?.full_name || 'User';
 
   return (
     <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950">

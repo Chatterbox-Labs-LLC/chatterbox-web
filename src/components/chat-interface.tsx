@@ -32,9 +32,6 @@ import {
 import { MediaModal } from './media-modal';
 import { motion, AnimatePresence } from 'framer-motion';
 
-import { db, type LocalMessage } from '@/lib/db/index';
-import { useLiveQuery } from 'dexie-react-hooks';
-
 interface Message {
   id: string;
   created_at: string;
@@ -97,26 +94,8 @@ export default function ChatInterface({
   activeChannelName,
   activeConversationId
 }: ChatInterfaceProps) {
-  // Use live query for messages
-  const messagesQuery = useMemo(() => {
-    return () => {
-      if (activeChannelId) {
-        return db.messages
-          .where('channel_id')
-          .equals(activeChannelId)
-          .sortBy('created_at');
-      } else if (activeConversationId) {
-        return db.messages
-          .where('conversation_id')
-          .equals(activeConversationId)
-          .sortBy('created_at');
-      }
-      return Promise.resolve([]) as unknown as Promise<Message[]>;
-    };
-  }, [activeChannelId, activeConversationId]);
-
-  const liveMessages = (useLiveQuery(messagesQuery, [messagesQuery]) as Message[]) || [];
-
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoadingMessages, setIsLoadingMessages] = useState(true);
   const [newMessage, setNewMessage] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const typingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -142,7 +121,7 @@ export default function ChatInterface({
   const supabase = createClient();
 
   // Filter messages based on search query
-  const filteredMessages = (liveMessages as Message[]).filter(message => {
+  const filteredMessages = messages.filter(message => {
     const contentMatch = message.content?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false;
     const nameMatch = message.profiles?.full_name?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false;
     return contentMatch || nameMatch;
@@ -153,12 +132,44 @@ export default function ChatInterface({
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [liveMessages.length, typingUsers]);
+  }, [messages.length, typingUsers]);
 
-  // Set up real-time subscription
+  // Initial fetch and Real-time subscription
   useEffect(() => {
     if (!activeChannelId && !activeConversationId) return;
 
+    // 1. Fetch initial messages
+    const fetchMessages = async () => {
+      setIsLoadingMessages(true);
+      const tableName = activeChannelId ? 'messages' : 'dm_messages';
+      const filterField = activeChannelId ? 'channel_id' : 'conversation_id';
+      const filterValue = activeChannelId || activeConversationId;
+
+      const { data, error } = await supabase
+        .from(tableName)
+        .select(`
+          *,
+          ${activeChannelId ? 'profiles (full_name, avatar_url),' : 'sender:profiles (*),'}
+          ${activeChannelId ? 'reactions:message_reactions (emoji, user_id),' : ''}
+          ${activeChannelId ? 'reply_to:thread_id (content, profiles (full_name, avatar_url))' : ''}
+        `.replace(/,\s*$/, ''))
+        .eq(filterField, filterValue)
+        .order('created_at', { ascending: true })
+        .limit(50);
+
+      if (!error && data) {
+        const normalizedData = data.map(msg => {
+          const rawMsg = msg as any;
+          return activeChannelId ? rawMsg : { ...rawMsg, profiles: rawMsg.sender };
+        });
+        setMessages(normalizedData);
+      }
+      setIsLoadingMessages(false);
+    };
+
+    fetchMessages();
+
+    // 2. Set up real-time subscription
     const channelName = activeChannelId ? `channel-${activeChannelId}` : `dm-${activeConversationId}`;
     const tableName = activeChannelId ? 'messages' : 'dm_messages';
     const filter = activeChannelId ? `channel_id=eq.${activeChannelId}` : `conversation_id=eq.${activeConversationId}`;
@@ -191,29 +202,24 @@ export default function ChatInterface({
               .single();
 
             if (!error && data) {
-              // Normalize data for UI
               const rawData = data as Record<string, any>;
               const normalizedData = activeChannelId ? rawData : {
                 ...rawData,
                 profiles: rawData.sender
               };
               
-              // Cache in Dexie
-              await db.messages.put({
-                ...normalizedData,
-                space_id: currentSpace.id,
-                channel_id: activeChannelId,
-                conversation_id: activeConversationId,
-                status: 'sent'
-              } as LocalMessage);
+              setMessages(prev => {
+                // Remove optimistic message if exists
+                const filtered = prev.filter(m => m.id !== `temp-${payload.new.id}` && !m.id.startsWith('temp-'));
+                return [...filtered, { ...normalizedData, status: 'sent' }];
+              });
             }
           } else if (payload.eventType === 'UPDATE') {
-            await db.messages.update(payload.new.id, {
-              ...payload.new,
-              is_edited: true
-            });
+            setMessages(prev => prev.map(m => 
+              m.id === payload.new.id ? { ...m, ...payload.new, is_edited: true } : m
+            ));
           } else if (payload.eventType === 'DELETE') {
-            await db.messages.delete(payload.old.id);
+            setMessages(prev => prev.filter(m => m.id !== payload.old.id));
           }
         }
       )
@@ -227,21 +233,26 @@ export default function ChatInterface({
         async (payload) => {
           console.log('[Chat] Reaction change received:', payload);
           if (payload.eventType === 'INSERT') {
-        const message = await db.messages.get(payload.new.message_id);
-        if (message) {
-          const reactions = message.reactions || [];
-          await db.messages.update(payload.new.message_id, {
-            reactions: [...reactions, { emoji: payload.new.emoji, user_id: payload.new.user_id }]
-          });
-        }
-      } else if (payload.eventType === 'DELETE') {
-        const message = await db.messages.get(payload.old.message_id);
-        if (message) {
-          await db.messages.update(payload.old.message_id, {
-            reactions: message.reactions?.filter((r: { user_id: string; emoji: string }) => r.user_id !== payload.old.user_id || r.emoji !== payload.old.emoji)
-          });
-        }
-      }
+            setMessages(prev => prev.map(m => {
+              if (m.id === payload.new.message_id) {
+                const reactions = m.reactions || [];
+                return { ...m, reactions: [...reactions, { emoji: payload.new.emoji, user_id: payload.new.user_id }] };
+              }
+              return m;
+            }));
+          } else if (payload.eventType === 'DELETE') {
+            setMessages(prev => prev.map(m => {
+              if (m.id === payload.old.message_id) {
+                return {
+                  ...m,
+                  reactions: m.reactions?.filter((r: { user_id: string; emoji: string }) => 
+                    r.user_id !== payload.old.user_id || r.emoji !== payload.old.emoji
+                  )
+                };
+              }
+              return m;
+            }));
+          }
         }
       )
       .on('presence', { event: 'sync' }, () => {
@@ -361,7 +372,7 @@ export default function ChatInterface({
       status: 'pending'
     };
 
-    await db.messages.put(optimisticMessage);
+    setMessages(prev => [...prev, optimisticMessage]);
     setNewMessage('');
     setUploadedFile(null);
     setReplyingTo(null);
@@ -392,24 +403,19 @@ export default function ChatInterface({
       
       const sentMessage = await response.json();
       
-      // Replace optimistic message with real one
-      await db.messages.delete(tempId);
-      
       const normalizedMessage = activeChannelId ? sentMessage : {
         ...sentMessage,
         profiles: sentMessage.sender
       };
 
-      await db.messages.put({
-        ...normalizedMessage,
-        space_id: currentSpace.id,
-        channel_id: activeChannelId,
-        conversation_id: activeConversationId,
-        status: 'sent'
-      });
+      setMessages(prev => prev.map(m => 
+        m.id === tempId ? { ...normalizedMessage, status: 'sent' } : m
+      ));
     } catch (err) {
       console.error('[Chat] Error sending message:', err);
-      await db.messages.update(tempId, { status: 'error' });
+      setMessages(prev => prev.map(m => 
+        m.id === tempId ? { ...m, status: 'error' } : m
+      ));
     } finally {
       setIsSending(false);
     }

@@ -22,8 +22,6 @@ import ChannelSettingsModal from '@/components/channel-settings-modal';
 import WorkspaceSettingsModal from '@/components/workspace-settings-modal';
 import { useState, useEffect, use, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { db } from '@/lib/db';
-import { useLiveQuery } from 'dexie-react-hooks';
 
 interface SpacePageProps {
   params: Promise<{
@@ -37,24 +35,32 @@ export default function SpacePage({params }: SpacePageProps) {
   const [currentSpace, setCurrentSpace] = useState<any>(null);
   const [spaces, setSpaces] = useState<any[]>([]);
   const [user, setUser] = useState<any>(null);
+
+  // Load cached user on mount
+  useEffect(() => {
+    const cachedUser = localStorage.getItem('chatterbox_user');
+    if (cachedUser) {
+      try {
+        setUser(JSON.parse(cachedUser));
+      } catch (e) {
+        console.error('Error parsing cached user:', e);
+      }
+    }
+  }, []);
   const [activeChannelId, setActiveChannelId] = useState<string | null>(null);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Use Dexie for live data
-  const localConversations = useLiveQuery(() => db.conversations.toArray()) as any || [];
-  const localChannels = useLiveQuery(() => 
-    (slug && currentSpace?.id) ? db.channels.where('space_id').equals(currentSpace.id).toArray() : db.channels.toArray()
-  ) as any || [];
+  const [channels, setChannels] = useState<any[]>([]);
+  const [conversations, setConversations] = useState<any[]>([]);
   
   const supabase = createClient();
   const router = useRouter();
 
   const fetchData = useCallback(async (resolvedSlug: string) => {
-    // If we have local data, don't show global loading
-    if (localChannels.length === 0) {
+    // Show global loading if no channels yet
+    if (channels.length === 0) {
       setIsLoading(true);
     }
     
@@ -75,138 +81,84 @@ export default function SpacePage({params }: SpacePageProps) {
 
       const data = await response.json();
       setUser(data.user);
+      // Save user data locally
+      if (data.user) {
+        localStorage.setItem('chatterbox_user', JSON.stringify(data.user));
+      }
       setCurrentSpace(data.space);
+      setChannels(data.channels || []);
+      setSpaces(data.spaces || []);
 
       console.log('[SpacePage] Received data channels:', data.channels);
-
-      // Cache channels in Dexie
-      if (data.channels && data.space) {
-        await db.channels.bulkPut(data.channels.map((c: any) => ({
-          id: c.id,
-          name: c.name,
-          slug: c.slug,
-          space_id: data.space.id,
-          description: c.description
-        })));
-      }
       
-      if (!activeChannelId && !activeConversationId && data.channels.length > 0) {
+      if (!activeChannelId && !activeConversationId && data.channels && data.channels.length > 0) {
         const generalChannel = data.channels.find((c: any) => c.slug === 'general') || data.channels[0];
         setActiveChannelId(generalChannel.id);
-        // Cache initial messages
-        if (data.messages) {
-          await db.messages.bulkPut(data.messages.map((m: any) => ({
-            ...m,
-            space_id: data.space.id,
-            channel_id: generalChannel.id,
-            status: 'sent'
-          })));
-        }
-      } else if (activeChannelId) {
-        if (data.messages) {
-          await db.messages.bulkPut(data.messages.map((m: any) => ({
-            ...m,
-            space_id: data.space.id,
-            channel_id: activeChannelId,
-            status: 'sent'
-          })));
-        }
       }
-
-      // Fetch user's spaces for switcher
-      const { data: userSpaces } = await supabase
-        .from('spaces')
-        .select('*, space_members!inner(*)')
-        .eq('space_members.user_id', data.user.id)
-        .order('name');
-      setSpaces(userSpaces || []);
-
-      // Fetch DMs
-      const dmResponse = await fetch('/api/dms/conversations');
-      if (dmResponse.ok) {
-        const dmData = await dmResponse.json();
-        // Cache conversations in Dexie
-        await db.conversations.bulkPut(dmData);
-      }
-
-      // Real-time subscription for new conversations
-      const convSubscription = supabase
-        .channel('new-conversations')
-        .on(
-          'postgres_changes',
-          { event: 'INSERT', schema: 'public', table: 'dm_conversations' },
-          async () => {
-            const res = await fetch('/api/dms/conversations');
-            if (res.ok) {
-              const dmData = await res.json();
-              await db.conversations.bulkPut(dmData);
-            }
-          }
-        )
-        .subscribe();
-
-      return () => {
-        supabase.removeChannel(convSubscription);
-      };
-    } catch (error) {
+    } catch (error) { 
       console.error('[SpacePage] Error fetching data:', error);
     } finally {
       setIsLoading(false);
     }
-  }, [activeChannelId, activeConversationId, localChannels.length, router, supabase]);
+  }, [activeChannelId, activeConversationId, router, channels.length]);
+
+  // Fetch DM conversations
+  useEffect(() => {
+    const fetchDMs = async () => {
+      if (!user?.id) return;
+      
+      const { data, error } = await supabase
+        .from('dm_conversations')
+        .select(`
+          id,
+          created_at,
+          updated_at,
+          last_message_at,
+          user1_id,
+          user2_id,
+          user1:profiles!user1_id (*),
+          user2:profiles!user2_id (*)
+        `)
+        .or(`user1_id.eq.${user.id},user2_id.eq.${user.id}`)
+        .order('last_message_at', { ascending: false, nullsFirst: false });
+
+      if (!error && data) {
+        const normalizedDMs = data.map((dm: any) => {
+          const otherUser = dm.user1_id === user.id ? dm.user2 : dm.user1;
+          return {
+            id: dm.id,
+            created_at: dm.created_at,
+            updated_at: dm.updated_at,
+            last_message_at: dm.last_message_at,
+            other_user: otherUser
+          };
+        });
+        setConversations(normalizedDMs);
+      }
+    };
+
+    fetchDMs();
+
+    // Subscribe to DM changes
+    const channel = supabase
+      .channel('dm-conversations')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'dm_conversations' }, fetchDMs)
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, [user?.id, supabase]);
 
   const handleChannelSwitch = useCallback((channelId: string) => {
     setActiveChannelId(channelId);
     setActiveConversationId(null);
-    // Fetch messages for the new channel
-    const fetchChannelMessages = async () => {
-      try {
-        const response = await fetch(`/api/messages?channelId=${channelId}`);
-        if (response.ok) {
-          const data = await response.json();
-          // Cache messages in Dexie
-          if (data && currentSpace) {
-            await db.messages.bulkPut(data.map((m: any) => ({
-              ...m,
-              space_id: currentSpace.id,
-              channel_id: channelId,
-              status: 'sent'
-            })));
-          }
-        }
-      } catch (error) {
-        console.error('[SpacePage] Error fetching channel messages:', error);
-      }
-    };
-    fetchChannelMessages();
-  }, [currentSpace]);
+  }, []);
 
   const handleConversationSwitch = useCallback((conversationId: string) => {
     setActiveConversationId(conversationId);
     setActiveChannelId(null);
-    // Fetch messages for the conversation
-    const fetchConversationMessages = async () => {
-      try {
-        const response = await fetch(`/api/dms/messages?conversationId=${conversationId}`);
-        if (response.ok) {
-          const data = await response.json();
-          // Cache messages in Dexie
-          if (data && currentSpace) {
-            await db.messages.bulkPut(data.map((m: any) => ({
-              ...m,
-              space_id: currentSpace.id,
-              conversation_id: conversationId,
-              status: 'sent',
-              profiles: m.sender // Map sender to profiles for the chat interface
-            })));
-          }
-        }
-      } catch (error) {
-        console.error('[SpacePage] Error fetching conversation messages:', error);
-      }
-    };
-    fetchConversationMessages();
-  }, [currentSpace]);
+  }, []);
 
   useEffect(() => {
     const handleSwitchDM = (e: any) => {
@@ -227,7 +179,7 @@ export default function SpacePage({params }: SpacePageProps) {
     if (slug) fetchData(slug);
   };
 
-  if (isLoading && localChannels.length === 0) {
+  if (isLoading && channels.length === 0) {
     return <div className="h-screen flex items-center justify-center">Loading...</div>;
   }
 
@@ -248,15 +200,15 @@ export default function SpacePage({params }: SpacePageProps) {
     return <WorkspaceNotFound slug={slug} />;
   }
 
-  const fullName = user?.user_metadata?.full_name || 'Guest';
+  const fullName = user?.full_name || user?.user_metadata?.full_name || 'User';
   const currentUser = {
     id: user?.id || '',
     full_name: fullName,
-    avatar_url: user?.user_metadata?.avatar_url || '',
+    avatar_url: user?.avatar_url || user?.user_metadata?.avatar_url || '',
   };
 
-  const activeChannel = (localChannels as any[]).find(c => c.id === activeChannelId) || { name: currentSpace.name, description: currentSpace.description };
-  const activeConversation = (localConversations as any[]).find(c => c.id === activeConversationId);
+  const activeChannel = (channels as any[]).find(c => c.id === activeChannelId) || { name: currentSpace.name, description: currentSpace.description };
+  const activeConversation = (conversations as any[]).find(c => c.id === activeConversationId);
   const headerName = activeChannelId ? activeChannel.name : (activeConversation?.other_user?.full_name || 'Direct Message');
   const headerDescription = activeChannelId ? activeChannel.description : 'Private conversation';
 
@@ -277,10 +229,10 @@ export default function SpacePage({params }: SpacePageProps) {
         spaces={spaces}
         currentSpace={currentSpace}
         slug={slug}
-        localChannels={localChannels}
+        channels={channels}
         activeChannelId={activeChannelId}
         handleChannelSwitch={handleChannelSwitch}
-        localConversations={localConversations}
+        conversations={conversations}
         activeConversationId={activeConversationId}
         handleConversationSwitch={handleConversationSwitch}
         handleRefresh={handleRefresh}
