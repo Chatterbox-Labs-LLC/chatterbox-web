@@ -40,33 +40,29 @@ function VerifyContent() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-12 overflow-hidden relative">
-      {/* Background gradients */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-[#a9d6f3]/10 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-[#a9d6f3]/5 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
-
+    <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-12">
       <div className="w-full max-w-md transform scale-[1.1] origin-center transition-transform">
-        <div className="mb-10 flex flex-col items-center">
-          <svg width="40" height="40" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] mb-4">
-            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
-          </svg>
-          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
-            Chatterbox Teams
-          </h2>
+        <div className="mb-8 flex flex-col items-center">
+          <Link className="flex items-center group" href="/">
+            <div className="flex items-center font-bold text-2xl tracking-tight">
+              <span className="text-zinc-950 mr-1.5">chatter</span>
+              <div className="bg-[#a9d6f3] text-white px-2.5 py-1 rounded-lg text-base shadow-sm">
+                box teams
+              </div>
+            </div>
+          </Link>
         </div>
 
-        <Card className="shadow-2xl border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-xl">
-          <CardHeader className="space-y-6 text-center">
+        <Card className="shadow-xl border-zinc-200 dark:border-zinc-800">
+          <CardHeader className="space-y-4 text-center">
             <div className="flex justify-center">
               <div className="bg-[#a9d6f3]/10 p-4 rounded-full">
                 <Mail className="h-10 w-10 text-[#a9d6f3]" />
               </div>
             </div>
-            <div className="space-y-2">
-              <CardTitle className="text-3xl font-bold tracking-tight">Check your email</CardTitle>
-              <CardDescription className="text-base">
+            <div className="space-y-1">
+              <CardTitle className="text-2xl font-bold">Check your email</CardTitle>
+              <CardDescription>
                 {emailError ? (
                   <span className="text-amber-600 dark:text-amber-400 font-medium">
                     Account created, but we couldn't send the link automatically. Please click "Resend" below.
@@ -80,55 +76,62 @@ function VerifyContent() {
               </CardDescription>
             </div>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="bg-zinc-100 dark:bg-zinc-800/50 p-6 rounded-2xl space-y-4">
-              <h4 className="font-semibold flex items-center gap-2">
-                <span className="flex items-center gap-2">
-                  <Sparkles className="h-4 w-4 text-[#a9d6f3]" />
-                  What happens next?
-                </span>
+          <CardContent className="space-y-4">
+            <div className="bg-[#a9d6f3]/5 dark:bg-[#a9d6f3]/10 p-5 rounded-xl space-y-3 border border-[#a9d6f3]/20 dark:border-[#a9d6f3]/30">
+              <h4 className="font-semibold text-sm flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-[#a9d6f3]" />
+                Next steps
               </h4>
-              <ul className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
-                <li className="flex gap-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3]/20 text-[#a9d6f3] flex items-center justify-center text-[10px] font-bold">1</div>
-                  Check your inbox (and spam folder)
+              <ul className="space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                <li className="flex gap-2.5 items-center">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3] text-white flex items-center justify-center text-[10px] font-bold shadow-sm">1</div>
+                  Check your inbox and spam folder
                 </li>
-                <li className="flex gap-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3]/20 text-[#a9d6f3] flex items-center justify-center text-[10px] font-bold">2</div>
-                  Click the verification link
+                <li className="flex gap-2.5 items-center">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3] text-white flex items-center justify-center text-[10px] font-bold shadow-sm">2</div>
+                  Click the magic link to verify
                 </li>
-                <li className="flex gap-3">
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3]/20 text-[#a9d6f3] flex items-center justify-center text-[10px] font-bold">3</div>
-                  You'll be redirected to your dashboard
+                <li className="flex gap-2.5 items-center">
+                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-[#a9d6f3] text-white flex items-center justify-center text-[10px] font-bold shadow-sm">3</div>
+                  You'll be signed in automatically
                 </li>
               </ul>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col gap-4">
+          <CardFooter className="flex flex-col gap-3">
             <Button 
-              className={`w-full h-12 text-lg font-bold rounded-xl transition-all ${resendStatus === 'success' ? 'bg-green-600 hover:bg-green-700' : 'bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950 shadow-lg shadow-[#a9d6f3]/20'}`}
+              className={`w-full h-11 font-semibold rounded-lg transition-all ${resendStatus === 'success' ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-white shadow-lg shadow-[#a9d6f3]/20 dark:shadow-none'}`}
               onClick={handleResendEmail}
               disabled={resending || resendStatus === 'success'}
             >
               {resending ? (
                 <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Resending...
                 </>
               ) : resendStatus === 'success' ? (
                 <>
-                  <Check className="mr-2 h-5 w-5" />
+                  <Check className="mr-2 h-4 w-4" />
                   Email Sent!
                 </>
               ) : (
                 'Resend magic link'
               )}
             </Button>
-            <Button className="w-full h-12 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-semibold" variant="default" asChild>
-              <Link href="/">Return to Home</Link>
+            <Button className="w-full h-11 rounded-lg text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100" variant="ghost" asChild>
+              <Link href="/">Back to Home</Link>
             </Button>
           </CardFooter>
         </Card>
+
+        <div className="mt-8 flex justify-center gap-6">
+          <Link href="/terms" className="text-zinc-400 hover:text-zinc-600 text-xs font-medium transition-colors">
+            Terms of Service
+          </Link>
+          <Link href="/privacy" className="text-zinc-400 hover:text-zinc-600 text-xs font-medium transition-colors">
+            Privacy Policy
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -3,38 +3,36 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col h-screen bg-white text-black selection:bg-black selection:text-white font-sans antialiased overflow-hidden">
-      <header className="px-6 lg:px-12 h-16 flex items-center justify-between border-b border-zinc-100 bg-white z-50">
+    <div className="flex flex-col min-h-screen bg-white text-black selection:bg-zinc-200 selection:text-black font-sans antialiased">
+      <header className="px-12 h-24 flex items-center justify-between">
         <Link className="flex items-center group" href="/">
           <div className="flex items-center font-bold text-xl tracking-tight">
             <span className="text-zinc-950 mr-1.5">chatter</span>
-            <div className="bg-zinc-950 text-white px-2.5 py-1 rounded-lg">
+            <div className="bg-[#a9d6f3] text-white px-2.5 py-1 rounded-lg text-sm shadow-sm">
               box teams
             </div>
           </div>
         </Link>
-        <div className="flex gap-6 items-center">
-          <Link className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors" href="/login">
+        <nav className="flex gap-8 items-center">
+          <Link className="text-sm font-medium text-zinc-400 hover:text-zinc-950 transition-colors" href="/login">
             Log In
           </Link>
-          <Link className="text-sm font-medium text-zinc-500 hover:text-zinc-900 transition-colors" href="/signup">
+          <Link className="text-sm font-medium text-zinc-400 hover:text-zinc-950 transition-colors" href="/signup">
             Sign Up
           </Link>
-        </div>
+        </nav>
       </header>
 
-      <main className="flex-1 flex flex-col items-center justify-center p-6">
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto">
-          <h1 className="text-5xl md:text-6xl font-medium tracking-tight text-zinc-950 mb-6">
+      <main className="flex-1 flex flex-col items-center justify-center p-6 text-center">
+        <div className="max-w-2xl space-y-4 mb-12">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-zinc-950">
             Chat for teams.
           </h1>
-          
-          <p className="text-zinc-500 text-lg md:text-xl mb-10 font-normal">
+          <p className="text-zinc-500 text-xl font-medium">
             The simplest way to communicate. Fast, secure, and clear.
           </p>
-          
-          <div className="flex gap-4">
-            <Button size="lg" className="h-12 px-8 text-base font-medium rounded-md bg-zinc-950 hover:bg-zinc-800 text-white transition-all active:scale-[0.98]" asChild>
+          <div className="pt-8">
+            <Button size="lg" className="h-12 px-8 text-base font-medium rounded-lg bg-zinc-950 hover:bg-zinc-900 text-white transition-all" asChild>
               <Link href="/signup">
                 Get Started
               </Link>
@@ -43,9 +41,9 @@ export default function Home() {
         </div>
       </main>
 
-      <footer className="h-16 px-6 flex items-center justify-center border-t border-zinc-100">
-        <p className="text-zinc-400 text-xs font-normal">
-          &copy; {new Date().getFullYear()} Chatterbox Teams.
+      <footer className="h-24 px-12 flex items-center justify-center">
+        <p className="text-zinc-400 text-xs font-medium">
+          &copy; 2026 Chatterbox Teams.
         </p>
       </footer>
     </div>

@@ -79,8 +79,8 @@ export function Sidebar({
       <div className="p-4 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center group">
           <div className="flex items-center font-bold text-lg tracking-tight">
-            <span className="text-zinc-950 dark:text-white mr-1">chatter</span>
-            <div className="bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-2 py-0.5 rounded-md">
+            <span className="text-zinc-950 dark:text-white mr-1.5">chatter</span>
+            <div className="bg-[#a9d6f3] text-white px-2 py-0.5 rounded-lg text-sm shadow-sm">
               box teams
             </div>
           </div>

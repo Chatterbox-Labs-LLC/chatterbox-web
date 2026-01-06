@@ -38,12 +38,14 @@ export default function MastheadPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
-      <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="px-4 lg:px-10 h-24 flex items-center bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
         <Link className="flex items-center group" href="/">
-          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
-            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
-          </svg>
-          <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
+          <div className="flex items-center font-bold text-xl tracking-tight">
+            <span className="text-zinc-950 dark:text-white mr-1.5">chatter</span>
+            <div className="bg-zinc-950 text-white dark:bg-white dark:text-zinc-950 px-2.5 py-1 rounded-lg text-sm">
+              box teams
+            </div>
+          </div>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
           <Link className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors" href="/">
@@ -52,7 +54,7 @@ export default function MastheadPage() {
           <Link className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-black dark:hover:text-white transition-colors" href="/newsroom">
             Newsroom
           </Link>
-          <Button variant="default" size="sm" className="rounded-full px-6 font-semibold shadow-lg" asChild>
+          <Button variant="default" size="sm" className="rounded-lg px-6 font-semibold shadow-lg" asChild>
             <Link href="/signup">Sign Up Free</Link>
           </Button>
         </nav>
