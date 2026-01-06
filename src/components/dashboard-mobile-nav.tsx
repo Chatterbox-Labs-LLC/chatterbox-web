@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, MessageSquare, LayoutDashboard, Settings, User, LogOut, Plus, CreditCard } from "lucide-react";
+import { Menu, X, LayoutDashboard, Settings, User, LogOut, Plus, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -33,10 +33,10 @@ export function DashboardMobileNav() {
       )}>
         <div className="p-6 border-b flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2" onClick={() => setIsOpen(false)}>
-            <div className="bg-black p-1.5 rounded-lg">
-              <MessageSquare className="h-5 w-5 text-white" />
-            </div>
-            <span className="font-bold text-lg tracking-tight">Chatterbox</span>
+            <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+              <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+            </svg>
+            <span className="font-bold text-lg tracking-tight">Chatterbox Teams</span>
           </Link>
           <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
             <X className="h-5 w-5" />

@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Twitter, Linkedin, Github, Mail, Users2 } from "lucide-react";
+import { Twitter, Linkedin, Github, Mail, Users2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -38,10 +38,10 @@ export default function MastheadPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -65,9 +65,9 @@ export default function MastheadPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-sm font-bold"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#a9d6f3]/10 text-[#a9d6f3] text-sm font-bold"
               >
-                <Users2 className="h-4 w-4 text-blue-600" />
+                <Users2 className="h-4 w-4" />
                 Our Masthead
               </motion.div>
               <motion.h1 
@@ -75,7 +75,7 @@ export default function MastheadPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-5xl font-extrabold tracking-tight sm:text-7xl"
               >
-                The people behind the <span className="text-blue-600">vision.</span>
+                The people behind the <span className="text-[#a9d6f3]">vision.</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -103,19 +103,19 @@ export default function MastheadPage() {
                   transition={{ delay: 0.1 * index }}
                   className="flex flex-col md:flex-row gap-8 items-start"
                 >
-                  <div className="w-32 h-32 rounded-3xl bg-blue-600 flex items-center justify-center text-white text-3xl font-bold flex-shrink-0 shadow-2xl shadow-blue-500/20">
+                  <div className="w-32 h-32 rounded-3xl bg-[#a9d6f3] flex items-center justify-center text-zinc-950 text-3xl font-bold flex-shrink-0 shadow-2xl shadow-[#a9d6f3]/20">
                     {member.image}
                   </div>
                   <div className="space-y-4">
                     <div className="space-y-1">
                       <h3 className="text-2xl font-bold">{member.name}</h3>
-                      <p className="text-blue-600 font-semibold uppercase tracking-wider text-sm">{member.role}</p>
+                      <p className="text-[#a9d6f3] font-semibold uppercase tracking-wider text-sm">{member.role}</p>
                     </div>
                     <div className="flex gap-4 pt-2">
-                      <Link href={member.twitter} className="text-zinc-400 hover:text-blue-400 transition-colors">
+                      <Link href={member.twitter} className="text-zinc-400 hover:text-[#a9d6f3] transition-colors">
                         <Twitter className="h-5 w-5" />
                       </Link>
-                      <Link href={member.linkedin} className="text-zinc-400 hover:text-blue-700 transition-colors">
+                      <Link href={member.linkedin} className="text-zinc-400 hover:text-[#a9d6f3] transition-colors">
                         <Linkedin className="h-5 w-5" />
                       </Link>
                       <Link href={member.github} className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors">

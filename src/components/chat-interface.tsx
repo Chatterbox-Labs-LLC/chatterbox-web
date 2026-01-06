@@ -648,7 +648,7 @@ export default function ChatInterface({
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 p-2 rounded-lg bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 w-fit hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
                         >
-                          <FileIcon className="h-4 w-4 text-blue-500" />
+                          <FileIcon className="h-4 w-4 text-[#a9d6f3]" />
                           <span className="text-xs font-medium">Download Attachment</span>
                         </a>
                       )}
@@ -665,9 +665,9 @@ export default function ChatInterface({
       <div className="p-4 border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
         <form onSubmit={handleSendMessage} className="flex flex-col gap-2">
           {replyingTo && (
-            <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/30 mb-2">
-              <div className="flex items-center gap-2 overflow-hidden">
-                <Reply className="h-3 w-3 text-blue-500 shrink-0" />
+            <div className="flex items-center justify-between p-2 bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5 rounded-lg border border-[#a9d6f3]/20 dark:border-[#a9d6f3]/10 mb-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <Reply className="h-3 w-3 text-[#a9d6f3] shrink-0" />
                 <div className="text-xs truncate">
                   <span className="font-bold mr-1">Replying to {replyingTo.profiles?.full_name}:</span>
                   <span className="text-zinc-600 dark:text-zinc-400">{replyingTo.content}</span>
@@ -681,7 +681,7 @@ export default function ChatInterface({
           {uploadedFile && (
             <div className="flex items-center justify-between p-2 bg-zinc-50 dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800">
               <div className="flex items-center gap-2 overflow-hidden">
-                <FileIcon className="h-4 w-4 text-blue-500" />
+                <FileIcon className="h-4 w-4 text-[#a9d6f3]" />
                 <span className="text-xs truncate">{uploadedFile.url.split('/').pop()}</span>
               </div>
               <Button type="button" variant="ghost" size="icon" className="h-6 w-6" onClick={() => setUploadedFile(null)}>
@@ -719,7 +719,7 @@ export default function ChatInterface({
               type="submit" 
               size="icon" 
               disabled={(!newMessage.trim() && !uploadedFile) || isSending}
-              className="shrink-0 bg-blue-600 hover:bg-blue-700 text-white"
+              className="shrink-0 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950"
             >
               <Send className="h-4 w-4" />
             </Button>
@@ -759,7 +759,7 @@ export default function ChatInterface({
             }}
             onMouseLeave={handleUserLeave}
           >
-            <div className="h-20 bg-gradient-to-r from-blue-500 to-indigo-600" />
+            <div className="h-20 bg-gradient-to-r from-[#a9d6f3] to-[#a9d6f3]/80" />
             <div className="px-4 pb-4">
               <div className="relative -mt-10 mb-3">
                 <Avatar className="h-20 w-20 border-4 border-white dark:border-zinc-900 shadow-lg">

@@ -1,0 +1,378 @@
+PRIVACY POLICY
+
+Last Updated: January 4, 2026
+
+1. INTRODUCTION
+
+Chatterbox Enterprises USA LLC ("Chatterbox," "we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our team communication and collaboration platform, including our website, applications, and services (collectively, the "Services").
+
+By using the Services, you agree to the collection and use of information in accordance with this Privacy Policy. If you do not agree with our policies and practices, please do not use our Services.
+
+2. INFORMATION WE COLLECT
+
+We collect several types of information from and about users of our Services:
+
+2.1 Information You Provide Directly
+
+Account Information:
+- Name, email address, phone number (optional)
+- Username and password
+- Profile information (photo, job title, department, time zone)
+- Billing information (credit card details, billing address)
+- Organization or workspace name and details
+
+Communications and Content:
+- Messages, files, images, videos, and other content you create, send, or share through the Services
+- Comments, feedback, and communications with us or other users
+- Information in channels, direct messages, and shared workspaces
+
+Workspace Administration Data:
+- Member lists, roles, and permissions
+- Workspace settings and configurations
+- Integration preferences
+
+2.2 Information We Collect Automatically
+
+Usage Information:
+- Log data (IP address, browser type, operating system, device information)
+- Access times and dates
+- Pages viewed and links clicked
+- Features used and actions taken within the Services
+- Search queries within the Services
+- Performance and error data
+
+Device Information:
+- Device identifiers (advertising ID, device ID)
+- Device type and model
+- Operating system and version
+- Mobile network information
+- Application version
+
+Location Information:
+- General location based on IP address
+- Precise location (only if you grant permission on mobile devices)
+
+Cookies and Similar Technologies:
+- We use cookies, web beacons, pixel tags, and similar technologies to collect information about your use of the Services
+- For more information, see Section 5 below
+
+2.3 Information from Third Parties
+
+- Information from third-party services you connect to your Chatterbox account (such as calendar integrations, file storage services, or single sign-on providers)
+- Information from workspace administrators who add you to their workspace
+- Information from payment processors regarding your transactions
+- Publicly available information to verify your identity or prevent fraud
+
+3. HOW WE USE YOUR INFORMATION
+
+We use the information we collect for the following purposes:
+
+3.1 To Provide and Maintain the Services
+- Create and manage your account
+- Enable communication and collaboration features
+- Store and deliver your messages and files
+- Process transactions and send transaction notices
+- Provide customer support and respond to your requests
+- Send administrative information, updates, and security alerts
+
+3.2 To Improve and Develop the Services
+- Understand how users interact with the Services
+- Analyze usage patterns and trends
+- Develop new features and functionality
+- Test and monitor the effectiveness of our Services
+- Diagnose and fix technical issues
+
+3.3 To Personalize Your Experience
+- Customize content and features based on your preferences
+- Provide relevant search results
+- Remember your settings and preferences
+- Suggest channels, connections, or integrations
+
+3.4 To Communicate with You
+- Send service-related announcements
+- Respond to your inquiries and support requests
+- Send marketing communications (with your consent, where required)
+- Conduct surveys and gather feedback
+- Send push notifications (which you can disable)
+
+3.5 To Ensure Security and Prevent Fraud
+- Detect, prevent, and investigate security incidents and fraudulent activity
+- Verify your identity
+- Monitor for and prevent unauthorized access
+- Enforce our Terms of Service
+- Comply with legal obligations
+
+3.6 For Legal and Compliance Purposes
+- Comply with applicable laws, regulations, and legal processes
+- Respond to lawful requests from public authorities
+- Protect our rights, property, and safety and that of our users
+- Resolve disputes and enforce our agreements
+
+4. HOW WE SHARE YOUR INFORMATION
+
+We do not sell your personal information. We may share your information in the following circumstances:
+
+4.1 Within Your Workspace
+- Your profile information, messages, and files are visible to other members of your workspace according to the workspace's settings and permissions
+- Workspace administrators have access to all content and data within their workspace, including your messages, files, and activity logs
+
+4.2 With Service Providers
+We share information with third-party service providers who perform services on our behalf, including:
+- Cloud hosting and storage providers (AWS, Google Cloud, Azure)
+- Payment processors (Stripe, PayPal)
+- Analytics providers (Google Analytics, Mixpanel)
+- Customer support tools (Zendesk, Intercom)
+- Email service providers (SendGrid, Mailchimp)
+- Security and fraud prevention services
+
+These service providers are contractually obligated to protect your information and use it only for the purposes we specify.
+
+4.3 For Legal Reasons
+We may disclose your information if required to do so by law or in response to:
+- Valid legal processes (subpoenas, court orders, search warrants)
+- Requests from government authorities or law enforcement
+- Legal claims or disputes
+- Situations involving potential threats to physical safety
+- Violations of our Terms of Service or policies
+
+4.4 Business Transfers
+If we are involved in a merger, acquisition, financing, reorganization, bankruptcy, or sale of assets, your information may be transferred as part of that transaction. We will notify you of any such change in ownership or control of your information.
+
+4.5 With Your Consent
+We may share your information with third parties when you explicitly consent to such sharing, such as:
+- When you authorize integrations with third-party services
+- When you choose to share content publicly or outside your workspace
+- When you participate in promotions or surveys
+
+4.6 Aggregated or De-Identified Information
+We may share aggregated, anonymized, or de-identified information that cannot reasonably be used to identify you for research, marketing, analytics, or other purposes.
+
+5. COOKIES AND TRACKING TECHNOLOGIES
+
+5.1 Types of Cookies We Use
+
+Essential Cookies:
+- Required for the Services to function properly
+- Enable core features like account authentication and security
+- Cannot be disabled
+
+Performance and Analytics Cookies:
+- Help us understand how users interact with the Services
+- Collect information about usage patterns and performance
+- Used to improve the Services
+
+Functionality Cookies:
+- Remember your preferences and settings
+- Enhance your user experience
+- Provide personalized features
+
+5.2 Your Cookie Choices
+Most web browsers allow you to control cookies through their settings. You can:
+- Block all cookies
+- Accept only certain types of cookies
+- Receive notifications when cookies are set
+- Delete existing cookies
+
+Note that disabling certain cookies may limit your ability to use some features of the Services.
+
+5.3 Third-Party Analytics
+We use third-party analytics services, including Google Analytics, to help us understand usage of the Services. These services may collect information about your use of the Services and other websites over time. To learn more about Google Analytics and how to opt out, visit: https://tools.google.com/dlpage/gaoptout
+
+6. DATA RETENTION
+
+6.1 Active Accounts
+We retain your information for as long as your account is active or as needed to provide you with the Services.
+
+6.2 Deleted Accounts
+When you delete your account:
+- We will delete or anonymize your personal information within 90 days
+- Some information may be retained in backups for up to 180 days
+- We may retain certain information as required by law or for legitimate business purposes
+
+6.3 Workspace Data
+Workspace owners control retention policies for their workspace data. When a workspace is deleted, associated data is deleted according to our standard deletion procedures.
+
+6.4 Legal Retention
+We may retain information longer if required by law, regulation, legal process, or to protect against legal liability.
+
+7. DATA SECURITY
+
+7.1 Security Measures
+We implement appropriate technical and organizational measures to protect your information, including:
+- Encryption in transit (TLS/SSL) and at rest (AES-256)
+- Secure data centers with physical and environmental safeguards
+- Access controls and authentication requirements
+- Regular security assessments and penetration testing
+- Employee training on data protection
+- Incident response procedures
+
+7.2 Your Responsibility
+You are responsible for:
+- Maintaining the confidentiality of your login credentials
+- Using a strong, unique password
+- Enabling two-factor authentication when available
+- Logging out from shared devices
+- Notifying us immediately of any security breach
+
+7.3 No Guarantee
+Despite our security measures, no method of transmission over the Internet or electronic storage is 100% secure. We cannot guarantee absolute security of your information.
+
+8. YOUR PRIVACY RIGHTS
+
+Depending on your location and applicable laws, you may have certain rights regarding your personal information:
+
+8.1 Access and Portability
+- Request access to the personal information we hold about you
+- Receive a copy of your data in a structured, commonly used format
+- Export your workspace data through our data export features
+
+8.2 Correction and Update
+- Update your account information and profile at any time through your account settings
+- Request correction of inaccurate or incomplete information
+
+8.3 Deletion
+- Delete your account at any time through account settings
+- Request deletion of your personal information (subject to certain exceptions)
+- Note: Workspace administrators control data within their workspaces
+
+8.4 Restriction and Objection
+- Request restriction of processing of your personal information
+- Object to processing based on legitimate interests
+- Opt out of marketing communications
+
+8.5 Withdrawal of Consent
+- Withdraw consent for processing where we rely on consent
+- Note: Withdrawal does not affect the lawfulness of processing before withdrawal
+
+8.6 How to Exercise Your Rights
+To exercise any of these rights, contact us at:
+Email: privacy@chatterboxteams.com
+Or through your account settings where available
+
+We will respond to your request within 30 days (or as required by applicable law).
+
+9. INTERNATIONAL DATA TRANSFERS
+
+9.1 Data Storage Locations
+Your information may be processed and stored in the United States, Australia, and New Zealand. These countries may have data protection laws that differ from your country of residence.
+
+9.2 Transfer Safeguards
+When we transfer personal information internationally, we implement appropriate safeguards, including:
+- Standard contractual clauses approved by relevant authorities
+- Compliance with applicable data protection frameworks
+- Ensuring service providers implement adequate security measures
+
+9.3 EU-U.S. and Swiss-U.S. Privacy Shield
+[Include if applicable to your business operations]
+
+10. CHILDREN'S PRIVACY
+
+10.1 Age Requirement
+Our Services are intended for users aged 13 and older. We do not knowingly collect personal information from children under 13.
+
+10.2 Parental Consent
+If you are between 13 and 18 years old, you should review this Privacy Policy with your parent or legal guardian and ensure they consent to your use of the Services.
+
+10.3 Discovery of Children's Information
+If we learn that we have collected personal information from a child under 13, we will take steps to delete that information as quickly as possible. If you believe we have collected information from a child under 13, please contact us at hello@chatterboxteams.com.
+
+11. CALIFORNIA PRIVACY RIGHTS
+
+If you are a California resident, the California Consumer Privacy Act (CCPA) provides you with specific rights:
+
+11.1 Right to Know
+You have the right to request:
+- Categories of personal information we collect
+- Categories of sources from which we collect information
+- Business or commercial purposes for collecting information
+- Categories of third parties with whom we share information
+- Specific pieces of personal information we hold about you
+
+11.2 Right to Delete
+You have the right to request deletion of your personal information, subject to certain exceptions.
+
+11.3 Right to Opt-Out
+You have the right to opt out of the "sale" of your personal information. We do not sell personal information.
+
+11.4 Right to Non-Discrimination
+We will not discriminate against you for exercising your CCPA rights.
+
+11.5 How to Submit Requests
+Email: privacy@chatterboxteams.com
+Phone: [PHONE NUMBER if applicable]
+Or through your account settings
+
+We will verify your identity before processing your request and respond within 45 days.
+
+12. EUROPEAN PRIVACY RIGHTS (GDPR)
+
+If you are in the European Economic Area (EEA), UK, or Switzerland, you have additional rights under the General Data Protection Regulation (GDPR):
+
+12.1 Legal Basis for Processing
+We process your personal information based on:
+- Performance of our contract with you (to provide the Services)
+- Legitimate interests (to improve and secure our Services)
+- Your consent (for marketing communications)
+- Legal obligations (to comply with applicable laws)
+
+12.2 Your GDPR Rights
+In addition to the rights listed in Section 8, you have:
+- The right to lodge a complaint with your local data protection authority
+- The right to object to automated decision-making (if applicable)
+- Additional rights regarding data portability and erasure
+
+12.3 Data Protection Officer
+For GDPR-related inquiries, contact our Data Protection Officer at: dpo@chatterboxteams.com
+
+13. AUSTRALIAN PRIVACY ACT COMPLIANCE
+
+For users in Australia, we comply with the Australian Privacy Act 1988 and the Australian Privacy Principles (APPs).
+
+13.1 Cross-Border Disclosure
+We disclose personal information to overseas recipients in the United States and New Zealand. By using our Services, you consent to this disclosure.
+
+13.2 Complaints
+If you have a complaint about how we handle your personal information, contact us at privacy@chatterboxteams.com. If you are not satisfied with our response, you may contact the Office of the Australian Information Commissioner (OAIC).
+
+14. DO NOT TRACK SIGNALS
+
+Our Services do not currently respond to "Do Not Track" (DNT) signals from web browsers. We may adopt a DNT standard if one is established in the future.
+
+15. CHANGES TO THIS PRIVACY POLICY
+
+15.1 Updates
+We may update this Privacy Policy from time to time to reflect changes in our practices, technology, legal requirements, or other factors.
+
+15.2 Notice of Changes
+We will notify you of material changes by:
+- Posting the updated Privacy Policy on our website
+- Updating the "Last Updated" date
+- Sending you an email notification (for significant changes)
+- Displaying a prominent notice within the Services
+
+15.3 Your Acceptance
+Your continued use of the Services after changes become effective constitutes acceptance of the updated Privacy Policy. If you do not agree with the changes, you should discontinue use of the Services and delete your account.
+
+16. THIRD-PARTY LINKS AND SERVICES
+
+Our Services may contain links to third-party websites, applications, or services. This Privacy Policy does not apply to those third-party services. We are not responsible for the privacy practices of third parties. We encourage you to review their privacy policies before providing them with any information.
+
+17. CONTACT US
+
+If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us:
+
+Chatterbox Enterprises USA LLC
+Address: 1441 North Statepark Way, Chicago, IL
+Email: privacy@chatterboxteams.com
+General Inquiries: hello@chatterboxteams.com
+Data Protection Officer: dpo@chatterboxteams.com
+Website: www.chatterboxteams.com
+
+For specific privacy rights requests:
+- California residents: privacy@chatterboxteams.com
+- EEA/UK residents: dpo@chatterboxteams.com
+- Australian residents: privacy@chatterboxteams.com
+
+We will respond to your inquiry within 30 days (or as required by applicable law).
+
+By using Chatterbox, you acknowledge that you have read, understood, and agree to this Privacy Policy.

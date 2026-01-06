@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, Hash, ArrowRight, ShieldCheck, UserPlus } from "lucide-react";
+import { Loader2, Hash, ArrowRight, ShieldCheck, UserPlus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -103,9 +101,9 @@ export default function InvitePage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-8">
       <div className="mb-8">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="bg-black p-2 rounded-xl">
-            <MessageSquare className="h-6 w-6 text-white" />
-          </div>
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="text-2xl font-bold tracking-tight text-black dark:text-white">
             Chatterbox Teams
           </span>
@@ -113,11 +111,11 @@ export default function InvitePage() {
       </div>
 
       <Card className="w-full max-w-md shadow-xl border-zinc-200 dark:border-zinc-800 overflow-hidden">
-        <div className="h-2 bg-primary w-full" />
+        <div className="h-2 bg-[#a9d6f3] w-full" />
         <CardHeader className="space-y-4 pt-8 pb-6 text-center">
           <div className="flex justify-center">
-            <div className="bg-primary/10 p-4 rounded-full">
-              <UserPlus className="h-10 w-10 text-primary" />
+            <div className="bg-[#a9d6f3]/10 p-4 rounded-full">
+              <UserPlus className="h-10 w-10 text-[#a9d6f3]" />
             </div>
           </div>
           <div className="space-y-2">
@@ -156,7 +154,7 @@ export default function InvitePage() {
 
             <Button 
               type="submit" 
-              className="w-full h-12 font-semibold shadow-sm group" 
+              className="w-full h-12 font-semibold shadow-sm group bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950" 
               disabled={loading || !form.formState.isValid}
             >
               {loading ? (
@@ -172,13 +170,13 @@ export default function InvitePage() {
         </CardContent>
         <CardFooter className="bg-zinc-50 dark:bg-zinc-900/50 border-t py-6 flex justify-center">
           <p className="text-sm text-muted-foreground">
-            Don't have a code? <Link href="/join-space" className="text-primary font-semibold hover:underline">Browse public spaces</Link>
+            Don't have a code? <Link href="/join-space" className="text-[#a9d6f3] font-semibold hover:underline">Browse public spaces</Link>
           </p>
         </CardFooter>
       </Card>
       
       <p className="mt-8 text-zinc-400 text-sm">
-        Need to create your own? <Link href="/create-space" className="text-primary hover:underline font-medium">Create a new space</Link>
+        Need to create your own? <Link href="/create-space" className="text-[#a9d6f3] hover:underline font-medium">Create a new space</Link>
       </p>
     </div>
   );

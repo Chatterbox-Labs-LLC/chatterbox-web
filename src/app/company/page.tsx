@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Building2, MapPin, Briefcase, Globe2, Rocket } from "lucide-react";
+import { Building2, MapPin, Briefcase, Globe2, Rocket, MessageCircle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -17,10 +17,10 @@ export default function CompanyPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -44,9 +44,9 @@ export default function CompanyPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-sm font-bold"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#a9d6f3]/20 text-zinc-900 dark:text-[#a9d6f3] text-sm font-bold"
               >
-                <Building2 className="h-4 w-4 text-blue-600" />
+                <Building2 className="h-4 w-4" />
                 The Company
               </motion.div>
               <motion.h1 
@@ -54,7 +54,7 @@ export default function CompanyPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-5xl font-extrabold tracking-tight sm:text-7xl leading-tight"
               >
-                Building the infrastructure for <span className="text-blue-600">modern work.</span>
+                Building the infrastructure for <span className="text-[#a9d6f3]">modern work.</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -117,9 +117,11 @@ export default function CompanyPage() {
                   </p>
                 </div>
               </div>
-              <div className="relative aspect-square rounded-3xl bg-zinc-100 dark:bg-zinc-800 overflow-hidden">
+              <div className="relative aspect-square rounded-3xl bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5 overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <MessageSquare className="h-32 w-32 text-zinc-200 dark:text-zinc-700 animate-bounce" />
+                  <svg width="120" height="120" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] animate-bounce">
+                    <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+                  </svg>
                 </div>
               </div>
             </div>
@@ -127,14 +129,14 @@ export default function CompanyPage() {
         </section>
 
         {/* Careers CTA */}
-        <section className="py-24 bg-blue-600">
-          <div className="container px-4 md:px-6 mx-auto text-center text-white space-y-8">
+        <section className="py-24 bg-[#a9d6f3]">
+          <div className="container px-4 md:px-6 mx-auto text-center text-zinc-950 space-y-8">
             <h2 className="text-4xl font-bold">Want to join us?</h2>
-            <p className="text-blue-100 text-xl max-w-2xl mx-auto">
+            <p className="text-zinc-800 text-xl max-w-2xl mx-auto">
               We're always looking for talented individuals who are passionate about building 
               the future of collaboration.
             </p>
-            <Button size="lg" variant="secondary" className="h-14 px-10 text-lg font-bold rounded-full shadow-xl hover:scale-105 transition-transform" asChild>
+            <Button size="lg" variant="secondary" className="h-14 px-10 text-lg font-bold rounded-full shadow-xl hover:scale-105 transition-transform bg-white text-zinc-950 hover:bg-zinc-100" asChild>
               <Link href="/careers">
                 <Briefcase className="mr-2 h-5 w-5" />
                 View Open Positions

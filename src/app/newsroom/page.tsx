@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Calendar, ArrowRight, Newspaper, Tag } from "lucide-react";
+import { Calendar, ArrowRight, Newspaper, Tag } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,7 @@ export default function NewsroomPage() {
       description: "We're excited to announce that Chatterbox Teams is officially in open beta. Join thousands of teams already building the future.",
       date: "January 5, 2026",
       category: "Product",
-      image: "bg-blue-500/10",
+      image: "bg-[#a9d6f3]/20",
     },
     {
       title: "Announcing our Series A funding",
@@ -42,10 +42,10 @@ export default function NewsroomPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -69,7 +69,7 @@ export default function NewsroomPage() {
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 text-sm font-bold"
+                className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#a9d6f3]/10 text-[#a9d6f3] text-sm font-bold"
               >
                 <Newspaper className="h-4 w-4" />
                 Newsroom
@@ -79,7 +79,7 @@ export default function NewsroomPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-5xl font-extrabold tracking-tight sm:text-7xl"
               >
-                The latest from <span className="text-blue-600">Chatterbox.</span>
+                The latest from <span className="text-[#a9d6f3]">Chatterbox.</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -111,7 +111,7 @@ export default function NewsroomPage() {
                     </div>
                     <CardHeader className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-sm font-semibold text-blue-600 bg-blue-50 dark:bg-blue-900/20 px-3 py-1 rounded-full">
+                        <div className="flex items-center gap-2 text-sm font-semibold text-[#a9d6f3] bg-[#a9d6f3]/10 px-3 py-1 rounded-full">
                           <Tag className="h-3.5 w-3.5" />
                           {item.category}
                         </div>
@@ -120,7 +120,7 @@ export default function NewsroomPage() {
                           {item.date}
                         </div>
                       </div>
-                      <CardTitle className="text-2xl group-hover:text-blue-600 transition-colors leading-tight">
+                      <CardTitle className="text-2xl group-hover:text-[#a9d6f3] transition-colors leading-tight">
                         {item.title}
                       </CardTitle>
                       <CardDescription className="text-zinc-500 dark:text-zinc-400 text-lg leading-relaxed line-clamp-2">
@@ -128,7 +128,7 @@ export default function NewsroomPage() {
                       </CardDescription>
                     </CardHeader>
                     <CardFooter>
-                      <Button variant="ghost" className="p-0 text-blue-600 font-bold hover:bg-transparent hover:text-blue-700 group/btn">
+                      <Button variant="ghost" className="p-0 text-[#a9d6f3] font-bold hover:bg-transparent hover:text-[#a9d6f3]/80 group/btn">
                         Read more
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
                       </Button>
@@ -157,7 +157,7 @@ export default function NewsroomPage() {
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="flex-1 h-14 px-6 rounded-full bg-zinc-900 border border-zinc-800 focus:outline-none focus:border-blue-500 transition-colors"
+                className="flex-1 h-14 px-6 rounded-full bg-zinc-900 border border-zinc-800 focus:outline-none focus:border-[#a9d6f3] transition-colors"
               />
               <Button className="h-14 px-10 rounded-full bg-white text-black hover:bg-zinc-200 font-bold">
                 Subscribe

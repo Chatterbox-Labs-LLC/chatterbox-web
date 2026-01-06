@@ -1,7 +1,5 @@
 'use client';
 
-export const runtime = 'edge';
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -70,7 +68,7 @@ export default function SettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#a9d6f3]" />
       </div>
     );
   }
@@ -105,7 +103,7 @@ export default function SettingsPage() {
               <input 
                 type="checkbox" 
                 name="emailNotifications"
-                className="h-5 w-5 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" 
+                className="h-5 w-5 rounded border-zinc-300 text-[#a9d6f3] focus:ring-[#a9d6f3]" 
                 defaultChecked={settings?.email_notifications ?? true} 
               />
             </div>
@@ -117,7 +115,7 @@ export default function SettingsPage() {
               <input 
                 type="checkbox" 
                 name="desktopNotifications"
-                className="h-5 w-5 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" 
+                className="h-5 w-5 rounded border-zinc-300 text-[#a9d6f3] focus:ring-[#a9d6f3]" 
                 defaultChecked={settings?.desktop_notifications ?? true} 
               />
             </div>
@@ -134,7 +132,7 @@ export default function SettingsPage() {
               <Label className="text-base">Theme</Label>
               <select 
                 name="theme"
-                className="flex h-11 w-full sm:w-[240px] rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950" 
+                className="flex h-11 w-full sm:w-[240px] rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a9d6f3] dark:border-zinc-800 dark:bg-zinc-950 dark:ring-offset-zinc-950" 
                 defaultValue={settings?.theme || 'system'}
               >
                 <option value="light">Light</option>
@@ -150,7 +148,7 @@ export default function SettingsPage() {
               <input 
                 type="checkbox" 
                 name="compactMode"
-                className="h-5 w-5 rounded border-zinc-300 text-blue-600 focus:ring-blue-500" 
+                className="h-5 w-5 rounded border-zinc-300 text-[#a9d6f3] focus:ring-[#a9d6f3]" 
                 defaultChecked={settings?.compact_mode ?? false} 
               />
             </div>
@@ -168,7 +166,7 @@ export default function SettingsPage() {
                 <Label className="text-base">Language</Label>
                 <select 
                   name="language"
-                  className="flex h-11 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-950" 
+                  className="flex h-11 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a9d6f3] dark:border-zinc-800 dark:bg-zinc-950" 
                   defaultValue={settings?.language || 'en'}
                 >
                   <option value="en">English (US)</option>
@@ -183,7 +181,7 @@ export default function SettingsPage() {
                 <Label className="text-base">Timezone</Label>
                 <select 
                   name="timezone"
-                  className="flex h-11 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:border-zinc-800 dark:bg-zinc-950" 
+                  className="flex h-11 w-full rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a9d6f3] dark:border-zinc-800 dark:bg-zinc-950" 
                   defaultValue={settings?.timezone || 'UTC'}
                 >
                   <option value="UTC">UTC (Coordinated Universal Time)</option>
@@ -201,7 +199,7 @@ export default function SettingsPage() {
 
         <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4">
           <Button type="button" variant="outline" className="px-8 h-11">Reset to Defaults</Button>
-          <Button type="submit" disabled={saving} className="px-8 h-11 bg-blue-600 hover:bg-blue-700">
+          <Button type="submit" disabled={saving} className="px-8 h-11 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950">
             {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save All Settings
           </Button>

@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { 
-  MessageSquare, 
   Plus, 
   Hash,
   X as CloseIcon
@@ -79,9 +78,9 @@ export function Sidebar({
     )}>
       <div className="p-4 flex items-center justify-between">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black fill-current" />
-          </div>
+          <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <Button 
@@ -110,11 +109,11 @@ export function Sidebar({
                   href={`/spaces/${space.slug}`}
                   className={`flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all text-sm ${
                     space.slug === slug 
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium" 
+                      ? "bg-[#a9d6f3]/10 text-[#a9d6f3] font-medium" 
                       : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
                   }`}
                 >
-                  <Hash className={`h-4 w-4 ${space.slug === slug ? "text-blue-500" : "text-zinc-400"}`} />
+                  <Hash className={`h-4 w-4 ${space.slug === slug ? "text-[#a9d6f3]" : "text-zinc-400"}`} />
                   <span className="truncate">{space.name}</span>
                 </Link>
               ))}
@@ -134,11 +133,11 @@ export function Sidebar({
                   onClick={() => handleChannelSwitch(channel.id)}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all text-sm group ${
                     activeChannelId === channel.id
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium"
+                      ? "bg-[#a9d6f3]/10 text-[#a9d6f3] font-medium"
                       : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
                   }`}
                 >
-                  <Hash className={`h-4 w-4 ${activeChannelId === channel.id ? "text-blue-500" : "text-zinc-400 group-hover:text-zinc-600"}`} />
+                  <Hash className={`h-4 w-4 ${activeChannelId === channel.id ? "text-[#a9d6f3]" : "text-zinc-400 group-hover:text-zinc-600"}`} />
                   <span className="truncate">{channel.name}</span>
                 </button>
               ))}
@@ -160,7 +159,7 @@ export function Sidebar({
                   onClick={() => handleConversationSwitch(conv.id)}
                   className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all text-sm group ${
                     activeConversationId === conv.id
-                      ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-medium"
+                      ? "bg-[#a9d6f3]/10 text-[#a9d6f3] font-medium"
                       : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50"
                   }`}
                 >

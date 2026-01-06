@@ -1,11 +1,9 @@
 'use client';
 
-export const runtime = 'edge';
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Info, Users, MessageSquare, Shield, HardDrive, Headphones, Video, Sparkles, Key, FileText, Loader2 } from 'lucide-react';
-import { useState } from 'react';
+import { Info, Users, MessageCircle, Shield, HardDrive, Headphones, Video, Sparkles, Key, FileText, Loader2 } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 
 export default function BillingPage() {
@@ -31,10 +29,10 @@ export default function BillingPage() {
       description: "Up to 10 users per workspace",
       features: [
         { icon: Users, text: "Up to 10 users per workspace" },
-        { icon: MessageSquare, text: "Text channels and direct messages" },
+        { icon: MessageCircle, text: "Text channels and direct messages" },
         { icon: Shield, text: "Basic permissions and moderation" },
         { icon: HardDrive, text: "Limited file uploads" },
-        { icon: MessageSquare, text: "Standard message history" },
+        { icon: MessageCircle, text: "Standard message history" },
         { icon: Headphones, text: "Community support" },
       ],
       buttonText: "Current Plan",
@@ -48,12 +46,12 @@ export default function BillingPage() {
       description: "Billed monthly per workspace",
       features: [
         { icon: Users, text: "Unlimited users" },
-        { icon: MessageSquare, text: "Unlimited channels" },
+        { icon: MessageCircle, text: "Unlimited channels" },
         { icon: Video, text: "Voice and Video rooms" },
         { icon: Video, text: "Screen sharing" },
         { icon: Sparkles, text: "AI summaries and assist features" },
         { icon: Shield, text: "Advanced roles and moderation" },
-        { icon: MessageSquare, text: "Unlimited message history" },
+        { icon: MessageCircle, text: "Unlimited message history" },
         { icon: Headphones, text: "Priority support" },
       ],
       buttonText: "Upgrade to Pro",
@@ -80,7 +78,7 @@ export default function BillingPage() {
   return (
     <div className="p-6 md:p-8 space-y-8 max-w-6xl mx-auto w-full relative overflow-hidden">
       {/* Coming Soon Overlay Banner */}
-      <div className="absolute top-10 -right-16 bg-blue-600 text-white px-20 py-2 rotate-45 z-50 shadow-lg font-bold text-sm tracking-widest uppercase">
+      <div className="absolute top-10 -right-16 bg-[#a9d6f3] text-zinc-950 px-20 py-2 rotate-45 z-50 shadow-lg font-bold text-sm tracking-widest uppercase">
         Coming Soon
       </div>
 
@@ -92,19 +90,19 @@ export default function BillingPage() {
         <div className="flex bg-zinc-100 dark:bg-zinc-800 p-1 rounded-lg">
           <button 
             onClick={() => setActiveTab('plans')}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'plans' ? 'bg-white dark:bg-zinc-700 shadow-sm text-blue-600' : 'text-zinc-500 hover:text-zinc-700'}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'plans' ? 'bg-white dark:bg-zinc-700 shadow-sm text-[#a9d6f3]' : 'text-zinc-500 hover:text-zinc-700'}`}
           >
             Plans
           </button>
           <button 
             onClick={() => setActiveTab('history')}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'history' ? 'bg-white dark:bg-zinc-700 shadow-sm text-blue-600' : 'text-zinc-500 hover:text-zinc-700'}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'history' ? 'bg-white dark:bg-zinc-700 shadow-sm text-[#a9d6f3]' : 'text-zinc-500 hover:text-zinc-700'}`}
           >
             Invoices
           </button>
           <button 
             onClick={() => setActiveTab('payment')}
-            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'payment' ? 'bg-white dark:bg-zinc-700 shadow-sm text-blue-600' : 'text-zinc-500 hover:text-zinc-700'}`}
+            className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${activeTab === 'payment' ? 'bg-white dark:bg-zinc-700 shadow-sm text-[#a9d6f3]' : 'text-zinc-500 hover:text-zinc-700'}`}
           >
             Payment
           </button>
@@ -113,50 +111,28 @@ export default function BillingPage() {
 
       {activeTab === 'plans' && (
         <div className="space-y-8">
-          <Card className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white border-none shadow-xl">
-            <CardHeader>
-              <div className="flex justify-between items-start">
-                <div>
-                  <CardTitle className="text-2xl">Current Plan: FREE</CardTitle>
-                  <CardDescription className="text-blue-100 mt-1 text-base">
-                    Your workspace is currently on the Free tier.
-                  </CardDescription>
-                </div>
-                <div className="flex flex-col items-end gap-2">
-                  <div className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider backdrop-blur-sm">
-                    Active
-                  </div>
-                  <Button 
-                    variant="secondary" 
-                    size="sm" 
-                    className="bg-white text-blue-600 hover:bg-blue-50"
-                    onClick={handleManageBilling}
-                    disabled={loading === 'manage'}
-                  >
-                    {loading === 'manage' && <Loader2 className="mr-2 h-3 w-3 animate-spin" />}
-                    Manage Subscription
-                  </Button>
-                </div>
+          <Card className="bg-[#a9d6f3] border-none shadow-lg text-zinc-950 overflow-hidden">
+            <CardContent className="p-8 relative">
+              <div className="absolute top-0 right-0 p-8 opacity-10">
+                <svg width="120" height="120" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="fill-current">
+                  <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+                </svg>
               </div>
-            </CardHeader>
-            <CardContent>
-              <div className="grid md:grid-cols-3 gap-6 mt-2">
+              <div className="grid md:grid-cols-3 gap-8 relative z-10">
                 <div className="space-y-1">
-                  <p className="text-blue-100 text-sm">Active Users</p>
-                  <p className="text-2xl font-bold">8 / 10</p>
-                  <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white w-[80%]" />
-                  </div>
+                  <p className="text-zinc-800 text-sm">Current Plan</p>
+                  <p className="text-4xl font-black">FREE</p>
+                  <p className="text-zinc-800 text-sm">Community Edition</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-blue-100 text-sm">File Storage</p>
+                  <p className="text-zinc-800 text-sm">File Storage</p>
                   <p className="text-2xl font-bold">1.2 GB / 5 GB</p>
-                  <div className="h-1.5 bg-white/20 rounded-full overflow-hidden">
-                    <div className="h-full bg-white w-[24%]" />
+                  <div className="h-1.5 bg-white/40 rounded-full overflow-hidden">
+                    <div className="h-full bg-zinc-950 w-[24%]" />
                   </div>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-blue-100 text-sm">Next Reset</p>
+                  <p className="text-zinc-800 text-sm">Next Reset</p>
                   <p className="text-2xl font-bold">Feb 1, 2026</p>
                 </div>
               </div>
@@ -165,9 +141,9 @@ export default function BillingPage() {
 
           <div className="grid lg:grid-cols-3 gap-8">
             {plans.map((plan) => (
-              <Card key={plan.name} className={`relative flex flex-col transition-all duration-300 hover:shadow-xl ${plan.popular ? 'border-blue-500 shadow-lg scale-105' : 'hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
+              <Card key={plan.name} className={`relative flex flex-col transition-all duration-300 hover:shadow-xl ${plan.popular ? 'border-[#a9d6f3] shadow-lg scale-105' : 'hover:border-zinc-300 dark:hover:border-zinc-700'}`}>
                 {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#a9d6f3] text-zinc-950 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
                     Most Popular
                   </div>
                 )}
@@ -183,7 +159,7 @@ export default function BillingPage() {
                   <ul className="space-y-3">
                     {plan.features.map((feature, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm">
-                        <feature.icon className="h-4 w-4 mt-0.5 text-blue-500 shrink-0" />
+                        <feature.icon className="h-4 w-4 mt-0.5 text-[#a9d6f3] shrink-0" />
                         <span>{feature.text}</span>
                       </li>
                     ))}
@@ -208,7 +184,7 @@ export default function BillingPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
-                  <Info className="h-5 w-5 text-blue-500" />
+                  <Info className="h-5 w-5 text-[#a9d6f3]" />
                   Billing Notes
                 </CardTitle>
               </CardHeader>
@@ -226,7 +202,7 @@ export default function BillingPage() {
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2 text-zinc-900 dark:text-zinc-100">
-                  <Users className="h-5 w-5 text-blue-500" />
+                  <Users className="h-5 w-5 text-[#a9d6f3]" />
                   What is an "Active User"?
                 </CardTitle>
               </CardHeader>
@@ -234,8 +210,8 @@ export default function BillingPage() {
                 <p className="text-sm text-muted-foreground">
                   An active user is defined as any user who has logged in to your workspace within the last 30 days.
                 </p>
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-100 dark:border-blue-900/30">
-                  <p className="text-sm font-medium text-blue-800 dark:text-blue-300">
+                <div className="bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5 p-4 rounded-lg border border-[#a9d6f3]/20 dark:border-[#a9d6f3]/10">
+                  <p className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
                     You only pay for who uses the app. We'll automatically adjust your bill each month.
                   </p>
                 </div>
@@ -275,7 +251,7 @@ export default function BillingPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3 text-right">
-                        <Button variant="ghost" size="sm" className="text-blue-600">Download</Button>
+                        <Button variant="ghost" size="sm" className="text-[#a9d6f3]">Download</Button>
                       </td>
                     </tr>
                   )) : (

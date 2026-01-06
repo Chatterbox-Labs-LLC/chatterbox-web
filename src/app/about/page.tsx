@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Users, Sparkles, Heart, Zap, Globe } from "lucide-react";
+import { Users, Sparkles, Heart, Globe } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -12,13 +12,13 @@ export default function AboutPage() {
       title: "Team First",
       description: "We believe that great things happen when teams are empowered to communicate clearly and effectively.",
       icon: Users,
-      color: "text-blue-500",
-      bg: "bg-blue-500/10",
+      color: "text-[#a9d6f3]",
+      bg: "bg-[#a9d6f3]/10",
     },
     {
       title: "Simple & Fast",
       description: "Speed is a feature. We build tools that stay out of your way so you can focus on doing your best work.",
-      icon: Zap,
+      icon: Sparkles,
       color: "text-amber-500",
       bg: "bg-amber-500/10",
     },
@@ -41,10 +41,10 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -68,7 +68,7 @@ export default function AboutPage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#a9d6f3]/10 border border-[#a9d6f3]/20 text-[#a9d6f3] text-sm font-semibold mb-4"
               >
                 <Sparkles className="h-4 w-4" />
                 Our Mission
@@ -78,7 +78,7 @@ export default function AboutPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl"
               >
-                We're building the future of <span className="text-blue-600">teamwork.</span>
+                We're building the future of <span className="text-[#a9d6f3]">teamwork.</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}

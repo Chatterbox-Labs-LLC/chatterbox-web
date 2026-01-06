@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { MessageSquare, Globe, Users } from "lucide-react";
+import { Globe, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function Footer() {
@@ -11,19 +11,19 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-16">
           <div className="col-span-2 lg:col-span-2 space-y-6">
             <Link className="flex items-center group" href="/">
-              <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-                <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-              </div>
+              <svg width="20" height="20" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] mr-2 group-hover:scale-110 transition-transform">
+                <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+              </svg>
               <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
             </Link>
             <p className="text-zinc-500 dark:text-zinc-400 max-w-xs text-base leading-relaxed">
               The modern communication platform for high-performance teams. Work together, beautifully.
             </p>
             <div className="flex gap-4">
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all">
+              <Button variant="ghost" size="icon" className="rounded-full hover:bg-[#a9d6f3]/10 hover:text-[#a9d6f3] transition-all">
                 <Globe className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:text-blue-600 transition-all">
+              <Button variant="ghost" size="icon" className="rounded-full hover:bg-[#a9d6f3]/10 hover:text-[#a9d6f3] transition-all">
                 <Users className="h-5 w-5" />
               </Button>
             </div>
@@ -32,28 +32,28 @@ export function Footer() {
           <div className="space-y-4">
             <h4 className="font-bold text-sm uppercase tracking-wider text-zinc-900 dark:text-zinc-100">Product</h4>
             <ul className="space-y-3">
-              <li><Link href="/#features" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Features</Link></li>
-              <li><Link href="/pricing" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Pricing</Link></li>
-              <li><Link href="/download" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Download</Link></li>
+              <li><Link href="/#features" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Features</Link></li>
+              <li><Link href="/pricing" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Pricing</Link></li>
+              <li><Link href="/download" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Download</Link></li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="font-bold text-sm uppercase tracking-wider text-zinc-900 dark:text-zinc-100">Company</h4>
             <ul className="space-y-3">
-              <li><Link href="/about" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">About</Link></li>
-              <li><Link href="/company" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Our Story</Link></li>
-              <li><Link href="/newsroom" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Newsroom</Link></li>
-              <li><Link href="/masthead" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Masthead</Link></li>
+              <li><Link href="/about" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">About</Link></li>
+              <li><Link href="/company" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Our Story</Link></li>
+              <li><Link href="/newsroom" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Newsroom</Link></li>
+              <li><Link href="/masthead" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Masthead</Link></li>
             </ul>
           </div>
 
           <div className="space-y-4">
             <h4 className="font-bold text-sm uppercase tracking-wider text-zinc-900 dark:text-zinc-100">Legal</h4>
             <ul className="space-y-3">
-              <li><Link href="/privacy" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Privacy Policy</Link></li>
-              <li><Link href="/terms" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Terms of Service</Link></li>
-              <li><Link href="/security" className="text-zinc-500 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 transition-colors text-sm font-medium">Security</Link></li>
+              <li><Link href="/privacy" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Terms of Service</Link></li>
+              <li><Link href="/security" className="text-zinc-500 hover:text-[#a9d6f3] dark:text-zinc-400 dark:hover:text-[#a9d6f3] transition-colors text-sm font-medium">Security</Link></li>
             </ul>
           </div>
         </div>

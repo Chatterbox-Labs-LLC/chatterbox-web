@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   const supabaseAdmin = createAdminClient();
   const resend = getResend();
   try {
-    const { email } = await request.json();
+    const { email, next } = await request.json();
 
     if (!email) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
       type: 'magiclink',
       email,
       options: {
-        redirectTo: `${new URL(request.url).origin}/auth/callback`,
+        redirectTo: `${new URL(request.url).origin}/auth/callback${next ? `?next=${encodeURIComponent(next)}` : ''}`,
       },
     });
 

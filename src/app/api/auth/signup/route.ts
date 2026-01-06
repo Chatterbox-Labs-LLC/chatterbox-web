@@ -12,7 +12,7 @@ export async function POST(request: Request) {
     
     // 1. Parse and validate request
     const body = await request.json();
-    const { email, password, firstName, lastName } = body;
+    const { email, password, firstName, lastName, next } = body;
 
     if (!email || !password || !firstName || !lastName) {
       return NextResponse.json(
@@ -71,7 +71,7 @@ export async function POST(request: Request) {
       email,
       password,
       options: { 
-        redirectTo: `${origin}/auth/callback`,
+        redirectTo: `${origin}/auth/callback${next ? `?next=${encodeURIComponent(next)}` : ''}`,
         data: {
           first_name: firstName,
           last_name: lastName,

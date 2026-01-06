@@ -35,7 +35,7 @@ export function ErrorState({
   variant = "default"
 }: ErrorStateProps) {
   const iconColors = {
-    default: "text-blue-500 bg-blue-50 dark:bg-blue-900/20",
+    default: "text-[#a9d6f3] bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5",
     warning: "text-amber-500 bg-amber-50 dark:bg-amber-900/20",
     error: "text-red-500 bg-red-50 dark:bg-red-900/20"
   };

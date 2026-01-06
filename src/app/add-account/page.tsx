@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = "edge";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, Mail, ArrowLeft, Plus } from "lucide-react";
+import { Loader2, Mail, ArrowLeft, Plus } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -79,8 +77,8 @@ export default function AddAccountPage() {
                 <ArrowLeft className="h-4 w-4" />
               </Link>
             </Button>
-            <div className="bg-blue-500 p-2 rounded-xl">
-              <Plus className="h-6 w-6 text-white" />
+            <div className="bg-[#a9d6f3]/10 p-2 rounded-xl">
+              <Plus className="h-6 w-6 text-[#a9d6f3]" />
             </div>
             <div className="w-8" /> {/* Spacer */}
           </div>
@@ -131,7 +129,7 @@ export default function AddAccountPage() {
               </div>
             )}
 
-            <Button type="submit" className="w-full h-11 bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all shadow-md" disabled={loading}>
+            <Button type="submit" className="w-full h-11 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950 font-semibold transition-all shadow-md" disabled={loading}>
               {loading ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -146,7 +144,7 @@ export default function AddAccountPage() {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-center text-sm text-zinc-500">
             Don't have an account?{" "}
-            <Link href="/signup" className="text-blue-600 hover:underline font-medium">
+            <Link href="/signup" className="text-[#a9d6f3] hover:underline font-medium">
               Create one
             </Link>
           </div>

@@ -1,8 +1,7 @@
-export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { createClient } from '@/lib/supabase-server';
 import Link from 'next/link';
-import { Plus, Search, UserPlus, ArrowRight, MessageSquare, Globe, Users } from 'lucide-react';
+import { Plus, Search, UserPlus, ArrowRight, MessageCircle, Globe, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
@@ -40,7 +39,7 @@ export default async function DashboardPage() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Messages</CardTitle>
-            <MessageSquare className="h-4 w-4 text-muted-foreground" />
+            <MessageCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">--</div>
@@ -79,7 +78,7 @@ export default async function DashboardPage() {
             <Card key={space.id} className="group hover:shadow-lg transition-all border-zinc-200 dark:border-zinc-800">
               <CardHeader>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="p-2 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400">
+                  <div className="p-2 rounded-lg bg-[#a9d6f3]/10 text-[#a9d6f3]">
                     {space.is_public ? <Globe className="h-4 w-4" /> : <Users className="h-4 w-4" />}
                   </div>
                 </div>
@@ -140,7 +139,7 @@ export default async function DashboardPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="border-l-2 border-blue-500 pl-4">
+              <div className="border-l-2 border-[#a9d6f3] pl-4">
                 <p className="text-sm font-medium">New: Threaded Conversations</p>
                 <p className="text-xs text-muted-foreground">Keep your chats organized with our new threading feature.</p>
               </div>

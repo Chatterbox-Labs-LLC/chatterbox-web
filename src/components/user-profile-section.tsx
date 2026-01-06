@@ -47,7 +47,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
               <div className="flex items-center gap-2.5">
                 <Avatar className="h-10 w-10 border-2 border-white dark:border-zinc-900 shadow-sm">
                   <AvatarImage src={user.avatar_url} />
-                  <AvatarFallback className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-bold">
+                  <AvatarFallback className="bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5 text-[#a9d6f3] text-sm font-bold">
                     {initial}
                   </AvatarFallback>
                 </Avatar>
@@ -69,7 +69,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
                 onClick={() => router.push('/profile')}
                 className="w-full flex items-center gap-2.5 px-2.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-lg transition-all group/item"
               >
-                <User className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-blue-500" />
+                <User className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-[#a9d6f3]" />
                 <span className="font-medium text-zinc-900 dark:text-zinc-100">My Profile</span>
               </button>
 
@@ -77,7 +77,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
                 onClick={() => router.push('/settings')}
                 className="w-full flex items-center gap-2.5 px-2.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-lg transition-all group/item"
               >
-                <Settings className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-blue-500" />
+                <Settings className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-[#a9d6f3]" />
                 <span className="font-medium text-zinc-900 dark:text-zinc-100">Settings</span>
               </button>
 
@@ -85,7 +85,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
                 onClick={() => router.push('/add-account')}
                 className="w-full flex items-center gap-2.5 px-2.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-lg transition-all group/item"
               >
-                <UserPlus className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-blue-500" />
+                <UserPlus className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-[#a9d6f3]" />
                 <span className="font-medium text-zinc-900 dark:text-zinc-100">Add Account</span>
               </button>
 
@@ -93,7 +93,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
                 onClick={() => router.push('/forgot-password')}
                 className="w-full flex items-center gap-2.5 px-2.5 py-2 text-xs text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800/50 rounded-lg transition-all group/item"
               >
-                <Shield className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-blue-500" />
+                <Shield className="h-3.5 w-3.5 text-zinc-500 group-hover/item:text-[#a9d6f3]" />
                 <span className="font-medium text-zinc-900 dark:text-zinc-100">Forgot Password</span>
               </button>
 
@@ -112,14 +112,14 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
       </AnimatePresence>
 
       <div className="flex items-center gap-3 cursor-pointer group-hover/profile:opacity-80 transition-opacity">
-        <Avatar className="h-9 w-9 border border-zinc-200 dark:border-zinc-800 shadow-sm ring-0 group-hover/profile:ring-2 ring-blue-500/20 transition-all">
+        <Avatar className="h-9 w-9 border border-zinc-200 dark:border-zinc-800 shadow-sm ring-0 group-hover/profile:ring-2 ring-[#a9d6f3]/20 transition-all">
           <AvatarImage src={user.avatar_url} />
-          <AvatarFallback className="bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 font-bold">
+          <AvatarFallback className="bg-[#a9d6f3]/10 dark:bg-[#a9d6f3]/5 text-[#a9d6f3] font-bold">
             {initial}
           </AvatarFallback>
         </Avatar>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate group-hover/profile:text-blue-600 dark:group-hover/profile:text-blue-400 transition-colors">
+          <p className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 truncate group-hover/profile:text-[#a9d6f3] transition-colors">
             {user.full_name}
           </p>
           <div className="flex items-center gap-1.5">
@@ -127,7 +127,7 @@ export default function UserProfileSection({ user }: UserProfileSectionProps) {
             <p className="text-[10px] font-medium text-zinc-500 uppercase tracking-wider">Online</p>
           </div>
         </div>
-        <div className="text-zinc-400 group-hover/profile:text-blue-500 transition-colors h-8 w-8 flex items-center justify-center">
+        <div className="text-zinc-400 group-hover/profile:text-[#a9d6f3] transition-colors h-8 w-8 flex items-center justify-center">
           <Settings className="h-4 w-4" />
         </div>
       </div>

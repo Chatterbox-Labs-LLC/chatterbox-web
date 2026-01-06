@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, Loader2, ArrowRight, MessageSquare } from 'lucide-react';
+import { AlertCircle, Loader2, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
 export default function AuthCodeError() {
@@ -95,10 +95,10 @@ export default function AuthCodeError() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4">
       <div className="mb-8">
         <Link href="/" className="flex items-center gap-2">
-          <div className="bg-black p-2 rounded-xl">
-            <MessageSquare className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-black">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
+          <span className="text-2xl font-bold tracking-tight text-black dark:text-white">
             Chatterbox Teams
           </span>
         </Link>

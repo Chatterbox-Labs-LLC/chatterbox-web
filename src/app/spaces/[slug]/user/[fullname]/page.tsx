@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { useEffect, useState } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase';
@@ -19,7 +17,7 @@ import {
   Calendar,
   ArrowLeft,
   Mail,
-  MessageSquare
+  User
 } from 'lucide-react';
 import { format } from 'date-fns';
 
@@ -71,7 +69,7 @@ export default function UserProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#a9d6f3]" />
       </div>
     );
   }
@@ -98,7 +96,7 @@ export default function UserProfilePage() {
         </Button>
 
         <Card className="overflow-hidden border-none shadow-lg">
-          <div className="h-32 bg-gradient-to-r from-blue-600 to-indigo-600" />
+          <div className="h-32 bg-gradient-to-r from-[#a9d6f3] to-[#a9d6f3]/80" />
           <CardContent className="relative pt-0 pb-8">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-6 -mt-12 px-2">
               <Avatar className="h-32 w-32 border-4 border-white dark:border-zinc-950 shadow-xl">
@@ -121,9 +119,9 @@ export default function UserProfilePage() {
                 )}
               </div>
               <div className="flex gap-2 mb-2">
-                <Button className="rounded-full px-6">
-                  <MessageSquare className="h-4 w-4 mr-2" />
-                  Message
+                <Button className="rounded-full px-6 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950">
+                  <User className="h-4 w-4 mr-2" />
+                  Profile
                 </Button>
               </div>
             </div>
@@ -176,7 +174,7 @@ export default function UserProfilePage() {
                         href={profile.website.startsWith('http') ? profile.website : `https://${profile.website}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-blue-600 hover:underline"
+                        className="flex items-center gap-3 text-[#a9d6f3] hover:underline"
                       >
                         <Globe className="h-4 w-4" />
                         <span className="text-sm truncate">{profile.website.replace(/^https?:\/\//, '')}</span>

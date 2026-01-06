@@ -1,6 +1,6 @@
 "use client";
 
-import { MessageSquare, Mail, MapPin, Phone, Send, Sparkles, ChevronDown, CheckCircle2 } from "lucide-react";
+import { Mail, MapPin, Phone, Send, Sparkles, ChevronDown, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -48,10 +48,10 @@ export default function ContactPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -71,8 +71,8 @@ export default function ContactPage() {
         {/* Hero Section */}
         <section className="relative py-24 md:py-32 bg-zinc-50 dark:bg-zinc-900/30 overflow-hidden">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-full -z-10">
-            <div className="absolute top-[10%] left-[10%] w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-[10%] right-[10%] w-[300px] h-[300px] bg-purple-500/10 rounded-full blur-[100px]" />
+            <div className="absolute top-[10%] left-[10%] w-[300px] h-[300px] bg-[#a9d6f3]/10 rounded-full blur-[100px]" />
+            <div className="absolute bottom-[10%] right-[10%] w-[300px] h-[300px] bg-[#a9d6f3]/5 rounded-full blur-[100px]" />
           </div>
           
           <div className="container px-4 md:px-6 mx-auto">
@@ -80,7 +80,7 @@ export default function ContactPage() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#a9d6f3]/10 border border-[#a9d6f3]/20 text-[#a9d6f3] text-sm font-semibold mb-4"
               >
                 <Sparkles className="h-4 w-4" />
                 Contact Us
@@ -90,7 +90,7 @@ export default function ContactPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="text-4xl font-extrabold tracking-tight sm:text-6xl lg:text-7xl bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-200 dark:to-zinc-500"
               >
-                Get in touch with <br /> <span className="text-blue-600">our team.</span>
+                Get in touch with <br /> <span className="text-[#a9d6f3]">our team.</span>
               </motion.h1>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
@@ -123,7 +123,7 @@ export default function ContactPage() {
                       icon: Mail,
                       title: "Email Us",
                       lines: ["support@chatterboxteams.com", "sales@chatterboxteams.com"],
-                      color: "bg-blue-50 dark:bg-blue-900/20 text-blue-600"
+                      color: "bg-[#a9d6f3]/10 text-[#a9d6f3]"
                     },
                     {
                       icon: Phone,
@@ -195,30 +195,26 @@ export default function ContactPage() {
                       <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="grid md:grid-cols-2 gap-6">
                           <div className="space-y-2">
-                            <Label htmlFor="first-name">First Name</Label>
-                            <Input id="first-name" placeholder="Jane" required className="bg-white dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800" />
+                            <Label htmlFor="name">Full Name</Label>
+                            <Input id="name" placeholder="Jane Doe" required className="bg-zinc-50 dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-[#a9d6f3]" />
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="last-name">Last Name</Label>
-                            <Input id="last-name" placeholder="Doe" required className="bg-white dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800" />
+                            <Label htmlFor="email">Work Email</Label>
+                            <Input id="email" type="email" placeholder="jane@company.com" required className="bg-zinc-50 dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-[#a9d6f3]" />
                           </div>
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email Address</Label>
-                          <Input id="email" type="email" placeholder="jane@company.com" required className="bg-white dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="subject">Subject</Label>
-                          <Input id="subject" placeholder="How can we help?" required className="bg-white dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800" />
+                          <Input id="subject" placeholder="How can we help?" required className="bg-zinc-50 dark:bg-zinc-950 h-12 rounded-xl border-zinc-200 dark:border-zinc-800 focus:ring-2 focus:ring-[#a9d6f3]" />
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="message">Message</Label>
-                          <Textarea id="message" placeholder="Tell us more about your team's needs..." className="min-h-[150px] bg-white dark:bg-zinc-950 rounded-xl border-zinc-200 dark:border-zinc-800 resize-none" required />
+                          <Textarea id="message" placeholder="Tell us more about your inquiry..." className="min-h-[150px] bg-zinc-50 dark:bg-zinc-950 rounded-xl border-zinc-200 dark:border-zinc-800 resize-none focus:ring-2 focus:ring-[#a9d6f3]" required />
                         </div>
-                        <Button type="submit" className="w-full h-14 text-lg font-bold rounded-xl shadow-lg bg-blue-600 hover:bg-blue-700 text-white transition-all hover:scale-[1.02] active:scale-[0.98]" disabled={isSubmitting}>
+                        <Button type="submit" className="w-full h-14 text-lg font-bold rounded-xl shadow-lg bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950 transition-all hover:scale-[1.02] active:scale-[0.98]" disabled={isSubmitting}>
                           {isSubmitting ? (
                             <span className="flex items-center gap-2">
-                              <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                              <div className="h-4 w-4 border-2 border-zinc-950/30 border-t-zinc-950 rounded-full animate-spin" />
                               Sending...
                             </span>
                           ) : (
@@ -228,6 +224,9 @@ export default function ContactPage() {
                             </span>
                           )}
                         </Button>
+                        <p className="text-center text-xs text-zinc-500 dark:text-zinc-500">
+                          By clicking send, you agree to our <Link href="/terms" className="underline hover:text-[#a9d6f3]">Terms of Service</Link> and <Link href="/privacy" className="underline hover:text-[#a9d6f3]">Privacy Policy</Link>.
+                        </p>
                       </form>
                     </motion.div>
                   )}

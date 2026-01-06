@@ -1,40 +1,42 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { 
-  ArrowRight, 
-  CheckCircle2, 
-  MessageSquare, 
-  Users, 
-  Sparkles,
-  Search,
-  Hash,
-  AtSign,
-  Video,
   ChevronRight,
-  Globe,
   Layout,
   Lock,
+  Users,
   Zap,
-  Github as GitHubIcon
+  Globe,
+  MessageSquare,
+  Shield,
+  BarChart3,
+  Check,
+  Plus,
+  Slack,
+  Github,
+  Trello,
+  Figma,
+  ArrowRight
 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Footer } from "@/components/footer";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2,
+      },
     },
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: { y: 10, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -42,142 +44,126 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950 overflow-x-hidden">
-      <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-blue-600 p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/20">
-            <MessageSquare className="h-5 w-5 text-white" />
-          </div>
-          <span className="font-bold text-xl tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-zinc-900 to-zinc-600 dark:from-white dark:to-zinc-400">
-            Chatterbox
+    <div className="flex flex-col min-h-screen bg-white text-black selection:bg-black selection:text-white font-sans antialiased overflow-x-hidden">
+      {/* Grid Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-[0.4]" 
+           style={{ 
+             backgroundImage: `linear-gradient(to right, #eaeaea 1px, transparent 1px), linear-gradient(to bottom, #eaeaea 1px, transparent 1px)`,
+             backgroundSize: '40px 40px',
+             maskImage: 'linear-gradient(to bottom, black 50%, transparent 100%)'
+           }} />
+      <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(169,214,243,0.3),rgba(0,0,0,0)_50%)]" />
+      
+      <header className="px-6 lg:px-12 h-20 flex items-center justify-between border-b border-zinc-100 bg-white/80 backdrop-blur-xl sticky top-0 z-50">
+        <Link className="flex items-center gap-2 group" href="/">
+          <svg width="28" height="28" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:rotate-12">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
+          <span className="font-extrabold text-2xl tracking-tighter text-zinc-900">
+            CHATTERBOX
           </span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6 items-center">
-          <Link className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors hidden md:block" href="#features">
+        <nav className="hidden lg:flex gap-10 items-center">
+          <Link className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors" href="#features">
             Features
           </Link>
-          <Link className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="/login">
-            Login
+          <Link className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors" href="#integrations">
+            Integrations
           </Link>
-          <Button variant="default" size="sm" className="rounded-full px-5 font-semibold bg-blue-600 hover:bg-blue-700 text-white shadow-lg shadow-blue-500/20" asChild>
-            <Link href="/signup">Sign Up</Link>
-          </Button>
+          <Link className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors" href="#stats">
+            Stats
+          </Link>
+          <Link className="text-sm font-semibold text-zinc-500 hover:text-zinc-900 transition-colors" href="#pricing">
+            Pricing
+          </Link>
         </nav>
+        <div className="flex gap-4 items-center">
+          <Link className="text-sm font-bold text-zinc-600 hover:text-zinc-900 transition-colors hidden sm:block" href="/login">
+            Log In
+          </Link>
+          <Button variant="default" size="lg" className="rounded-full px-6 h-11 font-bold bg-zinc-950 hover:bg-zinc-800 text-white shadow-lg shadow-zinc-200 transition-all active:scale-95" asChild>
+            <Link href="/signup">Get Started</Link>
+          </Button>
+        </div>
       </header>
 
-      <main className="flex-1">
+      <main className="flex-1 relative z-10">
         {/* Hero Section */}
-        <section className="relative w-full py-20 md:py-32 lg:py-48 overflow-hidden">
-          {/* Decorative Elements */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-500/10 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
-            <div className="absolute top-[20%] right-[15%] w-[30%] h-[30%] bg-indigo-500/10 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
-          </div>
-          
-          <div className="container px-4 md:px-6 mx-auto">
+        <section className="relative w-full pt-24 pb-20 md:pt-32 md:pb-32">
+          <div className="container px-6 mx-auto">
             <motion.div 
               initial="hidden"
               animate="visible"
               variants={containerVariants}
-              className="flex flex-col items-center text-center space-y-12"
+              className="flex flex-col items-center text-center max-w-5xl mx-auto"
             >
-              <motion.div variants={itemVariants}>
-                <Badge variant="secondary" className="px-4 py-1.5 text-sm font-medium bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 border-blue-100 dark:border-blue-800 rounded-full shadow-sm">
-                  <Sparkles className="h-3.5 w-3.5 mr-2 inline" />
-                  Now in public beta
+              <motion.div variants={itemVariants} className="mb-6">
+                <Badge variant="outline" className="px-4 py-1.5 rounded-full border-[#a9d6f3] bg-[#a9d6f3]/5 text-[#a9d6f3] font-bold text-xs uppercase tracking-widest">
+                  v2.0 is now live
                 </Badge>
               </motion.div>
               
-              <div className="space-y-6 max-w-4xl">
-                <motion.h1 
-                  variants={itemVariants}
-                  className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl bg-clip-text text-transparent bg-gradient-to-b from-zinc-900 via-zinc-800 to-zinc-500 dark:from-white dark:via-zinc-200 dark:to-zinc-500"
-                >
-                  Collaboration for the <br className="hidden md:block" />
-                  <span className="text-blue-600">modern era.</span>
-                </motion.h1>
-                <motion.p 
-                  variants={itemVariants}
-                  className="mx-auto max-w-[800px] text-zinc-500 dark:text-zinc-400 text-lg md:text-xl lg:text-2xl leading-relaxed font-medium"
-                >
-                  Organize your team, share ideas, and ship products faster with Chatterbox. 
-                  The all-in-one workspace designed for high-performance teams.
-                </motion.p>
-              </div>
+              <motion.h1 
+                variants={itemVariants}
+                className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tight text-zinc-950 leading-[0.9] mb-8"
+              >
+                Communication for <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-950 via-zinc-800 to-[#a9d6f3]">High-Performance</span> Teams
+              </motion.h1>
+              
+              <motion.p 
+                variants={itemVariants}
+                className="max-w-[700px] text-zinc-500 text-lg md:text-xl leading-relaxed mb-12 font-medium"
+              >
+                Chatterbox is the all-in-one workspace for modern teams. 
+                Chat, collaborate, and scale your operations with enterprise-grade tools.
+              </motion.p>
               
               <motion.div 
                 variants={itemVariants}
-                className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4"
+                className="flex flex-col sm:flex-row gap-4 items-center justify-center w-full sm:w-auto"
               >
-                <Button size="lg" className="h-14 px-8 text-lg font-bold rounded-full bg-blue-600 hover:bg-blue-700 text-white shadow-xl shadow-blue-500/25 transition-all group" asChild>
+                <Button size="lg" className="h-14 px-10 text-base font-bold rounded-full bg-zinc-950 hover:bg-zinc-800 text-white transition-all active:scale-[0.98] w-full sm:w-auto shadow-xl shadow-zinc-200 group" asChild>
                   <Link href="/signup">
-                    Get Started
+                    Start Building Free
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="h-14 px-8 text-lg font-bold rounded-full border-zinc-200 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors">
+                <Button variant="outline" size="lg" className="h-14 px-10 text-base font-bold rounded-full border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-900 transition-all active:scale-[0.98] w-full sm:w-auto">
                   View Demo
                 </Button>
               </motion.div>
 
-              <motion.div 
-                variants={itemVariants}
-                className="pt-12 flex flex-col items-center space-y-4"
-              >
-                <div className="flex -space-x-3">
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Avatar key={i} className="border-4 border-white dark:border-zinc-950 w-12 h-12">
-                      <AvatarImage src={`https://i.pravatar.cc/150?u=${i}`} />
-                      <AvatarFallback>U{i}</AvatarFallback>
-                    </Avatar>
-                  ))}
+              <motion.div variants={itemVariants} className="mt-20 w-full max-w-6xl">
+                <div className="relative rounded-3xl border border-zinc-200 bg-white shadow-2xl p-2 md:p-4">
+                  <div className="aspect-[16/9] bg-zinc-50 rounded-2xl border border-zinc-100 overflow-hidden flex items-center justify-center relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-white via-transparent to-[#a9d6f3]/10" />
+                    <div className="z-10 flex flex-col items-center gap-4">
+                       <div className="w-16 h-16 rounded-2xl bg-white shadow-xl flex items-center justify-center">
+                          <Zap className="h-8 w-8 text-[#a9d6f3]" />
+                       </div>
+                       <p className="font-bold text-zinc-400">Preview Interactive Workspace</p>
+                    </div>
+                  </div>
                 </div>
-                <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                  Join <span className="text-zinc-900 dark:text-white font-bold">500+</span> teams already building on Chatterbox
-                </p>
               </motion.div>
             </motion.div>
           </div>
         </section>
 
-
-        {/* How it Works Section */}
-        <section className="py-24 md:py-32 bg-white dark:bg-zinc-950">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center text-center space-y-4 mb-20">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">Simple, yet powerful</h2>
-              <p className="text-zinc-500 dark:text-zinc-400 max-w-2xl text-lg md:text-xl">
-                Get your team up and running in minutes, not days.
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+        {/* Stats Section */}
+        <section id="stats" className="py-24 border-y border-zinc-100 bg-zinc-50/50">
+          <div className="container px-6 mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
               {[
-                {
-                  title: "1. Create your Space",
-                  description: "Set up dedicated workspaces for projects, departments, or interests in seconds.",
-                  icon: Layout
-                },
-                {
-                  title: "2. Invite your Team",
-                  description: "Bring your teammates in with a simple link or via your existing SSO provider.",
-                  icon: Users
-                },
-                {
-                  title: "3. Start Collaborating",
-                  description: "Chat in real-time, share files, and keep everyone aligned on your goals.",
-                  icon: CheckCircle2
-                }
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center text-center space-y-4 p-6 rounded-2xl border border-transparent hover:border-zinc-200 dark:hover:border-zinc-800 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50 transition-all">
-                  <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/20 mb-2">
-                    <item.icon className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold">{item.title}</h3>
-                  <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed">
-                    {item.description}
-                  </p>
+                { label: 'Active Users', value: '500k+' },
+                { label: 'Messages Sent', value: '1.2B' },
+                { label: 'Edge Regions', value: '32' },
+                { label: 'Uptime SLA', value: '99.99%' },
+              ].map((stat, i) => (
+                <div key={i} className="space-y-2">
+                  <h4 className="text-4xl md:text-5xl font-black text-zinc-950 tracking-tight">{stat.value}</h4>
+                  <p className="text-sm font-bold text-zinc-500 uppercase tracking-widest">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -185,111 +171,239 @@ export default function Home() {
         </section>
 
         {/* Features Grid */}
-        <section id="features" className="w-full py-24 md:py-32 bg-zinc-50 dark:bg-zinc-900/30 border-y border-zinc-200 dark:border-zinc-800/50">
-          <div className="container px-4 md:px-6 mx-auto">
-            <div className="flex flex-col items-center text-center space-y-4 mb-20">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-5xl">Built for high-performance teams</h2>
-              <p className="text-zinc-500 dark:text-zinc-400 max-w-2xl text-lg md:text-xl font-medium">
-                Every feature is designed to help your team focus on what matters most: shipping great products.
+        <section id="features" className="py-32 bg-white">
+          <div className="container px-6 mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <h2 className="text-4xl md:text-5xl font-black text-zinc-950 mb-6 tracking-tight">Everything you need to scale</h2>
+              <p className="text-lg text-zinc-500 font-medium leading-relaxed">
+                Chatterbox provides a comprehensive suite of tools designed for the modern developer and high-growth teams.
               </p>
             </div>
             
-            <motion.div 
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-100px" }}
-              variants={containerVariants}
-              className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            >
+            <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
               {[
                 {
-                  title: "Real-time Spaces",
-                  description: "Organized channels for every project. Keep conversations focused and searchable.",
-                  icon: MessageSquare,
-                  color: "bg-blue-500/10 text-blue-600 dark:text-blue-400"
+                  icon: <MessageSquare className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Real-time Chat",
+                  desc: "Lightning fast messaging with sub-100ms latency across the globe."
                 },
                 {
-                  title: "Secure by Default",
-                  description: "Enterprise-grade encryption and granular permissions to keep your data safe.",
-                  icon: Lock,
-                  color: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                  icon: <Shield className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Secure by Design",
+                  desc: "End-to-end encryption and SOC2 compliance built into every message."
                 },
                 {
-                  title: "Instant Search",
-                  description: "Find any message, file, or person across your entire organization in milliseconds.",
-                  icon: Search,
-                  color: "bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                  icon: <Zap className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Powerful APIs",
+                  desc: "Fully documented SDKs for every language and framework imaginable."
                 },
                 {
-                  title: "Global Edge Network",
-                  description: "Lightning-fast performance no matter where your team is located in the world.",
-                  icon: Globe,
-                  color: "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
+                  icon: <Globe className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Global Edge",
+                  desc: "Messages are delivered through our proprietary edge network for max speed."
                 },
                 {
-                  title: "Smart Notifications",
-                  description: "Stay in the loop without the noise. Customize exactly how and when you're notified.",
-                  icon: Zap,
-                  color: "bg-pink-500/10 text-pink-600 dark:text-pink-400"
+                  icon: <BarChart3 className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Deep Analytics",
+                  desc: "Insights into team productivity and engagement patterns out of the box."
                 },
                 {
-                  title: "Developer First",
-                  description: "Robust API, webhooks, and deep integrations with the tools your team already uses.",
-                  icon: GitHubIcon,
-                  color: "bg-zinc-500/10 text-zinc-600 dark:text-zinc-400"
+                  icon: <Users className="h-6 w-6 text-[#a9d6f3]" />,
+                  title: "Team Spaces",
+                  desc: "Organize your conversations into dedicated spaces for projects and teams."
                 }
               ].map((feature, i) => (
-                <motion.div key={i} variants={itemVariants}>
-                  <Card className="h-full border-zinc-200/60 dark:border-zinc-800/60 bg-white dark:bg-zinc-900/50 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                    <CardHeader>
-                      <div className={`w-12 h-12 rounded-xl ${feature.color} flex items-center justify-center mb-4`}>
-                        <feature.icon className="h-6 w-6" />
-                      </div>
-                      <CardTitle className="text-xl">{feature.title}</CardTitle>
-                      <CardDescription className="text-zinc-500 dark:text-zinc-400 text-base leading-relaxed">
-                        {feature.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </motion.div>
+                <div key={i} className="group p-8 rounded-3xl border border-zinc-100 bg-white hover:border-[#a9d6f3]/20 hover:shadow-2xl hover:shadow-[#a9d6f3]/5 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-2xl bg-zinc-50 flex items-center justify-center mb-6 group-hover:bg-[#a9d6f3]/10 transition-colors">
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-zinc-950 tracking-tight">{feature.title}</h3>
+                  <p className="text-zinc-500 leading-relaxed font-medium">
+                    {feature.desc}
+                  </p>
+                </div>
               ))}
-            </motion.div>
+            </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-24 md:py-32 relative overflow-hidden">
-          <div className="absolute inset-0 bg-blue-600 -z-10" />
-          <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
-            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-white/10 rounded-full blur-[120px]" />
-            <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-black/10 rounded-full blur-[120px]" />
+        {/* Integrations Section */}
+        <section id="integrations" className="py-32 bg-zinc-950 text-white relative overflow-hidden">
+          <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,#a9d6f3,transparent_70%)]" />
+          <div className="container px-6 mx-auto relative z-10">
+            <div className="flex flex-col lg:flex-row gap-20 items-center">
+              <div className="lg:w-1/2">
+                <Badge className="mb-6 bg-[#a9d6f3] text-zinc-950 hover:bg-[#a9d6f3]/90 font-bold px-4 py-1">Integrations</Badge>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tight mb-8">Works with your favorite tools</h2>
+                <p className="text-xl text-zinc-400 font-medium leading-relaxed mb-10">
+                  Connect Chatterbox with the tools you already use. Sync messages, automate workflows, and keep your team in the loop without switching tabs.
+                </p>
+                <Button size="lg" className="h-14 px-10 text-base font-bold rounded-full bg-white text-zinc-950 hover:bg-zinc-100">
+                  Browse App Store
+                </Button>
+              </div>
+              <div className="lg:w-1/2 grid grid-cols-3 gap-6 w-full">
+                {[
+                  { icon: <Slack className="h-8 w-8" />, name: 'Slack' },
+                  { icon: <Github className="h-8 w-8" />, name: 'GitHub' },
+                  { icon: <Trello className="h-8 w-8" />, name: 'Trello' },
+                  { icon: <Figma className="h-8 w-8" />, name: 'Figma' },
+                  { icon: <MessageSquare className="h-8 w-8" />, name: 'Discord' },
+                  { icon: <Plus className="h-8 w-8" />, name: 'More' },
+                ].map((app, i) => (
+                  <div key={i} className="aspect-square rounded-3xl bg-white/5 border border-white/10 flex flex-col items-center justify-center gap-4 hover:bg-white/10 hover:border-[#a9d6f3]/50 transition-all cursor-pointer group">
+                    <div className="text-zinc-400 group-hover:text-[#a9d6f3] transition-colors">{app.icon}</div>
+                    <span className="text-xs font-bold text-zinc-500 tracking-widest uppercase">{app.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="container px-4 md:px-6 mx-auto text-center text-white space-y-10"
-          >
-            <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight">Ready to ship faster?</h2>
-            <p className="text-blue-100 text-lg md:text-2xl max-w-3xl mx-auto font-medium">
-              Join thousands of teams already using Chatterbox to build the future. 
-              Start your 14-day free trial today.
+        </section>
+
+        {/* Pricing Section */}
+        <section id="pricing" className="py-32 bg-white">
+          <div className="container px-6 mx-auto">
+            <div className="text-center max-w-3xl mx-auto mb-20">
+              <h2 className="text-4xl md:text-5xl font-black text-zinc-950 mb-6 tracking-tight">Simple, transparent pricing</h2>
+              <p className="text-lg text-zinc-500 font-medium leading-relaxed">
+                Start for free and scale as you grow. No hidden fees or complex contracts.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {[
+                {
+                  name: "Starter",
+                  price: "$0",
+                  desc: "Perfect for small teams and side projects.",
+                  features: ["Unlimited messages", "Up to 5 spaces", "Basic analytics", "Standard support"],
+                  button: "Get Started Free",
+                  highlight: false
+                },
+                {
+                  name: "Pro",
+                  price: "$19",
+                  desc: "Advanced tools for growing organizations.",
+                  features: ["Everything in Starter", "Unlimited spaces", "Advanced analytics", "Priority support", "Custom integrations"],
+                  button: "Start Free Trial",
+                  highlight: true
+                },
+                {
+                  name: "Enterprise",
+                  price: "Custom",
+                  desc: "Maximum security and control for large teams.",
+                  features: ["Everything in Pro", "Dedicated account manager", "Custom SLA", "Audit logs", "SSO/SAML support"],
+                  button: "Contact Sales",
+                  highlight: false
+                }
+              ].map((tier, i) => (
+                <div key={i} className={`p-10 rounded-[40px] border ${tier.highlight ? 'border-[#a9d6f3] bg-zinc-50/50 shadow-2xl shadow-[#a9d6f3]/10 relative overflow-hidden' : 'border-zinc-100 bg-white'}`}>
+                  {tier.highlight && <div className="absolute top-0 right-0 bg-[#a9d6f3] text-zinc-950 text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-bl-2xl">Most Popular</div>}
+                  <h3 className="text-2xl font-black text-zinc-950 mb-2 tracking-tight">{tier.name}</h3>
+                  <div className="flex items-baseline gap-1 mb-6">
+                    <span className="text-5xl font-black text-zinc-950 tracking-tighter">{tier.price}</span>
+                    {tier.price !== "Custom" && <span className="text-zinc-500 font-bold">/mo</span>}
+                  </div>
+                  <p className="text-zinc-500 font-medium mb-8 leading-relaxed">{tier.desc}</p>
+                  <div className="space-y-4 mb-10">
+                    {tier.features.map((feature, j) => (
+                      <div key={j} className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-full bg-zinc-100 flex items-center justify-center">
+                          <Check className="h-3 w-3 text-zinc-950" />
+                        </div>
+                        <span className="text-sm font-semibold text-zinc-700">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <Button size="lg" className={`w-full h-14 rounded-full font-bold transition-all active:scale-[0.98] ${tier.highlight ? 'bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950 shadow-lg shadow-[#a9d6f3]/20' : 'bg-zinc-950 hover:bg-zinc-800 text-white'}`} asChild>
+                    <Link href="/signup">{tier.button}</Link>
+                  </Button>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-40 bg-zinc-50 border-t border-zinc-100">
+          <div className="container px-6 mx-auto text-center">
+            <h2 className="text-5xl md:text-7xl font-black tracking-tight text-zinc-950 mb-8">Ready to transform <br /> your team?</h2>
+            <p className="text-xl text-zinc-500 font-medium max-w-2xl mx-auto mb-12">
+              Join 50,000+ teams who are already building the future on Chatterbox.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-4">
-              <Button size="lg" className="h-14 px-10 text-lg font-bold rounded-full bg-white text-blue-600 hover:bg-zinc-100 shadow-2xl transition-all hover:scale-105" asChild>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button size="lg" className="h-16 px-12 text-lg font-bold rounded-full bg-zinc-950 hover:bg-zinc-800 text-white shadow-2xl shadow-zinc-200 transition-all active:scale-[0.98]" asChild>
                 <Link href="/signup">Get Started for Free</Link>
               </Button>
-              <Button variant="outline" size="lg" className="h-14 px-10 text-lg font-bold rounded-full border-white/20 bg-white/10 text-white hover:bg-white/20 backdrop-blur-md transition-all">
+              <Button variant="outline" size="lg" className="h-16 px-12 text-lg font-bold rounded-full border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-900 transition-all active:scale-[0.98]">
                 Talk to Sales
               </Button>
             </div>
-          </motion.div>
+          </div>
         </section>
       </main>
 
-      <Footer />
+      <footer className="px-6 lg:px-12 py-24 bg-white border-t border-zinc-100">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-12 mb-20">
+            <div className="col-span-2">
+              <Link className="flex items-center gap-2 mb-6 group" href="/">
+                <svg width="28" height="28" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:rotate-12">
+                  <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+                </svg>
+                <span className="font-extrabold text-2xl tracking-tighter text-zinc-900">
+                  CHATTERBOX
+                </span>
+              </Link>
+              <p className="text-zinc-500 font-medium leading-relaxed max-w-xs mb-8">
+                The all-in-one workspace for modern teams. Build, collaborate, and scale.
+              </p>
+              <div className="flex gap-4">
+                {['twitter', 'github', 'linkedin'].map((social) => (
+                  <div key={social} className="w-10 h-10 rounded-full border border-zinc-200 flex items-center justify-center hover:bg-zinc-50 cursor-pointer transition-colors">
+                    <span className="sr-only">{social}</span>
+                    <div className="w-5 h-5 bg-zinc-400 rounded-sm" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div>
+              <h5 className="font-black text-zinc-950 uppercase tracking-widest text-xs mb-6">Product</h5>
+              <ul className="space-y-4 text-sm font-bold text-zinc-500">
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Features</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Integrations</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Pricing</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Changelog</li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-black text-zinc-950 uppercase tracking-widest text-xs mb-6">Company</h5>
+              <ul className="space-y-4 text-sm font-bold text-zinc-500">
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">About</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Blog</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Careers</li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Contact</li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="font-black text-zinc-950 uppercase tracking-widest text-xs mb-6">Legal</h5>
+              <ul className="space-y-4 text-sm font-bold text-zinc-500">
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors"><Link href="/privacy-policy">Privacy</Link></li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors"><Link href="/terms-of-service">Terms</Link></li>
+                <li className="hover:text-zinc-950 cursor-pointer transition-colors">Cookie Policy</li>
+              </ul>
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row justify-between items-center pt-12 border-t border-zinc-100 gap-6">
+            <p className="text-sm font-bold text-zinc-400">© 2024 Chatterbox Inc. All rights reserved.</p>
+            <div className="flex items-center gap-2">
+              <div className="w-2 h-2 rounded-full bg-green-500" />
+              <span className="text-xs font-black text-zinc-500 uppercase tracking-widest">All systems operational</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

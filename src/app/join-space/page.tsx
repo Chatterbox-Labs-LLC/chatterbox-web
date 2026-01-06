@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
@@ -9,7 +7,7 @@ import { createClient } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, Search, ArrowRight, Layout, Users, Plus, ShieldCheck } from "lucide-react";
+import { Loader2, Search, ArrowRight, Layout, Users, Plus, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function JoinSpacePage() {
@@ -133,8 +131,10 @@ export default function JoinSpacePage() {
         <Card className="shadow-lg border-zinc-200 dark:border-zinc-800 overflow-hidden">
           <CardHeader className="space-y-4">
             <div className="flex justify-center mb-2">
-              <Link href="/dashboard" className="bg-black dark:bg-white p-2 rounded-xl hover:scale-110 transition-transform">
-                <MessageSquare className="h-6 w-6 text-white dark:text-black" />
+              <Link href="/dashboard" className="hover:scale-110 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+                  <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+                </svg>
               </Link>
             </div>
             <div className="space-y-1">
@@ -176,7 +176,7 @@ export default function JoinSpacePage() {
             <div className="space-y-3">
               {searching ? (
                 <div className="py-12 flex flex-col items-center justify-center text-zinc-400 gap-3">
-                  <Loader2 className="h-6 w-6 animate-spin text-primary" />
+                  <Loader2 className="h-6 w-6 animate-spin text-[#a9d6f3]" />
                   <p className="text-sm">Searching for spaces...</p>
                 </div>
               ) : spaces.length > 0 ? (
@@ -188,10 +188,10 @@ export default function JoinSpacePage() {
                       animate={{ opacity: 1, x: 0 }}
                       className="group"
                     >
-                      <div className="flex items-center justify-between p-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-primary/50 transition-colors">
+                      <div className="flex items-center justify-between p-4 rounded-xl border border-zinc-100 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-[#a9d6f3]/50 transition-colors">
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Layout className="h-5 w-5 text-primary" />
+                          <div className="h-10 w-10 rounded-lg bg-[#a9d6f3]/10 flex items-center justify-center">
+                            <Layout className="h-5 w-5 text-[#a9d6f3]" />
                           </div>
                           <div className="min-w-0">
                             <h4 className="font-semibold text-sm truncate">{space.name}</h4>
@@ -202,7 +202,7 @@ export default function JoinSpacePage() {
                           size="sm"
                           onClick={() => joinSpace(space.id, space.slug)}
                           disabled={loading}
-                          className="h-8 px-4"
+                          className="h-8 px-4 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950"
                         >
                           {loading ? <Loader2 className="h-3 w-3 animate-spin" /> : "Join"}
                         </Button>

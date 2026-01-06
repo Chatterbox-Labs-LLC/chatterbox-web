@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -11,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, Rocket, Globe, Lock, X } from "lucide-react";
+import { Loader2, Rocket, Globe, Lock, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -127,10 +125,10 @@ export default function CreateSpacePage() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-50 dark:bg-zinc-950 px-4 py-12">
       <div className="mb-8 text-center">
         <Link href="/dashboard" className="flex items-center gap-2 justify-center mb-4 transition-opacity hover:opacity-80">
-          <div className="bg-black p-2 rounded-xl">
-            <MessageSquare className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-bold tracking-tight text-black">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
+          <span className="text-2xl font-bold tracking-tight text-black dark:text-white">
             Chatterbox Teams
           </span>
         </Link>
@@ -223,7 +221,7 @@ export default function CreateSpacePage() {
                 <Link href="/dashboard">Cancel</Link>
               </Button>
               <Button 
-                className="flex-[2] h-12 font-bold shadow-lg shadow-primary/20 group" 
+                className="flex-[2] h-12 font-bold shadow-lg shadow-[#a9d6f3]/20 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950 group" 
                 type="submit"
                 disabled={loading || !form.formState.isValid}
               >

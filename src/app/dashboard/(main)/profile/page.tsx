@@ -1,7 +1,5 @@
 'use client';
 
-export const runtime = 'edge';
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
@@ -375,7 +373,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#a9d6f3]" />
       </div>
     );
   }
@@ -409,7 +407,7 @@ export default function ProfilePage() {
             <div className="flex flex-col sm:flex-row items-center gap-6">
               <Avatar className="h-24 w-24 border-2 border-zinc-100 dark:border-zinc-800">
                 <AvatarImage src={avatarUrl} />
-                <AvatarFallback className="text-2xl bg-blue-50 text-blue-600">{fullName.charAt(0)}</AvatarFallback>
+                <AvatarFallback className="text-2xl bg-[#a9d6f3]/10 text-[#a9d6f3]">{fullName.charAt(0)}</AvatarFallback>
               </Avatar>
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
@@ -506,7 +504,7 @@ export default function ProfilePage() {
             </div>
             
             <div className="flex justify-end">
-              <Button type="submit" disabled={saving} className="px-8 bg-blue-600 hover:bg-blue-700">
+              <Button type="submit" disabled={saving} className="px-8 bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950">
                 {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Save Profile
               </Button>

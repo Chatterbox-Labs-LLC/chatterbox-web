@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Check, MessageSquare } from "lucide-react";
+import { Check } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Footer } from "@/components/footer";
@@ -62,10 +62,10 @@ export default function PricingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-zinc-950">
       <header className="px-4 lg:px-10 h-16 flex items-center border-b bg-white/80 dark:bg-zinc-950/80 backdrop-blur-md sticky top-0 z-50">
-        <Link className="flex items-center justify-center group" href="/">
-          <div className="bg-black dark:bg-white p-1.5 rounded-lg mr-2 group-hover:scale-110 transition-transform">
-            <MessageSquare className="h-5 w-5 text-white dark:text-black" />
-          </div>
+        <Link className="flex items-center group" href="/">
+          <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3] transition-transform group-hover:scale-110 mr-2">
+            <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+          </svg>
           <span className="font-bold text-xl tracking-tight">Chatterbox Teams</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-8 items-center">
@@ -89,7 +89,7 @@ export default function PricingPage() {
               animate={{ opacity: 1, y: 0 }}
               className="text-4xl font-extrabold tracking-tight sm:text-5xl md:text-6xl"
             >
-              Simple, transparent <span className="text-blue-600">pricing.</span>
+              Simple, transparent <span className="text-[#a9d6f3]">pricing.</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -109,7 +109,7 @@ export default function PricingPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 * (index + 1) }}
               >
-                <Card className={`h-full flex flex-col border-2 ${plan.highlight ? 'border-blue-600 shadow-2xl shadow-blue-500/10' : 'border-zinc-200 dark:border-zinc-800'}`}>
+                <Card className={`h-full flex flex-col border-2 ${plan.highlight ? 'border-[#a9d6f3] shadow-2xl shadow-[#a9d6f3]/10' : 'border-zinc-200 dark:border-zinc-800'}`}>
                   <CardHeader>
                     <CardTitle className="text-2xl">{plan.name}</CardTitle>
                     <div className="flex items-baseline gap-1 pt-2">
@@ -122,8 +122,8 @@ export default function PricingPage() {
                     <ul className="space-y-4 pt-4">
                       {plan.features.map((feature) => (
                         <li key={feature} className="flex items-start gap-3 text-sm">
-                          <div className="mt-1 bg-blue-100 dark:bg-blue-900/30 p-0.5 rounded-full">
-                            <Check className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400" />
+                          <div className="mt-1 bg-[#a9d6f3]/10 p-0.5 rounded-full">
+                            <Check className="h-3.5 w-3.5 text-[#a9d6f3]" />
                           </div>
                           <span className="text-zinc-600 dark:text-zinc-400 font-medium">{feature}</span>
                         </li>
@@ -132,7 +132,7 @@ export default function PricingPage() {
                   </CardContent>
                   <CardFooter>
                     <Button 
-                      className={`w-full h-12 text-lg font-bold rounded-xl ${plan.highlight ? 'bg-blue-600 hover:bg-blue-700 text-white' : ''}`} 
+                      className={`w-full h-12 text-lg font-bold rounded-xl ${plan.highlight ? 'bg-[#a9d6f3] hover:bg-[#a9d6f3]/90 text-zinc-950' : ''}`} 
                       variant={plan.buttonVariant}
                       asChild
                     >

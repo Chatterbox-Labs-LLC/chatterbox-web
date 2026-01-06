@@ -1,7 +1,5 @@
 "use client";
 
-export const runtime = 'edge';
-
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import Link from "next/link";
@@ -10,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { MessageSquare, Loader2, ArrowRight, ShieldCheck } from "lucide-react";
+import { Loader2, ArrowRight, ShieldCheck } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -134,10 +132,10 @@ export default function SpaceLoginPage() {
         <CardHeader className="space-y-4">
           <div className="flex justify-center">
             <Link href="/" className="flex items-center gap-2 transition-opacity hover:opacity-80">
-              <div className="bg-black p-2 rounded-xl">
-                <MessageSquare className="h-6 w-6 text-white" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">ChatApp</span>
+              <svg width="24" height="24" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#a9d6f3] fill-[#a9d6f3]">
+                <path d="M7.5 0L15 15H0L7.5 0Z" fill="currentColor" />
+              </svg>
+              <span className="text-xl font-bold tracking-tight">Chatterbox Teams</span>
             </Link>
           </div>
           <div className="text-center space-y-2">
