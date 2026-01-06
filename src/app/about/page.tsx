@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { Users, Sparkles, Heart, Globe } from "lucide-react";
 import Link from "next/link";

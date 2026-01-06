@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { Calendar, ArrowRight, Newspaper, Tag } from "lucide-react";
 import Link from "next/link";

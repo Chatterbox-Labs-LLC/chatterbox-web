@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { Building2, MapPin, Briefcase, Globe2, Rocket, MessageCircle } from "lucide-react";
 import Link from "next/link";

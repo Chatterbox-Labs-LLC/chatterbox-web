@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { Mail, MapPin, Phone, Send, Sparkles, ChevronDown, CheckCircle2 } from "lucide-react";
 import Link from "next/link";

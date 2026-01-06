@@ -1,4 +1,5 @@
 "use client";
+export const runtime = "edge";
 
 import { Twitter, Linkedin, Github, Mail, Users2 } from "lucide-react";
 import Link from "next/link";
