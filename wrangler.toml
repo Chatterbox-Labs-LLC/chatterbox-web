@@ -1,6 +1,7 @@
 name = "outpost"
 compatibility_date = "2024-04-03"
 compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = ".vercel/output/static"
 
 [vars]
 # Add environment variables here if you want them to be available in the Cloudflare dashboard
