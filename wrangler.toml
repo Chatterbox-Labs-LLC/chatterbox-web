@@ -1,7 +1,7 @@
-name = "outpost"
+name = "keystone-portal"
 compatibility_date = "2024-04-03"
 compatibility_flags = ["nodejs_compat"]
-pages_build_output_dir = ".vercel/output/static"
+pages_build_output_dir = ".pages"
 
 [vars]
 # Add environment variables here if you want them to be available in the Cloudflare dashboard
