@@ -45,6 +45,9 @@ export default function AdminSignupPage({
         {/* Right Side: Form */}
         <div className="p-12">
           <div className="mb-8">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest">Step 1 of 2</span>
+            </div>
             <h2 className="text-2xl font-bold text-zinc-900">Admin Registration</h2>
             <p className="text-zinc-500 text-sm">Create your personal administrator account.</p>
           </div>

@@ -18,7 +18,18 @@ export async function login(formData: FormData) {
     return redirect(`/login?error=${encodeURIComponent(error.message)}`);
   }
 
-  return redirect('/create-company'); // Or dashboard if they have one
+  // Check if user has a workspace
+  const { data: membership } = await supabase
+    .from('workspace_members')
+    .select('workspace_id, workspaces(slug)')
+    .limit(1)
+    .single();
+
+  if (membership?.workspace_id && (membership.workspaces as any)?.slug) {
+    return redirect(`/company/${(membership.workspaces as any).slug}/admin/dashboard`);
+  }
+
+  return redirect('/create-company');
 }
 
 export async function signup(formData: FormData) {

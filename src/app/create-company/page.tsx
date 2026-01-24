@@ -6,6 +6,9 @@ export default function CreateCompanyPage() {
     <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 font-sans">
       <div className="max-w-xl w-full bg-white border border-zinc-200 rounded-sm shadow-xl p-12">
         <div className="text-center mb-10">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="bg-primary/10 text-primary text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-widest">Step 2 of 2</span>
+          </div>
           <div className="w-16 h-16 bg-zinc-100 flex items-center justify-center rounded-sm mx-auto mb-6">
             <Building2 size={32} className="text-primary" />
           </div>
