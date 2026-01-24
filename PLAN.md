@@ -53,10 +53,17 @@ Keystone is a secure company portal designed for organizations to centralize peo
 - `src/types`: TypeScript definitions.
 - `src/services`: Business logic and data fetching.
 
+## Implementation Details
+- **Auth:** Supabase SSR Auth with session management. Public routes allowed for landing and signup.
+- **Company Creation:** Server Actions handle workspace creation and owner assignment.
+- **Billing:** Stripe integration for Pro plan upgrades via webhooks.
+- **Email:** Resend for transactional invitations and notifications.
+
 ## Roadmap
 1. [x] Project Initialization
-2. [ ] Supabase Integration (Auth & DB Schema)
-3. [ ] Workspace & Invitation Flow
-4. [ ] Dashboard & Directory
-5. [ ] Resource Library
-6. [ ] Request System
+2. [x] Supabase Integration (Auth & DB Schema)
+3. [x] Workspace Creation Flow
+4. [ ] Invitation System
+5. [ ] RBAC & Permissions
+6. [ ] Resource Library
+7. [ ] Request System

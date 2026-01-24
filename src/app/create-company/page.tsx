@@ -1,4 +1,5 @@
 import { ArrowRight, Building2, Globe, Users } from "lucide-react";
+import { createCompany } from "@/app/actions/company";
 
 export default function CreateCompanyPage() {
   return (
@@ -12,13 +13,15 @@ export default function CreateCompanyPage() {
           <p className="text-zinc-500 mt-2">Set up your organization's digital home on Keystone.</p>
         </div>
 
-        <form className="space-y-6">
+        <form action={createCompany} className="space-y-6">
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
               <Building2 size={14} /> Company Name
             </label>
             <input 
+              name="name"
               type="text" 
+              required
               className="w-full px-4 py-3 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-base" 
               placeholder="Acme Industries" 
             />
@@ -30,7 +33,9 @@ export default function CreateCompanyPage() {
             </label>
             <div className="flex">
               <input 
+                name="slug"
                 type="text" 
+                required
                 className="flex-1 px-4 py-3 border border-zinc-200 rounded-l-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-base" 
                 placeholder="acme" 
               />
@@ -44,17 +49,17 @@ export default function CreateCompanyPage() {
             <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-2 flex items-center gap-2">
               <Users size={14} /> Company Size
             </label>
-            <select className="w-full px-4 py-3 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-base bg-white appearance-none">
-              <option>1-10 employees</option>
-              <option>11-50 employees</option>
-              <option>51-200 employees</option>
-              <option>201-500 employees</option>
-              <option>500+ employees</option>
+            <select name="companySize" className="w-full px-4 py-3 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-base bg-white appearance-none">
+              <option value="1-10">1-10 employees</option>
+              <option value="11-50">11-50 employees</option>
+              <option value="51-200">51-200 employees</option>
+              <option value="201-500">201-500 employees</option>
+              <option value="500+">500+ employees</option>
             </select>
           </div>
 
           <div className="pt-4">
-            <button className="w-full bg-primary text-white py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all text-lg shadow-lg shadow-primary/10">
+            <button type="submit" className="w-full bg-primary text-white py-4 rounded-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all text-lg shadow-lg shadow-primary/10">
               Create Workspace <ArrowRight size={20} />
             </button>
           </div>
