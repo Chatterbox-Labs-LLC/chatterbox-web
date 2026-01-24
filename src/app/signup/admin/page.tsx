@@ -1,7 +1,12 @@
 import Link from "next/link";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { signup } from "@/app/actions/auth";
 
-export default function AdminSignupPage() {
+export default function AdminSignupPage({
+  searchParams,
+}: {
+  searchParams: { error?: string };
+}) {
   return (
     <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 font-sans">
       <div className="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 bg-white border border-zinc-200 rounded-sm overflow-hidden shadow-xl">
@@ -44,30 +49,64 @@ export default function AdminSignupPage() {
             <p className="text-zinc-500 text-sm">Create your personal administrator account.</p>
           </div>
 
-          <form className="space-y-4">
+          {searchParams?.error && (
+            <div className="mb-6 p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-sm">
+              {searchParams.error}
+            </div>
+          )}
+
+          <form action={signup} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">First Name</label>
-                <input type="text" className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="John" />
+                <input 
+                  name="firstName"
+                  type="text" 
+                  className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" 
+                  placeholder="John" 
+                  required
+                />
               </div>
               <div>
                 <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">Last Name</label>
-                <input type="text" className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="Doe" />
+                <input 
+                  name="lastName"
+                  type="text" 
+                  className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" 
+                  placeholder="Doe" 
+                  required
+                />
               </div>
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">Work Email</label>
-              <input type="email" className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="john@company.com" />
+              <input 
+                name="email"
+                type="email" 
+                className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" 
+                placeholder="john@company.com" 
+                required
+              />
             </div>
 
             <div>
               <label className="block text-xs font-bold uppercase tracking-wider text-zinc-500 mb-1">Password</label>
-              <input type="password" className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" placeholder="••••••••" />
+              <input 
+                name="password"
+                type="password" 
+                className="w-full px-3 py-2 border border-zinc-200 rounded-sm focus:ring-1 focus:ring-primary focus:border-primary outline-none text-sm" 
+                placeholder="••••••••" 
+                required
+                minLength={6}
+              />
             </div>
 
             <div className="pt-2">
-              <button className="w-full bg-primary text-white py-3 rounded-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+              <button 
+                type="submit"
+                className="w-full bg-primary text-white py-3 rounded-sm font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
+              >
                 Continue to Company Setup <ArrowRight size={18} />
               </button>
             </div>

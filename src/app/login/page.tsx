@@ -1,4 +1,10 @@
-export default function LoginPage() {
+import { login } from '@/app/actions/auth';
+
+export default function LoginPage({
+  searchParams,
+}: {
+  searchParams: { error?: string; message?: string };
+}) {
   return (
     <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full bg-white border border-zinc-200 rounded-sm p-8 shadow-sm">
@@ -10,12 +16,25 @@ export default function LoginPage() {
           <p className="text-zinc-500 text-sm mt-1">Sign in to your organization portal</p>
         </div>
 
-        <form className="space-y-4">
+        {searchParams?.error && (
+          <div className="mb-6 p-3 bg-red-50 border border-red-100 text-red-600 text-sm rounded-sm">
+            {searchParams.error}
+          </div>
+        )}
+
+        {searchParams?.message && (
+          <div className="mb-6 p-3 bg-green-50 border border-green-100 text-green-700 text-sm rounded-sm">
+            {searchParams.message}
+          </div>
+        )}
+
+        <form action={login} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-zinc-700 mb-1">
               Work Email
             </label>
             <input
+              name="email"
               type="email"
               id="email"
               placeholder="name@company.com"
@@ -24,10 +43,14 @@ export default function LoginPage() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-zinc-700 mb-1">
-              Password
-            </label>
+            <div className="flex items-center justify-between mb-1">
+              <label htmlFor="password" name="password" className="block text-sm font-medium text-zinc-700">
+                Password
+              </label>
+              <a href="#" className="text-xs text-primary hover:underline">Forgot password?</a>
+            </div>
             <input
+              name="password"
               type="password"
               id="password"
               placeholder="••••••••"
@@ -46,7 +69,7 @@ export default function LoginPage() {
 
         <div className="mt-6 pt-6 border-t border-zinc-100 text-center">
           <p className="text-xs text-zinc-500">
-            Don't have an account? <a href="#" className="text-primary font-medium hover:underline">Contact your administrator</a>
+            Don't have an account? <a href="/signup/admin" className="text-primary font-medium hover:underline">Create an organization</a>
           </p>
         </div>
       </div>
